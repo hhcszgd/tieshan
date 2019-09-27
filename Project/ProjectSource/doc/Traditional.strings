@@ -1,0 +1,15 @@
+/* 
+  Traditional.strings//繁体中文
+  ZDLao
+
+  Created by WY on 2019/9/31.
+  Copyright © 2019年 com.16lao. All rights reserved.
+*/
+"title" = "custom_traditional_title";
+"country_code" = "122";
+"language_identifier" ="zh-Hant";
+
+
+"tabbar_item1_title" = "發現.尋找";
+"tabbar_item2_title" = "互動";
+"tabbar_item3_title" = "我的";

@@ -1,0 +1,13 @@
+/* 
+  Thai.strings
+  Project
+
+  Created by WY on 2019/9/1.
+  Copyright © 2019年 HHCSZGD. All rights reserved.
+*/
+"country_code" = "118";
+"language_identifier" = "th_th";
+
+"tabbar_item1_title" = "การสํารวจ.พบว่า";
+"tabbar_item2_title" = "แบบโต้ตอบ";
+"tabbar_item3_title" = "ฉัน";

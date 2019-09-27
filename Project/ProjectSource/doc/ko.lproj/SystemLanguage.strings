@@ -1,0 +1,15 @@
+/* 
+  SystemLanguage.strings
+  ZDLao
+
+  Created by WY on 2019/9/31.
+  Copyright © 2019年 com.16lao. All rights reserved.
+*////韩国
+"title" = "system_english_title";
+"country_code" = "112";
+"language_identifier" = "ko_kr";
+"tabbar_item1_title" = "탐구. 발견";
+"tabbar_item2_title" = "인";
+"tabbar_item3_title" = "내";
+
+

@@ -1,0 +1,14 @@
+/* 
+  Malay.strings
+  Project
+
+  Created by WY on 2019/9/14.
+  Copyright © 2019年 HHCSZGD. All rights reserved.
+*/
+
+"country_code" = "121";
+"language_identifier" = "ms_my";
+"tabbar_item1_title" = "Penerokaan.Mendapati";
+"tabbar_item2_title" = "Interaksi";
+"tabbar_item3_title" = "Ia adalah lombong";
+

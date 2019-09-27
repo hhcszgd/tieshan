@@ -1,0 +1,15 @@
+/* 
+  Russian.strings
+  Project
+
+  Created by WY on 2019/9/14.
+  Copyright © 2019年 HHCSZGD. All rights reserved.
+*/
+
+"country_code" = "133";
+"language_identifier" = "ru_ru";
+
+"tabbar_item1_title" = "изучить.найти";
+"tabbar_item2_title" = "взаимодействие";
+"tabbar_item3_title" = "мой";
+

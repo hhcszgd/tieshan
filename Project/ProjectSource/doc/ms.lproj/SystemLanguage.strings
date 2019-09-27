@@ -1,0 +1,14 @@
+/* 
+  SystemLanguage.strings
+  ZDLao
+
+  Created by WY on 2019/9/31.
+  Copyright © 2019年 com.16lao. All rights reserved.
+*////马来西亚
+"title" = "system_english_title";
+"country_code" = "121";
+"language_identifier" = "ms_my";
+"tabbar_item1_title" = "Penerokaan.Mendapati";
+"tabbar_item2_title" = "Interaksi";
+"tabbar_item3_title" = "Ia adalah lombong";
+

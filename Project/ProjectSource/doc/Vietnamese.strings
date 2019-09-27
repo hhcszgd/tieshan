@@ -1,0 +1,13 @@
+/* 
+  Vietnamese.strings
+  Project
+
+  Created by WY on 2019/9/1.
+  Copyright © 2019年 HHCSZGD. All rights reserved.
+*///越南
+"country_code" = "115";
+"language_identifier" = "vi_vn";
+
+"tabbar_item1_title" = "Khám phá.tìm thấy";
+"tabbar_item2_title" = "Tương tác.";
+"tabbar_item3_title" = "Của tôi.";

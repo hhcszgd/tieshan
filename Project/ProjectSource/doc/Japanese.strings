@@ -1,0 +1,13 @@
+/* 
+  Japanese.strings
+  Project
+
+  Created by WY on 2019/9/1.
+  Copyright © 2019年 HHCSZGD. All rights reserved.
+*/
+"country_code" = "114";
+"language_identifier" = "ja-jp";
+
+"tabbar_item1_title" = "探索.発見";
+"tabbar_item2_title" = "インタラクティブ";
+"tabbar_item3_title" = "私の";

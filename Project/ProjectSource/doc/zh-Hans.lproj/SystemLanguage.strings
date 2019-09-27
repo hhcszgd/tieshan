@@ -1,0 +1,111 @@
+/* 
+  SystemLanguage.strings
+  ZDLao
+
+  Created by WY on 2019/9/31.
+  Copyright © 2019年 com.16lao. All rights reserved.
+*/
+"title" = "system_simplified_title";
+
+"country_code" = "110";
+"language_identifier" = "zh_cn";
+"tabbar_item1_title" = "首页";
+"tabbar_item2_title" = "伙伴";
+"tabbar_item3_title" = "我的";
+"tabbar_item4_title" = "广告";
+"send" = "发送";
+
+
+/*关于我*/
+"aboutMe" = "AboutMe";
+/*成就*/
+/*内容*/
+"content" = "content";
+"follow" = "关注";
+
+"login" = "login";
+"register" = "register";
+/*手机号方式*/
+"phoneType" = "phoneType";
+/*邮箱方式*/
+"emailType" = "emailType";
+"phoneNoNull" = "手机号码不能为空";
+/*邮箱不能为空*/
+"emailNoNull" = "邮箱不能为空";
+/*邮箱格式不对*/
+"emailFormatIsFalse" = "邮箱格式不对";
+/*完善个人信息*/
+"perfectUserInfo" = "完善个人信息";
+/*提交*/
+"submit" = "提交";
+/*昵称*/
+"nickname" = "昵称";
+/*输入昵称*/
+"enterNickName" = "输入昵称";
+/*性别*/
+"sex" = "性别";
+/*女*/
+"women" = "女";
+"men" = "男";
+"secrecy" = "保密";
+/*手机号绑定*/
+"phonebind" = "手机号绑定";
+/*验证*/
+"verification" = "验证";
+"propmt" = "绑定会让您的账号更加安全。\n 完成绑定后，您还可以通过手机号登陆嗨捞";
+"set" = "设置";
+"cleanCache" = "清理缓存";
+"noWIFIPicture" = "非WIFI环境下图片质量";
+"pushNotification" = "推送通知";
+"checkVersion" = "检查版本";
+"setAboutWe" = "关于我们";
+"setChangeLanguage" = "切换语言";
+"automaticTranslation" = "自动翻译";
+"choseLanguage" = "选择语言";
+"skip" = "跳过";
+"achievement" = "成就墙";
+"classDescription" = "等级说明";
+"resetPassword" = "重置密码";
+"forgetPassword" = "忘记密码";
+"upload" = "点击上传";
+"headeriamge" = "头像";
+"userInfo" = "个人信息";
+"bind" = "绑定";
+"noBind" = "解除绑定";
+"changeNick" = "修改昵称";
+"enterNick" = "请输入昵称";
+"nickPrompt" = "昵称不能包含特殊字符";
+"true" = "确定";
+"nickNotNULL" =  "昵称不能为空";
+"selectSex" = "请选择性别";
+"bindEmail" = "绑定邮箱";
+"bindPhone" = "绑定手机";
+"changeEmail" = "修改邮箱";
+"changePhone" = "修改手机";
+"next" = "下一步";
+"bind" = "绑定";
+"change" = "修改";
+"oldPassword" = "旧密码:";
+"newPassword" = "新密码:";
+"againPassword" = "再次输入:";
+"businsess" = "商家入驻";
+"detail" = "详情";
+"@" = "@你";
+"leveingMessage" = "留言";
+
+
+///确认按钮
+"confirm" = "确定";
+"runing" = "进行中";
+
+"addBusiness" = "新增店铺";
+"nosubmit" = "未提交";
+"aduit" = "待审核";
+"noPass" = "未通过";
+"addShopOneStep" = "第一步 资质信息";
+"addShopOneStepsub" = "只需3步，便可轻松开店";
+"addShopTwo" = "第二步，店面照片";
+"addShopThree" = "第3步，商家信息";
+"openShop" = "我要开店";
+"openShopPropmt" = "准备好资料，便可轻松开店";
+"know" = "我知道了";

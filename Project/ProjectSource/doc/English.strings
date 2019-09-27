@@ -1,0 +1,26 @@
+/* 
+  English.strings
+  ZDLao
+
+  Created by WY on 2019/9/31.
+  Copyright © 2019年 com.16lao. All rights reserved.
+*/
+"title" = "custom_english_title";
+"country_code" = "119";
+"language_identifier" = "en_us";
+
+"tabbar_item1_title" = "home";
+"tabbar_item2_title" = "huoban";
+"tabbar_item4_title" = "AD";
+"tabbar_item3_title" = "profile";
+"send" = "send";
+/*关于我*/
+"abhoutMe" = "AboutMe";
+/*成就*/
+"achievement" = "achievement";
+/*内容*/
+"content" = "content";
+
+
+///确认按钮
+"confirm" = "confirm";

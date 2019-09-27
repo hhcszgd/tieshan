@@ -1,0 +1,47 @@
+/* 
+  Simplified.strings//简体中文
+  ZDLao
+
+  Created by WY on 2019/9/31.
+  Copyright © 2019年 com.16lao. All rights reserved.
+*/
+"title" = "custom_simplified_title";
+"country_code" = "110";
+"language_identifier" = "zh_cn";
+
+"tabbar_item1_title" = "首页";
+"tabbar_item2_title" = "伙伴";
+"tabbar_item3_title" = "我的";
+"tabbar_item4_title" = "广告";
+"send" = "发送";
+/*关于我*/
+/*关于我*/
+"me" = "我的";
+"subName" = "姓名";
+"myInfo" = "我的信息:";
+"generalInfo" = "基本信息";
+"account" = "账号:";
+"two-dimensionalCode" = "我的二维码:";
+"twodimensionalCode" = "我的二维码";
+"name" = "姓名:";
+"mobile" = "手机号码:";
+"companyInformation" = "公司信息";
+"companyName" = "公司名称:";
+"companyMobile" = "公司电话:";
+"accountManager" = "账户管理";
+"balance" = "捞付余额";
+"amountOfMoney" = "冻结金额";
+"accountDetails" = "账户明细";
+"nogatiationList" = "协商列表";
+"set" = "设置";
+"yourName" = "您的名字";
+"setNamePrompt" = "注: 4-80个字符";
+"trueBtn" = "确定";
+"amountPrompt" = "冻结金额";
+
+
+///登录
+"login" = "登录";
+
+///确认按钮
+"confirm" = "确定";
