@@ -30,6 +30,19 @@ case release  = "http://tpi.bjyltf.com/"
 extension DDQueryManager{
     /// write your api here 👇
     
+    
+    @discardableResult
+    ///     int    1：未核档(暂存)，2：已核档，3：核档不通过
+    func heDangJiLu<T>(type : ApiModel<T>.Type , page : String? , pageSize : String? = "10", isVerify:String? = "1",searchInfo : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "procedures/queryAppVerificationList"
+        var para : [String : String] =  [:]
+        if let p = page{para["page"] = p}
+        if let p = pageSize{para["pageSize"] = p}
+        if let p = isVerify{para["isVerify"] = p}
+        if let p = searchInfo{para["searchInfo"] = p}
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para , success: success, failure: failure, complate: complate)
+    }
+    
     @discardableResult
     func login<T>(type : ApiModel<T>.Type , userName : String , passWord : String, success:@escaping (ApiModel<T>)->() ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil ) -> DataRequest? {
         let url  =  "auth/login"
@@ -190,8 +203,10 @@ extension DDQueryManager{
         header["VERSIONID"] = "2.0"
         header["language"] = language
         header[ "token"] = DDAccount.share.token ?? ""
+//        header["Content-Type"] = "application/json"
+//        header["Accept"] = "application/json"
         if let url  = URL(string: urlFull){
-            let task = DDQueryManager.share.sessionManager.request(url , method: method , parameters: para , headers:header).responseJSON(completionHandler: { (response) in
+            let task = DDQueryManager.share.sessionManager.request(url , method: method , parameters: para ,encoding:JSONEncoding.default , headers:header).responseJSON(completionHandler: { (response) in
                 //                if print{mylog(response.debugDescription.unicodeStr)}
                 switch response.result{
                 case .success :

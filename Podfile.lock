@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.5.1)
+  - AliyunOSSiOS (2.10.7)
   - CryptoSwift (0.7.2)
   - Differentiator (3.1.0)
   - FMDB (2.7.5):
@@ -40,6 +41,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.5.0)
+  - AliyunOSSiOS
   - CryptoSwift (~> 0.7.1)
   - FMDB (~> 2.6)
   - JPush (~> 3.0.9)
@@ -58,6 +60,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AliyunOSSiOS
     - CryptoSwift
     - Differentiator
     - FMDB
@@ -75,6 +78,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  AliyunOSSiOS: 602b6a4e70e62a5f0a6431c20496343141d7e66f
   CryptoSwift: cd2158be2bf639aabc63ec804707c7137c90157c
   Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -90,6 +94,6 @@ SPEC CHECKSUMS:
   UMengUShare: 370d180101e13ee0227ae657ab119ba97243d2b3
   WechatOpenSDK: 368ae03b72ee3ea1328c4f11326fbb5d2721d118
 
-PODFILE CHECKSUM: 4ff92b705f6a1e7c2e8c3a41a725bf1f1f4f2df8
+PODFILE CHECKSUM: 96163734924fae0a2cc9da4205b87f6dc7e1918b
 
 COCOAPODS: 1.8.0

@@ -12,7 +12,7 @@ pod 'Alamofire', '~> 4.5.0'
 pod 'CryptoSwift', '~> 0.7.1'
 #:git => "https://github.com/krzyzanowskim/CryptoSwift", :branch => "master"
 #
-
+pod 'AliyunOSSiOS'
 pod 'FMDB', '~> 2.6'
 pod 'SnapKit', '~> 4.0.0'
 pod 'RxSwift', '~> 4.0.0'

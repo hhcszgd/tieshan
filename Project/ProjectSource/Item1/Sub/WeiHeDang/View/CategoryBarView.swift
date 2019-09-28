@@ -9,12 +9,23 @@
 import UIKit
 
 class CategoryBarView: UIView {
-    var defaultIndex = 0
+    var selectedIndex = 0{
+        didSet{
+            if models.isEmpty || selectedIndex >= models.count || selectedIndex < 0 {return}
+            layoutIfNeeded()
+            setNeedsLayout()
+        }
+    }
+    var selectHandler : ((Int)->())?
+    
     var selectedColor = mainColor
+    let lineView = UIView()
     convenience init(defaultIndex:Int,selectedColor:UIColor = mainColor,frame:CGRect = .zero){
         self.init(frame: frame)
-        self.defaultIndex = defaultIndex
+        self.selectedIndex = defaultIndex
         self.selectedColor = selectedColor
+        lineView.backgroundColor = selectedColor
+        self.backgroundColor = .white
     }
     var models : [(String,String)] = []{
         didSet{
@@ -24,8 +35,10 @@ class CategoryBarView: UIView {
                     let item = CategoryItem()
                     item.model = model
                     self.addSubview(item)
+                    item.tag = index
                     item.addTarget(self , action: #selector(click(sender:)), for: UIControlEvents.touchUpInside)
                 }
+                self.addSubview(lineView)
             }
             layoutIfNeeded()
             setNeedsLayout()
@@ -33,22 +46,38 @@ class CategoryBarView: UIView {
         
     }
     @objc func click(sender:CategoryItem) {
+        self.selectedIndex = sender.tag
+        selectHandler?(sender.tag)
+        UIView.animate(withDuration: 0.25) {
+            self.lineView.frame = CGRect(x: CGFloat(sender.tag) * self.bounds.width/CGFloat(self.models.count), y: self.bounds.height - 2, width: self.bounds.width/CGFloat(self.models.count), height: 2)
+        }
         mylog(sender.model.0)
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        if self.subviews.count <= models.count {
-            let toBorder  : CGFloat = 10
-            let margin : CGFloat = 3
+            let toBorder  : CGFloat = 0
+            let margin : CGFloat = 0
             let spaceW = toBorder * 2 + margin * CGFloat(models.count - 1)
             let totalItemW = self.bounds.width - spaceW
             let itemW =  totalItemW /  CGFloat(models.count)
             for (index , view) in subviews.enumerated() {
+                if index >= models.count{
+                    if view.frame == CGRect.zero {
+                        view.frame = CGRect(x: 0, y: bounds.height - 2, width: itemW, height: 2)
+                    }
+                    return
+                }
                 let item = view as! CategoryItem
+                if index == selectedIndex{
+                    item.titleLabel.textColor = selectedColor
+                }else{
+                    item.titleLabel.textColor = UIColor.gray
+                }
                 item.model = models[index]
-                item.frame = CGRect(x: toBorder + CGFloat(index) * (itemW + margin), y: 0, width: itemW, height: bounds.height)
+                if view.frame == CGRect.zero {
+                    item.frame = CGRect(x: toBorder + CGFloat(index) * (itemW + margin), y: 0, width: itemW, height: bounds.height)
+                }
             }
-        }
     }
     /*
     // Only override draw() if you perform custom drawing.
@@ -75,9 +104,10 @@ class CategoryItem: UIControl {
         self.addSubview(titleLabel)
         self.addSubview(numLabel)
         numLabel.textColor = .white
-        numLabel.backgroundColor = .red
+        numLabel.backgroundColor = UIColor.red.withAlphaComponent(0.8)
         numLabel.textAlignment = .center
         self.backgroundColor = .white
+        numLabel.font = UIFont.systemFont(ofSize: 13)
     }
     override func layoutSubviews() {
         super.layoutSubviews()
