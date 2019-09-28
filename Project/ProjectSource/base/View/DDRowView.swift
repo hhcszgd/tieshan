@@ -121,6 +121,8 @@ class DDRowView: UIControl {
                 let subImageViewY = margin
                 let subImageViewX = selfW - margin - subImageViewW
                 self.subImageView.frame = CGRect(x: subImageViewX, y: subImageViewY, width: subImageViewW, height: subImageViewH)
+                self.subImageView.layer.cornerRadius = self.subImageView.bounds.height/2
+                self.subImageView.layer.masksToBounds = true
                 //等待布局文字
                 let subLabelX : CGFloat = selfW * 0.5
                 let subLabelY : CGFloat = 0.0
@@ -155,6 +157,8 @@ class DDRowView: UIControl {
                 let subImageViewY = margin
                 let subImageViewX = self.additionalImageView.frame.minX - margin - subImageViewW
                 self.subImageView.frame = CGRect(x: subImageViewX, y: subImageViewY, width: subImageViewW, height: subImageViewH)
+                self.subImageView.layer.cornerRadius = self.subImageView.bounds.height/2
+                self.subImageView.layer.masksToBounds = true
                 //等待布局文字
                 let subLabelX : CGFloat = selfW * 0.5
                 let subLabelY : CGFloat = 0.0

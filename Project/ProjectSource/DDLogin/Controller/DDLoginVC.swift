@@ -65,7 +65,7 @@ extension DDLoginVC : UITextFieldDelegate{
     
     @objc func loginBtn(sender:UIButton){
 
-        DDRueryManager.share.login(type: ApiModel<DDAccount>.self, userName: "admin", passWord: "123456", success: { (m ) in
+        DDQueryManager.share.login(type: ApiModel<DDAccount>.self, userName: "admin", passWord: "123456", success: { (m ) in
             
             if m.data != nil {
                 DDAccount.share.setPropertisOfShareBy(otherAccount: m.data!)

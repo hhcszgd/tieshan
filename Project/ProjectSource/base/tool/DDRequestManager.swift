@@ -27,7 +27,7 @@ case release  = "http://tpi.bjyltf.com/"
     case wap = "https://tap.bjyltf.com/"
 }
 
-extension DDRueryManager{
+extension DDQueryManager{
     /// write your api here 👇
     
     @discardableResult
@@ -37,23 +37,35 @@ extension DDRueryManager{
         return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para  , needToken : false , success: success, failure: failure, complate: complate)
     }
     @discardableResult
-    func getDianGongInfo<T>(type : ApiModel<T>.Type, success:@escaping (ApiModel<T>)->() ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil ) -> DataRequest? {
-        let url  =  "member/\(DDAccount.share.id ?? "0")/cert"//TODO 1 要改成真是的memberID
+    func getProfileInfo<T>(type : ApiModel<T>.Type, success:@escaping (ApiModel<T>)->() ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil ) -> DataRequest? {
+        let url  =  "user/getUserInfo"//TODO 1 要改成真是的memberID
         let para = ["token" : DDAccount.share.token ?? ""]
-        return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters:para  , success: success, failure: failure, complate: complate)
+        return self.requestServer(type: type , method: HTTPMethod.get, url: url,headerParas : para , success: success, failure: failure, complate: complate)
     }
     
-
+    @discardableResult
+    func modifyPassword<T>(type : ApiModel<T>.Type, old: String , new: String,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "auth/uppssword"//TODO 1 要改成真是的memberID
+        let para = ["password" : new , "oldPassword": old]
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters: para , success: success, failure: failure, complate: complate)
+    }
+    
+    @discardableResult
+    func modifyName<T>(type : ApiModel<T>.Type,name: String,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "user/upName"
+        let para = ["user_name" : name]
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters: para , success: success, failure: failure, complate: complate)
+    }
 }
 
-class DDRueryManager: NSObject {
+class DDQueryManager: NSObject {
     let version = ""
     var sessionManager : SessionManager!
     var token : String? = "token"
     let client = COSClient.init(appId: "1255626690", withRegion: "hk")
-    static let share : DDRueryManager = {
+    static let share : DDQueryManager = {
         
-        let man = DDRueryManager()
+        let man = DDQueryManager()
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = TimeInterval.init(10)
         let sessionDelegate = SessionDelegate()
@@ -96,7 +108,7 @@ class DDRueryManager: NSObject {
 
 
 
-extension DDRueryManager{
+extension DDQueryManager{
     
     
     
@@ -119,7 +131,7 @@ extension DDRueryManager{
     ///   - success: invoke when success
     ///   - complate: invoke always (failure or success)
     
-    private func requestServer<T>(type : ApiModel<T>.Type , method: HTTPMethod, url : String ,parameters: Parameters?  = nil  , needToken: Bool  = true,autoAlertWhileFailure : Bool = true  , success:@escaping (ApiModel<T>)->(),failure: ((_ error:DDError)->Void)? = nil   ,complate:(()-> Void)? = nil ) -> DataRequest? {
+    private func requestServer<T>(type : ApiModel<T>.Type , method: HTTPMethod, url : String ,parameters: Parameters?  = nil ,headerParas:HTTPHeaders? = nil , needToken: Bool  = true,autoAlertWhileFailure : Bool = true  , success:@escaping (ApiModel<T>)->(),failure: ((_ error:DDError)->Void)? = nil   ,complate:(()-> Void)? = nil ) -> DataRequest? {
         //        let result = networkReachabilityManager?.startListening()
         //        mylog("是否  监听  成功  \(result)")
         mylog("\(networkReachabilityManager?.networkReachabilityStatus)")
@@ -135,6 +147,8 @@ extension DDRueryManager{
         
         let urlFull = DomainType.api.rawValue + version + url
         var para = Parameters()
+        var header = [String : String]()
+        if let h = headerParas{header = h}
         if let parametersUnwrap = parameters{para = parametersUnwrap}
         //        para["l"] = DDLanguageManager.languageIdentifier
         //        para["c"] = DDLanguageManager.countryCode
@@ -170,15 +184,14 @@ extension DDRueryManager{
         
         //        let language = DDLanguageManager.countryCode
         let language = "110"
-        var header = [String : String]()
         header["APPID"] = "2"
         header["VERSIONMINI"] = "20160501"
         header["DID"] = UIDevice.current.identifierForVendor?.uuidString ?? ""
         header["VERSIONID"] = "2.0"
         header["language"] = language
-        
+        header[ "token"] = DDAccount.share.token ?? ""
         if let url  = URL(string: urlFull){
-            let task = DDRueryManager.share.sessionManager.request(url , method: method , parameters: para , headers:header).responseJSON(completionHandler: { (response) in
+            let task = DDQueryManager.share.sessionManager.request(url , method: method , parameters: para , headers:header).responseJSON(completionHandler: { (response) in
                 //                if print{mylog(response.debugDescription.unicodeStr)}
                 switch response.result{
                 case .success :
@@ -324,7 +337,7 @@ extension DDRueryManager{
         header["language"] = language
         
         if let url  = URL(string: urlFull){
-            let task = DDRueryManager.share.sessionManager.request(url , method: method , parameters: para , headers:header).responseJSON(completionHandler: { (response) in
+            let task = DDQueryManager.share.sessionManager.request(url , method: method , parameters: para , headers:header).responseJSON(completionHandler: { (response) in
                 //                if print{mylog(response.debugDescription.unicodeStr)}
                 switch response.result{
                 case .success :

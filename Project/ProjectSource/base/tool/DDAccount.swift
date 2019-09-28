@@ -39,6 +39,16 @@ class DDAccount:NSObject , Codable , NSCoding{
         case token
 
     }
+    func refreshInfo(complate:(()->())?) {
+            DDQueryManager.share.getProfileInfo(type: ApiModel<DDAccount>.self, success: { (apiModel) in
+                if apiModel.ret_code == "0" , let a = apiModel.data{
+                    DDAccount.share.setPropertisOfShareBy(otherAccount: a)
+                }
+            }, failure: { (error ) in
+            }) {
+                    complate?()
+            }
+    }
     required init(from decoder: Decoder) throws{
         let container = try decoder.container(keyedBy: CodingKeys.self)
         login_name = try container.decodeIfPresent(type(of: login_name), forKey: CodingKeys.login_name) as? String

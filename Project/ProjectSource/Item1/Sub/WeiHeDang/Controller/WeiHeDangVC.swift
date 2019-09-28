@@ -11,11 +11,23 @@ import UIKit
 class WeiHeDangVC: DDNormalVC {
     var collection : UICollectionView!
     let searchBar = DDSearchBar()
+    let categoryBar = CategoryBarView(defaultIndex:0)
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutSearchBar()
+        layoutCategoryBar()
         layoutCollectionView()
         // Do any additional setup after loading the view.
+    }
+    func layoutCategoryBar(){
+        self.view.addSubview(categoryBar)
+        categoryBar.frame = CGRect(x: 0, y: DDNavigationBarHeight + 1, width: view.bounds.width, height: 64)
+        let models = [
+            ("待核档" , "100" ),
+            ("核档未通过" , "100" ),
+            ("核档完成" , "100" )
+        ]
+        categoryBar.models = models
     }
     func layoutCollectionView() {
         
@@ -44,7 +56,7 @@ class WeiHeDangVC: DDNormalVC {
         //        flowLayout.minimumLineSpacing = 3
         flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
 //        flowLayout.headerReferenceSize = CGSize(width: self.view.bounds.width, height: 40)
-        self.collection = UICollectionView.init(frame: CGRect(x: 0, y:  DDNavigationBarHeight , width: self.view.bounds.width, height: self.view.bounds.height - DDNavigationBarHeight - DDTabBarHeight), collectionViewLayout: flowLayout)
+        self.collection = UICollectionView.init(frame: CGRect(x: 0, y:  categoryBar.frame.maxY , width: self.view.bounds.width, height: self.view.bounds.height - categoryBar.frame.maxY - DDTabBarHeight), collectionViewLayout: flowLayout)
         self.view.addSubview(collection)
         collection.backgroundColor = UIColor.clear
         collection.register(HomeItem.self , forCellWithReuseIdentifier: "HomeItem")

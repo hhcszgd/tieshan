@@ -36,7 +36,7 @@ class DDSearchBar: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let margin : CGFloat = 10
-        self.textField.frame = CGRect(x:  margin, y: margin, width: self.bounds.width -  margin * 2, height: self.bounds.height - margin * 2)
+        self.textField.frame = CGRect(x:  margin, y: 0, width: self.bounds.width -  margin * 2, height: self.bounds.height )
         let clearButtonToRightBorder : CGFloat = self.bounds.height * 0.2
         let searchIconWH = self.bounds.height - clearButtonToRightBorder * 2
         searchIcon.frame = CGRect(x: 30, y: 0, width: searchIconWH, height: searchIconWH)

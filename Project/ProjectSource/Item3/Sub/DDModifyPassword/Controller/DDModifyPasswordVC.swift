@@ -18,7 +18,7 @@ class DDModifyPasswordVC: DDNormalVC {
     @IBOutlet weak var newPassword2: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "修改密码"
         // Do any additional setup after loading the view.
     }
     override func viewDidLayoutSubviews() {
@@ -29,6 +29,7 @@ class DDModifyPasswordVC: DDNormalVC {
     }
     @IBAction func btnClick(_ sender: UIButton) {
         mylog("perform modify password")
+        
         guard let old = oldPassword.text?.tieShanPasswordLawful()else{
             return
         }
@@ -48,12 +49,37 @@ class DDModifyPasswordVC: DDNormalVC {
             GDAlertView.alert("请输入相同的新密码", image: nil, time: 2, complateBlock: nil)
             return
         }
+        DDQueryManager.share.modifyPassword(type: ApiModel<String>.self, old: oldPassword.text!, new: newPassword1.text!) { (apiModel) in
+            if apiModel.ret_code == "0"{
+                self.modifyPasswordSuccessAlert()
+            }else{
+                GDAlertView.alert("修改失败,请重试", image: nil, time: 3, complateBlock: nil)
+            }
+        }
         
         mylog(old)
         mylog("验证通过,执行请求")
 //        print(oldPassword.text)
 //        print(newPassword1.text)
 //        print(newPassword2.text)
+    }
+    
+    func modifyPasswordSuccessAlert(){
+            var actions = [DDAlertAction]()
+            
+        let sure = DDAlertAction(title: "我知道了",textColor:mainColor, style: UIAlertActionStyle.default, handler: { (action ) in
+//                print("go to app store")// 需要自定义alert , 点击之后 , 弹框继续存在
+//                UIApplication.shared.openURL(URL(string: "telprompt:4006113233")!)
+            })
+            
+//            let cancel = DDAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: { (action ) in
+//                print("cancel update")
+//            })
+//            actions.append(cancel)
+            actions.append(sure)
+        let alertView = DDAlertOrSheet(title: nil, message: "密码修改成功",messageColor:UIColor.darkGray , preferredStyle: UIAlertControllerStyle.alert, actions: actions)
+            alertView.isHideWhenWhitespaceClick = false
+            UIApplication.shared.keyWindow?.alert(alertView)
     }
     func setBorder(view:UIView)  {
         view.layer.borderColor = UIColor.gray.cgColor

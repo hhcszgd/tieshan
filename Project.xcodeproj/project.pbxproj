@@ -143,6 +143,9 @@
 		15E79F321FE228480049F767 /* Malay.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E79F311FE228480049F767 /* Malay.strings */; };
 		15E79F341FE2285A0049F767 /* Russian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E79F331FE2285A0049F767 /* Russian.strings */; };
 		15E79F361FE255A70049F767 /* DDStorgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E79F351FE255A70049F767 /* DDStorgeManager.swift */; };
+		B32200D5233F170400B1C8A0 /* ModiryProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */; };
+		B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D6233F3F1400B1C8A0 /* ModifyName.swift */; };
+		B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200DA233F514200B1C8A0 /* CategoryBarView.swift */; };
 		BC1E098520C3F2FC00FCC120 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E098420C3F2FC00FCC120 /* File.swift */; };
 		BC1E098720C3F41200FCC120 /* ScrollView_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E098620C3F41200FCC120 /* ScrollView_extension.swift */; };
 		BC23A46C20BE3F2C006B1E58 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC23A46B20BE3F2C006B1E58 /* ArrayExtension.swift */; };
@@ -386,6 +389,9 @@
 		15E79F331FE2285A0049F767 /* Russian.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Russian.strings; sourceTree = "<group>"; };
 		15E79F351FE255A70049F767 /* DDStorgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDStorgeManager.swift; sourceTree = "<group>"; };
 		9C975D751135A674C5F77CB3 /* Pods-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.debug.xcconfig"; sourceTree = "<group>"; };
+		B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModiryProfileVC.swift; sourceTree = "<group>"; };
+		B32200D6233F3F1400B1C8A0 /* ModifyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyName.swift; sourceTree = "<group>"; };
+		B32200DA233F514200B1C8A0 /* CategoryBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBarView.swift; sourceTree = "<group>"; };
 		BAB835D84B7E259E8529C7D4 /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1E098420C3F2FC00FCC120 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		BC1E098620C3F41200FCC120 /* ScrollView_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView_extension.swift; sourceTree = "<group>"; };
@@ -919,6 +925,7 @@
 		158A1BAC23362189002F7E5F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B32200DA233F514200B1C8A0 /* CategoryBarView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2112,6 +2119,23 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		B32200D2233F16DE00B1C8A0 /* ModifyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				B32200D3233F16DE00B1C8A0 /* Controller */,
+			);
+			path = ModifyProfile;
+			sourceTree = "<group>";
+		};
+		B32200D3233F16DE00B1C8A0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */,
+				B32200D6233F3F1400B1C8A0 /* ModifyName.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		BC6D892A1FFCB1500039A92E /* AlipaySDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2220,6 +2244,7 @@
 		BCC31EC01FC6E74F0037BA74 /* Sub */ = {
 			isa = PBXGroup;
 			children = (
+				B32200D2233F16DE00B1C8A0 /* ModifyProfile */,
 				1574F6782335182800547B29 /* DDAboutUs */,
 				1574F6732335181900547B29 /* DDModifyPassword */,
 				1574F66E2335180400547B29 /* DDHelpDoc */,
@@ -2587,6 +2612,7 @@
 				15816B321FF4C52300136768 /* QRCodeScannerVC.swift in Sources */,
 				15DF304F1FA9AFAC00588AF1 /* DDRootTabBarVC.swift in Sources */,
 				15925D19200EE25400C554CA /* AppDelegate+extension.swift in Sources */,
+				B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */,
 				15555ACC200F20AC00C3B5E5 /* DDNewFeature.swift in Sources */,
 				1529D9D52005E56F0022DB44 /* DDFucnEditApiModel.swift in Sources */,
 				1562F24C1FE12305006A02B5 /* ChooseLanguageVC.swift in Sources */,
@@ -2598,6 +2624,7 @@
 				15DF30501FA9AFAC00588AF1 /* DDViewController.swift in Sources */,
 				1519079E20C55C4B002E44D0 /* DDPlayerView.swift in Sources */,
 				15DF304C1FA9AFAC00588AF1 /* DDNormalVC.swift in Sources */,
+				B32200D5233F170400B1C8A0 /* ModiryProfileVC.swift in Sources */,
 				BCC31EB91FC6E7280037BA74 /* LocationManager.swift in Sources */,
 				158A1C3323362313002F7E5F /* ChaiJieFangShiShouXuBuVC.swift in Sources */,
 				158A1C1F23362240002F7E5F /* HeDangTongGuoVC.swift in Sources */,
@@ -2664,6 +2691,7 @@
 				1535C3A82029C73200B826D0 /* DDPageControl.swift in Sources */,
 				158A1C1B23362221002F7E5F /* HeDangYiTongGuoVC.swift in Sources */,
 				15DF306E1FA9AFAC00588AF1 /* DDItem1NavVC.swift in Sources */,
+				B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */,
 				15103FD22331B34A008EC0D1 /* DDInputView.swift in Sources */,
 				BCF8E66D1FC1323800C1DF4B /* GDBaseControl.swift in Sources */,
 				15DF305A1FA9AFAC00588AF1 /* DDShowManager.swift in Sources */,
@@ -2926,12 +2954,13 @@
 					"$(PROJECT_DIR)/Project/ProjectSource/snak/WeChatSDK",
 				);
 				MACH_O_TYPE = mh_execute;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
 				PODS_ROOT = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.16lao.ylmedia;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tsp.disassemble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Project/Project-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2976,12 +3005,13 @@
 					"$(PROJECT_DIR)/Project/ProjectSource/snak/WeChatSDK",
 				);
 				MACH_O_TYPE = mh_execute;
+				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
 				PODS_ROOT = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.16lao.ylmedia;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tsp.disassemble;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Project/Project-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

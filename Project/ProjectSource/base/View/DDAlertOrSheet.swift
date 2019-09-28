@@ -51,7 +51,7 @@ class DDAlertOrSheet: DDAlertContainer {
             self.messageLabel.text = message!
             self.messageLabel.textAlignment = .center
             messageLabel.textColor = self.messageColor
-            messageLabel.font = UIFont.systemFont(ofSize: 14)
+            messageLabel.font = UIFont.systemFont(ofSize: 15)
             messageLabelBackview.addSubview(messageLabel)
             self.subviewsContainer.addSubview(messageLabelBackview)
             //            subviewsContainer.addSubview(messageLabel)
@@ -96,11 +96,20 @@ class DDAlertOrSheet: DDAlertContainer {
             maxY = self.titleLabelBackview.frame.maxY
         }
         if self.message != nil {
-            var messageLabelH = self.messageLabel.text?.sizeWith(font: self.messageLabel.font, maxWidth: titleMaxW).height ?? 30
-            messageLabelH = messageLabelH > 30 ? messageLabelH : 30
-            self.messageLabelBackview.frame = CGRect(x: 0, y: maxY , width: subviewsContainerW, height: messageLabelH + borderW * 2)
-            self.messageLabel.frame =  CGRect(x: borderW, y:  0, width: titleMaxW, height: messageLabelH)//高度是动态的
-            maxY =  self.messageLabelBackview.frame.maxY
+            if title != nil {
+                var messageLabelH = self.messageLabel.text?.sizeWith(font: self.messageLabel.font, maxWidth: titleMaxW).height ?? 30
+                messageLabelH = messageLabelH > 30 ? messageLabelH : 30
+                self.messageLabelBackview.frame = CGRect(x: 0, y: maxY , width: subviewsContainerW, height: messageLabelH + borderW * 2)
+                self.messageLabel.frame =  CGRect(x: borderW, y:  0, width: titleMaxW, height: messageLabelH)//高度是动态的
+                maxY =  self.messageLabelBackview.frame.maxY
+            }else{
+                var messageLabelH = self.messageLabel.text?.sizeWith(font: self.messageLabel.font, maxWidth: titleMaxW).height ?? 30
+                messageLabelH = 64
+                messageLabelH = messageLabelH > 30 ? messageLabelH : 30
+                self.messageLabelBackview.frame = CGRect(x: 0, y: maxY , width: subviewsContainerW, height: messageLabelH )
+                self.messageLabel.frame =  CGRect(x: borderW, y:  0, width: titleMaxW, height: messageLabelH)//高度是动态的
+                maxY =  self.messageLabelBackview.frame.maxY
+            }
         }
         mylog(maxY)
         if _actions.count == 2{// action 横向排列

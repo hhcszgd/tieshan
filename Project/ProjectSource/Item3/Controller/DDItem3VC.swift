@@ -24,15 +24,15 @@ extension DDItem3VC{
 class DDItem3VC: DDInternalVC {
     let headerBG = UIImageView()
     let department = UILabel()
-    let name = UILabel()
+    let name = ProfileNameControl()
     let mobile = UILabel()
-    let icon = UIImageView(image: UIImage(named: "profile_edit_icon_touxiang"))
+    let icon = UIButton()
     let functionBG = UIView()
     let pending = ProfileControl()
     let pended = ProfileControl()
     let toStorage = ProfileControl()
     var apiModel : [(icon:UIImage?,title:String,arrow:Bool,actionType:ProfileActionType)] =  [
-        (icon:UIImage(named: "nav_shezhi"),title:"设置",arrow:true,actionType:.setting ),
+//        (icon:UIImage(named: "nav_shezhi"),title:"设置",arrow:true,actionType:.setting ),
         (icon:UIImage(named: "profile_edit_icon_touxiang"),title:"帮助文档",arrow:true,actionType:.helpDocument ),
         (icon:UIImage(named: "profile_edit_icon_touxiang"),title:"修改密码",arrow:true,actionType:.modifyPassword ),
         (icon:UIImage(named: "profile_edit_icon_touxiang"),title:"关于我们",arrow:true,actionType:.aboutUs ),
@@ -47,11 +47,42 @@ class DDItem3VC: DDInternalVC {
         self.tableView?.reloadData()
         tableView?.showsVerticalScrollIndicator = false
         if tableView!.contentSize.height > tableView!.bounds.height{self.tableView?.isScrollEnabled = true}else{self.tableView?.isScrollEnabled = false}
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getProfileInfo() 
     }
 }
 
 //actions
 extension DDItem3VC{
+    @objc func modifyIcon(sender: UIButton){
+        mylog("modify icon")
+        self.navigationController?.pushViewController(ModiryProfileVC(), animated: true)
+    }
+    @objc func pending(sender: ProfileControl){
+        mylog("pending")
+    }
+    @objc func pended(sender: ProfileControl){
+        mylog("pended")
+    }
+    @objc func toStore(sender: ProfileControl){
+        mylog("toStore")
+    }
+    func getProfileInfo()  {
+        DDAccount.share.refreshInfo {
+            self.updateUI()
+        }
+    }
+    
+    func updateUI()  {
+        name.name = DDAccount.share.user_name
+        department.text = DDAccount.share.department_name
+        mobile.text = DDAccount.share.phone
+        icon.setImageUrl(url: DDAccount.share.head_url, status: UIControlState.normal)
+        self._layoutSubviews()
+    }
     func makeCall() {
         var actions = [DDAlertAction]()
         
@@ -65,21 +96,9 @@ extension DDItem3VC{
         })
         actions.append(cancel)
         actions.append(sure)
-        
         let alertView = DDAlertOrSheet(title: "确定拨打客服电话?", message: "400-611-3233",messageColor:mainColor , preferredStyle: UIAlertControllerStyle.alert, actions: actions)
         alertView.isHideWhenWhitespaceClick = false
         UIApplication.shared.keyWindow?.alert(alertView)
-//        let alert = UIAlertController.init(title: "确定拨打客服电话?", message: "400-611-3233", preferredStyle: UIAlertControllerStyle.alert)
-//        let sure = UIAlertAction(title: "拨打电话", style: UIAlertActionStyle.default) { (action) in
-//
-//        }
-//        let cancle = UIAlertAction(title: "取消", style: UIAlertActionStyle.default) { (action) in
-//
-//        }
-//        DDAlertAction
-//        alert.addAction(sure)
-//        alert.addAction(cancle)
-//        self.present(alert , animated: true , completion: nil )
     }
     func loginOut()  {
         var actions = [DDAlertAction]()
@@ -215,16 +234,14 @@ extension DDItem3VC{
         self.functionBG.addSubview(pended)
         self.functionBG.addSubview(toStorage)
         headerBG.backgroundColor = mainColor
-        
+        icon.setBackgroundImage(UIImage(named: "profile_edit_icon_touxiang"), for: UIControlState.normal)
         pending.model = (title:"待拆车辆",num:"3",isRed:true)
         pended.model = (title:"拆过车辆",num:"4",isRed:false)
         toStorage.model = (title:"入库的件",num:"4323",isRed:true)
-        name.text = "王二  >"
+        name.name = "王二"
         mobile.text = "电话: 17777777777"
         
-        name.textColor = .white
         mobile.textColor = .white
-        name.font = UIFont.boldSystemFont(ofSize: 18)
         mobile.font = UIFont.systemFont(ofSize: 13)
         department.backgroundColor = .black
         department.text = "   拆解部"
@@ -234,7 +251,13 @@ extension DDItem3VC{
         icon.backgroundColor = .clear
         tableView?.backgroundColor = .clear
         tableView?.separatorStyle = .none
+        icon.addTarget(self , action: #selector(modifyIcon(sender:)), for: UIControlEvents.touchUpInside)
+        pending.addTarget(self , action: #selector(pending(sender:)), for: UIControlEvents.touchUpInside)
+        pended.addTarget(self , action: #selector(pended(sender:)), for: UIControlEvents.touchUpInside)
+        toStorage.addTarget(self , action: #selector(toStore(sender:)), for: UIControlEvents.touchUpInside)
+        name.addTarget(self , action: #selector(modifyIcon(sender:)), for: UIControlEvents.touchUpInside)
     }
+    
     func _layoutSubviews() {
         headerBG.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.width * 0.5)
         let margin : CGFloat = 15
@@ -257,6 +280,7 @@ extension DDItem3VC{
         icon.layer.cornerRadius = icon.bounds.width/2
         icon.layer.borderWidth = 3
         icon.layer.borderColor = UIColor.white.cgColor
+        icon.layer.masksToBounds = true
         
         functionBG.layer.cornerRadius = 4
         tableView?.frame = CGRect(x: margin, y: functionBG.frame.maxY + 5, width: self.view.bounds.width - margin * 2, height: self.view.bounds.height - functionBG.frame.maxY - 10 - DDTabBarHeight)
@@ -311,6 +335,37 @@ class ProfileControl: UIControl {
         num.center = CGPoint(x: bounds.width/2, y: bounds.height * 0.35)
         redLogo.frame = CGRect(x: num.frame.maxX, y: num.frame.minY, width: 5, height: 5)
         redLogo.layer.cornerRadius = redLogo.bounds.width/2
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+}
+
+class ProfileNameControl: UIControl {
+    private let title = UILabel()
+    var name : String? {
+        get{return title.text}
+        set{title.text = newValue
+            layoutIfNeeded()
+            setNeedsLayout()
+        }
+    }
+    private let arrow = UIImageView(image:UIImage(named:"icon_arrow_right1"))
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addSubview(title)
+        self.addSubview(arrow)
+        title.font = UIFont.systemFont(ofSize: 15)
+        title.textColor = UIColor.white
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        title.sizeToFit()
+        title.frame = CGRect(x: 0, y: 0, width: title.bounds.width, height: bounds.height)
+        arrow.frame.scaleHeightTo(12)
+        arrow.frame = CGRect(x: title.frame.maxX + 10, y: (bounds.height - arrow.frame.height)/2, width: arrow.frame.width, height: arrow.frame.height)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
