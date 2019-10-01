@@ -5,7 +5,7 @@
 //  Created by WY on 2019/9/13.
 //  Copyright © 2019年 com.16lao. All rights reserved.
 //
-
+let mainBgColor =  UIColor.colorWithHexStringSwift("F4F3F4")
 import UIKit
 enum DDLoadType : String {
     case refresh
@@ -16,7 +16,7 @@ class DDViewController: UIViewController {
     var showModel : DDShowProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.colorWithHexStringSwift("F4F3F4")
+        self.view.backgroundColor = mainBgColor
         // Do any additional setup after loading the view.
     }
 

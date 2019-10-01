@@ -147,6 +147,10 @@
 		B305CF3223430B0F0059882A /* UILabel_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3123430B0F0059882A /* UILabel_extension.swift */; };
 		B305CF3423430EC40059882A /* DealDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3323430EC40059882A /* DealDetailHeader.swift */; };
 		B305CF362343104B0059882A /* DealDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B305CF352343104B0059882A /* DealDetailHeader.xib */; };
+		B305CF39234366E70059882A /* DealDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF37234366E70059882A /* DealDetailCell.swift */; };
+		B305CF3A234366E70059882A /* DealDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B305CF38234366E70059882A /* DealDetailCell.xib */; };
+		B305CF3C234394380059882A /* LookForResultAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3B234394380059882A /* LookForResultAlert.swift */; };
+		B305CF3E234394A90059882A /* LookForResultAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = B305CF3D234394A90059882A /* LookForResultAlert.xib */; };
 		B32200D5233F170400B1C8A0 /* ModiryProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */; };
 		B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D6233F3F1400B1C8A0 /* ModifyName.swift */; };
 		B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200DA233F514200B1C8A0 /* CategoryBarView.swift */; };
@@ -397,6 +401,10 @@
 		B305CF3123430B0F0059882A /* UILabel_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel_extension.swift; sourceTree = "<group>"; };
 		B305CF3323430EC40059882A /* DealDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealDetailHeader.swift; sourceTree = "<group>"; };
 		B305CF352343104B0059882A /* DealDetailHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DealDetailHeader.xib; sourceTree = "<group>"; };
+		B305CF37234366E70059882A /* DealDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealDetailCell.swift; sourceTree = "<group>"; };
+		B305CF38234366E70059882A /* DealDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DealDetailCell.xib; sourceTree = "<group>"; };
+		B305CF3B234394380059882A /* LookForResultAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookForResultAlert.swift; sourceTree = "<group>"; };
+		B305CF3D234394A90059882A /* LookForResultAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LookForResultAlert.xib; sourceTree = "<group>"; };
 		B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModiryProfileVC.swift; sourceTree = "<group>"; };
 		B32200D6233F3F1400B1C8A0 /* ModifyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyName.swift; sourceTree = "<group>"; };
 		B32200DA233F514200B1C8A0 /* CategoryBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBarView.swift; sourceTree = "<group>"; };
@@ -920,6 +928,10 @@
 			isa = PBXGroup;
 			children = (
 				B305CF2F23430A420059882A /* DDDealDetailVC.swift */,
+				B305CF3B234394380059882A /* LookForResultAlert.swift */,
+				B305CF3D234394A90059882A /* LookForResultAlert.xib */,
+				B305CF37234366E70059882A /* DealDetailCell.swift */,
+				B305CF38234366E70059882A /* DealDetailCell.xib */,
 				B305CF3323430EC40059882A /* DealDetailHeader.swift */,
 				B305CF352343104B0059882A /* DealDetailHeader.xib */,
 			);
@@ -2457,6 +2469,7 @@
 				158A1C41233754B9002F7E5F /* DDAboutUsVC.xib in Resources */,
 				15DF2FBE1FA9AE0400588AF1 /* Main.storyboard in Resources */,
 				158A1C3D23374109002F7E5F /* DDModifyPasswordVC.xib in Resources */,
+				B305CF3E234394A90059882A /* LookForResultAlert.xib in Resources */,
 				15DF306C1FA9AFAC00588AF1 /* Simplified.strings in Resources */,
 				15E79F321FE228480049F767 /* Malay.strings in Resources */,
 				15DF306A1FA9AFAC00588AF1 /* SystemLanguage.strings in Resources */,
@@ -2466,6 +2479,7 @@
 				15177B981FAB09AD00FC92BA /* InfoPlist.strings in Resources */,
 				B305CF362343104B0059882A /* DealDetailHeader.xib in Resources */,
 				15E79F281FE224A70049F767 /* Korean.strings in Resources */,
+				B305CF3A234366E70059882A /* DealDetailCell.xib in Resources */,
 				15E67D861FA9BE0C00A9BB34 /* Japanese.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2677,6 +2691,7 @@
 				15779A96206C90860076A1EF /* DDJsonCode.swift in Sources */,
 				15DF30661FA9AFAC00588AF1 /* GDIBCollectionCell.swift in Sources */,
 				158A1C0F233621B5002F7E5F /* BuPaiZhaoPianShouXuBuVC.swift in Sources */,
+				B305CF3C234394380059882A /* LookForResultAlert.swift in Sources */,
 				158A1C2B233622DF002F7E5F /* CunFangWeiZhiVC.swift in Sources */,
 				157684581FF09D8F00DC3158 /* DDTableViewCell.swift in Sources */,
 				15DF306F1FA9AFAC00588AF1 /* DDItem1VC.swift in Sources */,
@@ -2698,6 +2713,7 @@
 				158A1C212336224E002F7E5F /* DengDaiYuChuLiVC.swift in Sources */,
 				15DF2FB91FA9AE0400588AF1 /* AppDelegate.swift in Sources */,
 				158A1C1923362212002F7E5F /* JianXiaoCheLiangVC.swift in Sources */,
+				B305CF39234366E70059882A /* DealDetailCell.swift in Sources */,
 				BC7C3570205A68180083C1B0 /* Calander_extension.swift in Sources */,
 				150356DE1FC424FE0020C9BC /* DDCollectionReusableView.swift in Sources */,
 				153027391FCEA37900294170 /* HomeReusableHeader.swift in Sources */,

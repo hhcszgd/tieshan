@@ -15,6 +15,7 @@ class WeiHeDangVC: DDNormalVC {
             let bar = CategoryBarView(defaultIndex:index)
         bar.selectHandler = { [weak self] index in
             mylog(index)
+            self?.index = index
             self?.prepareRequest(index:index)
         }
         return bar
@@ -150,7 +151,11 @@ class WeiHeDangVC: DDNormalVC {
 
 extension WeiHeDangVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(DDDealDetailVC(), animated: true)
+        if index == 0 {
+            UIApplication.shared.keyWindow?.alert(Bundle.main.loadNibNamed("LookForResultAlert", owner: "LookForResultAlert" , options: nil )?.first as! LookForResultAlert)
+        }else {
+            self.navigationController?.pushViewController(DDDealDetailVC(), animated: true)
+        }
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
