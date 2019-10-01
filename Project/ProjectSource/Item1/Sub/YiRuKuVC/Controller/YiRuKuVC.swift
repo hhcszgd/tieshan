@@ -12,7 +12,7 @@ class YiRuKuVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "已入库"
         // Do any additional setup after loading the view.
     }
 

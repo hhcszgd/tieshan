@@ -16,7 +16,7 @@ class DDViewController: UIViewController {
     var showModel : DDShowProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.colorWithHexStringSwift("F5F5F5")
+        self.view.backgroundColor = UIColor.colorWithHexStringSwift("F4F3F4")
         // Do any additional setup after loading the view.
     }
 

@@ -7,27 +7,43 @@
 //
 
 import UIKit
-
+/// 后勤部未核档 (包含核档未通过, 已通过)
 class WeiHeDangVC: DDNormalVC {
     var collection : UICollectionView!
     let searchBar = DDSearchBar()
     lazy var categoryBar : CategoryBarView = {
-            let bar = CategoryBarView(defaultIndex:0)
+            let bar = CategoryBarView(defaultIndex:index)
         bar.selectHandler = { [weak self] index in
             mylog(index)
-            self?.requestServer(type:index)
+            self?.prepareRequest(index:index)
         }
         return bar
     }()
-    
+    var index: Int = 0
     var apiModel = ApiModel<HeDangDataModel>()
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "未核档"
+        if let index = userInfo as? Int {
+            self.index = index
+        }
         layoutSearchBar()
         layoutCategoryBar()
         layoutCollectionView()
         // Do any additional setup after loading the view.
-        requestServer(type:1)
+        self.prepareRequest(index: index)
+    }
+    func prepareRequest(index:Int) {
+        switch index {
+        case  0 :
+            self.requestServer(type:1)
+        case 1 :
+            self.requestServer(type:3)
+        default:
+            self.requestServer(type:2)
+        }
+        
+        self.requestServer(type:index)
     }
     /// 1：未核档(暂存)，2：已核档，3：核档不通过
     func requestServer(type:Int)  {
@@ -134,7 +150,7 @@ class WeiHeDangVC: DDNormalVC {
 
 extension WeiHeDangVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        self.navigationController?.pushViewController(DDDealDetailVC(), animated: true)
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

@@ -12,7 +12,7 @@ class CunFangWeiZhiVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "存放位置"
         // Do any additional setup after loading the view.
     }
 

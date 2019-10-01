@@ -9,10 +9,10 @@
 import UIKit
 
 class BuPaiZhaoPianChaJieBuVC: DDNormalVC {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "补拍照片(拆解部)"
         // Do any additional setup after loading the view.
     }
 

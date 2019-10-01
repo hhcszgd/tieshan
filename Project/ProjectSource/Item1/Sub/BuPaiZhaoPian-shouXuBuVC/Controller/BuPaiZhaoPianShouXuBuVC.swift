@@ -12,7 +12,7 @@ class BuPaiZhaoPianShouXuBuVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "补拍照片(手续部)"
         // Do any additional setup after loading the view.
     }
 

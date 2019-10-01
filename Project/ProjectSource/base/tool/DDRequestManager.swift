@@ -32,6 +32,7 @@ extension DDQueryManager{
     
     
     @discardableResult
+    /// 后勤部
     ///     int    1：未核档(暂存)，2：已核档，3：核档不通过
     func heDangJiLu<T>(type : ApiModel<T>.Type , page : String? , pageSize : String? = "10", isVerify:String? = "1",searchInfo : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
         let url  =  "procedures/queryAppVerificationList"
@@ -40,7 +41,7 @@ extension DDQueryManager{
         if let p = pageSize{para["pageSize"] = p}
         if let p = isVerify{para["isVerify"] = p}
         if let p = searchInfo{para["searchInfo"] = p}
-        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para , success: success, failure: failure, complate: complate)
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
     }
     
     @discardableResult
@@ -144,7 +145,7 @@ extension DDQueryManager{
     ///   - success: invoke when success
     ///   - complate: invoke always (failure or success)
     
-    private func requestServer<T>(type : ApiModel<T>.Type , method: HTTPMethod, url : String ,parameters: Parameters?  = nil ,headerParas:HTTPHeaders? = nil , needToken: Bool  = true,autoAlertWhileFailure : Bool = true  , success:@escaping (ApiModel<T>)->(),failure: ((_ error:DDError)->Void)? = nil   ,complate:(()-> Void)? = nil ) -> DataRequest? {
+    private func requestServer<T>(type : ApiModel<T>.Type , method: HTTPMethod, url : String ,parameters: Parameters?  = nil ,headerParas:HTTPHeaders? = nil , needToken: Bool  = true,autoAlertWhileFailure : Bool = true, encoding: ParameterEncoding = URLEncoding.default  , success:@escaping (ApiModel<T>)->(),failure: ((_ error:DDError)->Void)? = nil   ,complate:(()-> Void)? = nil ) -> DataRequest? {
         //        let result = networkReachabilityManager?.startListening()
         //        mylog("是否  监听  成功  \(result)")
         mylog("\(networkReachabilityManager?.networkReachabilityStatus)")
@@ -206,7 +207,7 @@ extension DDQueryManager{
 //        header["Content-Type"] = "application/json"
 //        header["Accept"] = "application/json"
         if let url  = URL(string: urlFull){
-            let task = DDQueryManager.share.sessionManager.request(url , method: method , parameters: para ,encoding:JSONEncoding.default , headers:header).responseJSON(completionHandler: { (response) in
+            let task = DDQueryManager.share.sessionManager.request(url , method: method , parameters: para ,encoding: encoding , headers:header).responseJSON(completionHandler: { (response) in
                 //                if print{mylog(response.debugDescription.unicodeStr)}
                 switch response.result{
                 case .success :

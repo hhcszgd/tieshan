@@ -12,7 +12,8 @@ class DengDaiTuoHaoVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "等待拓号"
+        
         // Do any additional setup after loading the view.
     }
 

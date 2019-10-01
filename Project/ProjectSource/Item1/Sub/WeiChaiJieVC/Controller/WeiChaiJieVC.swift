@@ -12,7 +12,7 @@ class WeiChaiJieVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "未拆解"
         // Do any additional setup after loading the view.
     }
 

@@ -12,7 +12,7 @@ class JianXiaoCheLiangVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "监销车辆"
         // Do any additional setup after loading the view.
     }
 

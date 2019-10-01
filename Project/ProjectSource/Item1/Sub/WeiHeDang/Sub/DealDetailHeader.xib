@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DealDetailHeader" customModule="Project" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="302" height="246"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QRF-Pe-2hv">
+                    <rect key="frame" x="10" y="10" width="4" height="18"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="4" id="3Sa-P7-3wj"/>
+                        <constraint firstAttribute="height" constant="18" id="oh1-c8-2wX"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="车辆基本信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pag-Sx-j1U">
+                    <rect key="frame" x="24" y="9" width="258" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="NG4-IM-vy0">
+                    <rect key="frame" x="10" y="39.5" width="277" height="191.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="编号: 2222222222" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zQ-2y-Kff">
+                            <rect key="frame" x="0.0" y="0.0" width="119.5" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="车型" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3u-MR-rhS">
+                            <rect key="frame" x="0.0" y="43.5" width="29" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="车牌" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7a-OW-tex">
+                            <rect key="frame" x="0.0" y="87" width="29" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发动机编号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVJ-P8-PZF">
+                            <rect key="frame" x="0.0" y="131" width="71.5" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="车入场时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dcT-xv-f0o">
+                            <rect key="frame" x="0.0" y="174.5" width="71.5" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Pag-Sx-j1U" firstAttribute="centerY" secondItem="QRF-Pe-2hv" secondAttribute="centerY" id="9fx-rD-nEL"/>
+                <constraint firstAttribute="trailing" secondItem="Pag-Sx-j1U" secondAttribute="trailing" constant="20" id="Deo-X6-FD2"/>
+                <constraint firstItem="Pag-Sx-j1U" firstAttribute="leading" secondItem="QRF-Pe-2hv" secondAttribute="trailing" constant="10" id="H98-vC-Zu7"/>
+                <constraint firstItem="NG4-IM-vy0" firstAttribute="top" secondItem="Pag-Sx-j1U" secondAttribute="bottom" constant="10" id="XQq-K3-Aqb"/>
+                <constraint firstItem="NG4-IM-vy0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="ftX-MR-JZ3"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NG4-IM-vy0" secondAttribute="trailing" constant="15" id="rro-1E-To7"/>
+                <constraint firstItem="QRF-Pe-2hv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="xu1-eI-OYV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="NG4-IM-vy0" secondAttribute="bottom" constant="15" id="y8C-ty-OXA"/>
+                <constraint firstItem="QRF-Pe-2hv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="zec-76-biB"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="arrivedTime" destination="dcT-xv-f0o" id="ptI-jq-NPo"/>
+                <outlet property="carNumber" destination="h7a-OW-tex" id="pYY-7Z-OZU"/>
+                <outlet property="carType" destination="k3u-MR-rhS" id="Mdd-NN-cpg"/>
+                <outlet property="engineNumber" destination="GVJ-P8-PZF" id="9Rd-3a-wPI"/>
+                <outlet property="number" destination="4zQ-2y-Kff" id="cid-PO-CHE"/>
+            </connections>
+            <point key="canvasLocation" x="-62.318840579710148" y="59.598214285714285"/>
+        </view>
+    </objects>
+</document>

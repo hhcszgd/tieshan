@@ -84,19 +84,6 @@ extension DDLoginVC : UITextFieldDelegate{
             GDAlertView.alert("请输入密码", image: nil, time: 2, complateBlock: nil)
             return
         }
-//        let account = DDAccount()
-//        account.memberId = 333
-//        account.mobile = "17600905015"
-//
-//        account.id = "sssssss"
-//        account.nickName = "nickName"
-//        account.head_images = "http://www.baidu.com/logo"
-//        account.password = "xxxxx"
-//
-//        account.token = "xxxxxxxxxxxxxxxxxxx"
-//
-//        account.name = "xxxx"
-//        account.memberTyep = "ss"
     }
     
 }

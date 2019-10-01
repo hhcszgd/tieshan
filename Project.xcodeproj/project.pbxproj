@@ -143,6 +143,10 @@
 		15E79F321FE228480049F767 /* Malay.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E79F311FE228480049F767 /* Malay.strings */; };
 		15E79F341FE2285A0049F767 /* Russian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E79F331FE2285A0049F767 /* Russian.strings */; };
 		15E79F361FE255A70049F767 /* DDStorgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E79F351FE255A70049F767 /* DDStorgeManager.swift */; };
+		B305CF3023430A420059882A /* DDDealDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF2F23430A420059882A /* DDDealDetailVC.swift */; };
+		B305CF3223430B0F0059882A /* UILabel_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3123430B0F0059882A /* UILabel_extension.swift */; };
+		B305CF3423430EC40059882A /* DealDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3323430EC40059882A /* DealDetailHeader.swift */; };
+		B305CF362343104B0059882A /* DealDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B305CF352343104B0059882A /* DealDetailHeader.xib */; };
 		B32200D5233F170400B1C8A0 /* ModiryProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */; };
 		B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D6233F3F1400B1C8A0 /* ModifyName.swift */; };
 		B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200DA233F514200B1C8A0 /* CategoryBarView.swift */; };
@@ -389,6 +393,10 @@
 		15E79F331FE2285A0049F767 /* Russian.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Russian.strings; sourceTree = "<group>"; };
 		15E79F351FE255A70049F767 /* DDStorgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDStorgeManager.swift; sourceTree = "<group>"; };
 		9C975D751135A674C5F77CB3 /* Pods-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.debug.xcconfig"; sourceTree = "<group>"; };
+		B305CF2F23430A420059882A /* DDDealDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDDealDetailVC.swift; sourceTree = "<group>"; };
+		B305CF3123430B0F0059882A /* UILabel_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel_extension.swift; sourceTree = "<group>"; };
+		B305CF3323430EC40059882A /* DealDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealDetailHeader.swift; sourceTree = "<group>"; };
+		B305CF352343104B0059882A /* DealDetailHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DealDetailHeader.xib; sourceTree = "<group>"; };
 		B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModiryProfileVC.swift; sourceTree = "<group>"; };
 		B32200D6233F3F1400B1C8A0 /* ModifyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyName.swift; sourceTree = "<group>"; };
 		B32200DA233F514200B1C8A0 /* CategoryBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBarView.swift; sourceTree = "<group>"; };
@@ -911,6 +919,9 @@
 		158A1BAA23362189002F7E5F /* Sub */ = {
 			isa = PBXGroup;
 			children = (
+				B305CF2F23430A420059882A /* DDDealDetailVC.swift */,
+				B305CF3323430EC40059882A /* DealDetailHeader.swift */,
+				B305CF352343104B0059882A /* DealDetailHeader.xib */,
 			);
 			path = Sub;
 			sourceTree = "<group>";
@@ -1817,6 +1828,7 @@
 				BC1E098620C3F41200FCC120 /* ScrollView_extension.swift */,
 				150F0FA420DB96D600E7672A /* GDBaseControl+extension.swift */,
 				15103FD32331BB3F008EC0D1 /* CGRect-extension.swift */,
+				B305CF3123430B0F0059882A /* UILabel_extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -2452,6 +2464,7 @@
 				BC6D89531FFCF11B0039A92E /* AlipaySDK.bundle in Resources */,
 				15E79F341FE2285A0049F767 /* Russian.strings in Resources */,
 				15177B981FAB09AD00FC92BA /* InfoPlist.strings in Resources */,
+				B305CF362343104B0059882A /* DealDetailHeader.xib in Resources */,
 				15E79F281FE224A70049F767 /* Korean.strings in Resources */,
 				15E67D861FA9BE0C00A9BB34 /* Japanese.strings in Resources */,
 			);
@@ -2583,6 +2596,7 @@
 				15DF30611FA9AFAC00588AF1 /* DDTableView.swift in Sources */,
 				15DF30601FA9AFAC00588AF1 /* DDNavigatBar.swift in Sources */,
 				15103FA82330C570008EC0D1 /* DDNavigationItemBar.swift in Sources */,
+				B305CF3223430B0F0059882A /* UILabel_extension.swift in Sources */,
 				15362E1D1FECAE6C003F3C4A /* DDHuDongApiModel.swift in Sources */,
 				1574F68A2335244300547B29 /* DDSettingVC.swift in Sources */,
 				158A1C0D233621A2002F7E5F /* BuPaiZhaoPianchaJieBuVC.swift in Sources */,
@@ -2592,6 +2606,7 @@
 				BC23A46C20BE3F2C006B1E58 /* ArrayExtension.swift in Sources */,
 				156602D42337ABF000A77433 /* DDSearchBar.swift in Sources */,
 				155D0639210FF34700417AA5 /* DDAlertController.swift in Sources */,
+				B305CF3023430A420059882A /* DDDealDetailVC.swift in Sources */,
 				15DF2FBB1FA9AE0400588AF1 /* ViewController.swift in Sources */,
 				158A1C1D23362231002F7E5F /* HeDangWeiTongGuoVC.swift in Sources */,
 				158A1C40233754B9002F7E5F /* DDAboutUsVC.swift in Sources */,
@@ -2666,6 +2681,7 @@
 				157684581FF09D8F00DC3158 /* DDTableViewCell.swift in Sources */,
 				15DF306F1FA9AFAC00588AF1 /* DDItem1VC.swift in Sources */,
 				15779A98206C909D0076A1EF /* ApiModel.swift in Sources */,
+				B305CF3423430EC40059882A /* DealDetailHeader.swift in Sources */,
 				15E1A6E51FB189C9007C3157 /* DDSearchVC.swift in Sources */,
 				15DF305D1FA9AFAC00588AF1 /* DDPhotoManager.swift in Sources */,
 				158A1C3623372F43002F7E5F /* DDForgetPasswordVC.swift in Sources */,

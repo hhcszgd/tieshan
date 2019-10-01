@@ -12,7 +12,7 @@ class HeDangWeiTongGuoVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "核档未通过"
         // Do any additional setup after loading the view.
     }
 

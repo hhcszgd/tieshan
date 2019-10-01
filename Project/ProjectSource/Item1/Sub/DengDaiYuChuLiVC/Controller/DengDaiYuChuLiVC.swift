@@ -12,7 +12,8 @@ class DengDaiYuChuLiVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "等待预处理"
+        
         // Do any additional setup after loading the view.
     }
 

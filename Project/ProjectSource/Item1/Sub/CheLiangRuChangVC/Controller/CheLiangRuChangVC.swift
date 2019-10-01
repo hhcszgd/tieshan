@@ -12,7 +12,7 @@ class CheLiangRuChangVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "车辆入场"
         // Do any additional setup after loading the view.
     }
 

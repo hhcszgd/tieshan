@@ -37,6 +37,7 @@ class CategoryBarView: UIView {
                     self.addSubview(item)
                     item.tag = index
                     item.addTarget(self , action: #selector(click(sender:)), for: UIControlEvents.touchUpInside)
+                    self.lineView.frame = CGRect(x: CGFloat(selectedIndex) * self.bounds.width/CGFloat(self.models.count), y: self.bounds.height - 2, width: self.bounds.width/CGFloat(self.models.count), height: 2)
                 }
                 self.addSubview(lineView)
             }

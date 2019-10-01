@@ -12,7 +12,7 @@ class SaoYiSaoVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "扫一扫"
         // Do any additional setup after loading the view.
     }
 

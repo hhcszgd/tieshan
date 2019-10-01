@@ -7,12 +7,13 @@
 //
 
 import UIKit
-
+/// 外勤部核档通过
 class HeDangYiTongGuoVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = "核档通过(外勤部)"
         // Do any additional setup after loading the view.
     }
 

@@ -12,7 +12,7 @@ class ChaKanCheYuanVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "查看车源"
         // Do any additional setup after loading the view.
     }
 

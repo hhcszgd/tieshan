@@ -12,7 +12,7 @@ class DaiHuiXingCheLiangVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "待毁形车辆"
         // Do any additional setup after loading the view.
     }
 

@@ -7,12 +7,13 @@
 //
 
 import UIKit
-
+///拆解方式(手续部)
 class ChaiJieFangShiShouXuBuVC: DDNormalVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "拆解方式(手续部)"
+        
         // Do any additional setup after loading the view.
     }
 

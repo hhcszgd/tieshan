@@ -115,78 +115,59 @@ extension DDItem1VC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = self.apiModel.data?.functionSessions?[indexPath.section].functions?[indexPath.item]
         
-        var targetVC : UIViewController!
+//        var targetVC : UIViewController!
         
-        let target = model?.actionType ?? ""
-        self.pushVC(vcIdentifier: target + "VC", userInfo : nil )
+        var target = model?.actionType ?? ""
+//        self.pushVC(vcIdentifier: target + "VC", userInfo : nil )
         mylog(target)
-        return
+        var userInfo : Any?
         switch target {
-            
         case     "ChuangJianCheYuan" :
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+            userInfo = nil
         case     "ChaKanCheYuan":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
-        case     "HeDangTongGuo":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+            userInfo = nil
+        case     "HeDangTongGuo"://业务部核档通过
+           userInfo = nil
         case     "SaoYiSao":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+           userInfo = nil
         case     "CheLiangRuChang":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+           userInfo = nil
         case     "DengDaiChuJian":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+            userInfo = nil
         case     "DengDaiYuChuLi":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+            userInfo = nil
         case     "DengDaiTuoHao":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
-        case     "ChaiJieFangShi-ShouXuBu":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+           userInfo = nil
+        case     "ChaiJieFangShiShouXuBu":
+           userInfo = nil
         case     "CunFangWeiZhi":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+           userInfo = nil
         case     "DaiHuiXingCheLiang":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
-        case     "BuPaiZhaoPian-shouXuBu":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+           userInfo = nil
+        case     "BuPaiZhaoPianShouXuBu":
+           userInfo = nil
         case     "JianXiaoCheLiang":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+            userInfo = nil
         case     "YiRuKu":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+           userInfo = nil
         case     "WeiChaiJie":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
-        case     "ChaiJieFangShi-ChaiJieBu":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
-        case     "BuPaiZhaoPian-chaJieBu":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+           userInfo = nil
+        case     "ChaiJieFangShiChaiJieBu":
+            userInfo = nil
+        case     "BuPaiZhaoPianChaJieBu":
+            userInfo = nil
         case     "HeDangWeiTongGuo":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
-        case     "HeDangYiTongGuo":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-
+            userInfo = 1 //
+            target = "WeiHeDang"
+        case     "HeDangYiTongGuo": // 外勤部核档通过
+            userInfo = 2 //
+            target = "WeiHeDang"
         case     "WeiHeDang":
-            self.pushVC(vcIdentifier: "LEDApplicationVC" , userInfo : nil )
-            
+            userInfo = 0 //
         default:
             return
         }
-//        self.navigationController?.pushViewController(targetVC, animated: true)
+        self.pushVC(vcIdentifier: target + "VC", userInfo : userInfo )
     }
 //        func getMessageModels() -> [DDHuDong] {
 //        var models = [DDHuDong]()
