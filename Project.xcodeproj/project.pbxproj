@@ -55,7 +55,7 @@
 		158944312112FE1D002FA917 /* DDAlertOrSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158944302112FE1D002FA917 /* DDAlertOrSheet.swift */; };
 		158A1C0D233621A2002F7E5F /* BuPaiZhaoPianchaJieBuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A1C0C233621A2002F7E5F /* BuPaiZhaoPianchaJieBuVC.swift */; };
 		158A1C0F233621B5002F7E5F /* BuPaiZhaoPianShouXuBuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A1C0E233621B5002F7E5F /* BuPaiZhaoPianShouXuBuVC.swift */; };
-		158A1C11233621C7002F7E5F /* ChaiJieFangShiChaiJieBuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A1C10233621C7002F7E5F /* ChaiJieFangShiChaiJieBuVC.swift */; };
+		158A1C11233621C7002F7E5F /* ChaiGuoDeCheVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A1C10233621C7002F7E5F /* ChaiGuoDeCheVC.swift */; };
 		158A1C13233621E4002F7E5F /* YiRuKuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A1C12233621E4002F7E5F /* YiRuKuVC.swift */; };
 		158A1C15233621F5002F7E5F /* WeiChaiJieVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A1C14233621F5002F7E5F /* WeiChaiJieVC.swift */; };
 		158A1C1723362204002F7E5F /* SaoYiSaoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A1C1623362204002F7E5F /* SaoYiSaoVC.swift */; };
@@ -151,6 +151,8 @@
 		B305CF3A234366E70059882A /* DealDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B305CF38234366E70059882A /* DealDetailCell.xib */; };
 		B305CF3C234394380059882A /* LookForResultAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3B234394380059882A /* LookForResultAlert.swift */; };
 		B305CF3E234394A90059882A /* LookForResultAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = B305CF3D234394A90059882A /* LookForResultAlert.xib */; };
+		B305CF412344E7910059882A /* ChaiCheRuKuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3F2344E7910059882A /* ChaiCheRuKuVC.swift */; };
+		B305CF422344E7910059882A /* ChaiCheRuKuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B305CF402344E7910059882A /* ChaiCheRuKuVC.xib */; };
 		B32200D5233F170400B1C8A0 /* ModiryProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */; };
 		B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D6233F3F1400B1C8A0 /* ModifyName.swift */; };
 		B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200DA233F514200B1C8A0 /* CategoryBarView.swift */; };
@@ -279,7 +281,7 @@
 		158944302112FE1D002FA917 /* DDAlertOrSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDAlertOrSheet.swift; sourceTree = "<group>"; };
 		158A1C0C233621A2002F7E5F /* BuPaiZhaoPianchaJieBuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuPaiZhaoPianchaJieBuVC.swift; sourceTree = "<group>"; };
 		158A1C0E233621B5002F7E5F /* BuPaiZhaoPianShouXuBuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuPaiZhaoPianShouXuBuVC.swift; sourceTree = "<group>"; };
-		158A1C10233621C7002F7E5F /* ChaiJieFangShiChaiJieBuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaiJieFangShiChaiJieBuVC.swift; sourceTree = "<group>"; };
+		158A1C10233621C7002F7E5F /* ChaiGuoDeCheVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaiGuoDeCheVC.swift; sourceTree = "<group>"; };
 		158A1C12233621E4002F7E5F /* YiRuKuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YiRuKuVC.swift; sourceTree = "<group>"; };
 		158A1C14233621F5002F7E5F /* WeiChaiJieVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeiChaiJieVC.swift; sourceTree = "<group>"; };
 		158A1C1623362204002F7E5F /* SaoYiSaoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaoYiSaoVC.swift; sourceTree = "<group>"; };
@@ -405,6 +407,8 @@
 		B305CF38234366E70059882A /* DealDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DealDetailCell.xib; sourceTree = "<group>"; };
 		B305CF3B234394380059882A /* LookForResultAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookForResultAlert.swift; sourceTree = "<group>"; };
 		B305CF3D234394A90059882A /* LookForResultAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LookForResultAlert.xib; sourceTree = "<group>"; };
+		B305CF3F2344E7910059882A /* ChaiCheRuKuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaiCheRuKuVC.swift; sourceTree = "<group>"; };
+		B305CF402344E7910059882A /* ChaiCheRuKuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChaiCheRuKuVC.xib; sourceTree = "<group>"; };
 		B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModiryProfileVC.swift; sourceTree = "<group>"; };
 		B32200D6233F3F1400B1C8A0 /* ModifyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyName.swift; sourceTree = "<group>"; };
 		B32200DA233F514200B1C8A0 /* CategoryBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBarView.swift; sourceTree = "<group>"; };
@@ -1007,7 +1011,7 @@
 		158A1BB323362189002F7E5F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				158A1C10233621C7002F7E5F /* ChaiJieFangShiChaiJieBuVC.swift */,
+				158A1C10233621C7002F7E5F /* ChaiGuoDeCheVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1015,6 +1019,8 @@
 		158A1BB423362189002F7E5F /* Sub */ = {
 			isa = PBXGroup;
 			children = (
+				B305CF3F2344E7910059882A /* ChaiCheRuKuVC.swift */,
+				B305CF402344E7910059882A /* ChaiCheRuKuVC.xib */,
 			);
 			path = Sub;
 			sourceTree = "<group>";
@@ -2457,6 +2463,7 @@
 				BC9ACA9920D89E2400097FFB /* loading2.png in Resources */,
 				BC9ACA9820D89E2400097FFB /* loading1.png in Resources */,
 				158A1C3723372F43002F7E5F /* DDForgetPasswordVC.xib in Resources */,
+				B305CF422344E7910059882A /* ChaiCheRuKuVC.xib in Resources */,
 				BCF8E6711FC1323800C1DF4B /* ResourceX.bundle in Resources */,
 				15E67D901FA9BF2C00A9BB34 /* Thai.strings in Resources */,
 				BC9ACA9B20D89E2400097FFB /* loading4.png in Resources */,
@@ -2718,7 +2725,7 @@
 				150356DE1FC424FE0020C9BC /* DDCollectionReusableView.swift in Sources */,
 				153027391FCEA37900294170 /* HomeReusableHeader.swift in Sources */,
 				15DF30681FA9AFAC00588AF1 /* GDIBContentView.swift in Sources */,
-				158A1C11233621C7002F7E5F /* ChaiJieFangShiChaiJieBuVC.swift in Sources */,
+				158A1C11233621C7002F7E5F /* ChaiGuoDeCheVC.swift in Sources */,
 				15C4CC202057F27B0047AF1E /* UITextView+extension.swift in Sources */,
 				1529D9D9200633770022DB44 /* DDMessageApiModel.swift in Sources */,
 				15DF30541FA9AFAC00588AF1 /* DDShowModel.swift in Sources */,
@@ -2737,6 +2744,7 @@
 				1574F6882335243100547B29 /* DDHelpDoc.swift in Sources */,
 				15C86EC62046C47900FB1EBC /* VC+Extension.swift in Sources */,
 				15DF30701FA9AFAC00588AF1 /* DDItem2NavVC.swift in Sources */,
+				B305CF412344E7910059882A /* ChaiCheRuKuVC.swift in Sources */,
 				BCF8E70D1FC16C5A00C1DF4B /* UIImage+extension.swift in Sources */,
 				BC4526AA200B3E2100AD4AF9 /* CustomTextfield.swift in Sources */,
 				15DF305C1FA9AFAC00588AF1 /* DDLocationManager.swift in Sources */,

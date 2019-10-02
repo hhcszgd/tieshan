@@ -152,7 +152,7 @@ extension DDItem1VC : UICollectionViewDelegate ,UICollectionViewDataSource {
            userInfo = nil
         case     "WeiChaiJie":
            userInfo = nil
-        case     "ChaiJieFangShiChaiJieBu":
+        case     "ChaiGuoDeChe":
             userInfo = nil
         case     "BuPaiZhaoPianChaJieBu":
             userInfo = nil

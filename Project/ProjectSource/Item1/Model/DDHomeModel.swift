@@ -185,9 +185,9 @@ func getHomeData() -> HomeDataModel?{
                     },
                     {
                         "id" : "33" ,
-                        "name" : "拆解方式",
+                        "name" : "拆过的车",
                         "image_url"  : "home_icon_chaijiebu4",
-                        "actionType" : "ChaiJieFangShiChaiJieBu"
+                        "actionType" : "ChaiGuoDeChe"
                     },
                     {
                         "id" : "33" ,

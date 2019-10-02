@@ -235,10 +235,10 @@ extension WeiHeDangVC{
             }
         }
         
-        let number = UILabel()
-        let carNumber = UILabel()
-        let arrivedTime = UILabel()
-        let vin  = UILabel()
+        let number = UILabel(title: "编号:", font: UIFont.systemFont(ofSize: 15))
+        let carNumber = UILabel(title: "车牌号:", font: UIFont.systemFont(ofSize: 15))
+        let arrivedTime = UILabel(title: "入场时间:", font: UIFont.systemFont(ofSize: 15))
+        let vin  = UILabel(title: "VIN:", font: UIFont.systemFont(ofSize: 15))
         let reason = UIButton()
         override init(frame: CGRect) {
             super.init(frame: frame)
