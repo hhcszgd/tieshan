@@ -30,7 +30,7 @@ class ChaiCheRuKuVC: DDNormalVC {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = "拆车入库"
         // Do any additional setup after loading the view.
     }
     func setLayout () {
@@ -53,11 +53,29 @@ class ChaiCheRuKuVC: DDNormalVC {
     
     @IBAction func printAllAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+            self.types.forEach { (itemModel) in
+                itemModel.isSelected = sender.isSelected ? true : false
+            }
+        collection.reloadData()
     }
     
     @IBAction func printMoreAction(_ sender: UIButton) {
     }
     @IBAction func printAction(_ sender: UIButton) {
+        var actions = [DDAlertAction]()
+         let sure = DDAlertAction(title: "确定",textColor:mainColor, style: UIAlertActionStyle.default, handler: { (action ) in
+             print("打印")
+         })
+         
+         let cancel = DDAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: { (action ) in
+             print("cancel")
+         })
+         actions.append(cancel)
+         actions.append(sure)
+         
+        let alertView = DDAlertOrSheet(title: "确定打印全部?", message: "● 打印的同时,就会进入库存",messageColor:.gray , preferredStyle: UIAlertControllerStyle.alert, actions: actions)
+         alertView.isHideWhenWhitespaceClick = false
+         UIApplication.shared.keyWindow?.alert(alertView)
     }
     /*
      // MARK: - Navigation
@@ -70,19 +88,19 @@ class ChaiCheRuKuVC: DDNormalVC {
      */
     lazy var types: [PrintItemModel] = {
         return [
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
-            PrintItemModel(title: "title"),
+            PrintItemModel(title: "前保险杠"),
+            PrintItemModel(title: "发动机"),
+            PrintItemModel(title: "后桥"),
+            PrintItemModel(title: "左前车门"),
+            PrintItemModel(title: "右前车门"),
+            PrintItemModel(title: "左后车门"),
+            PrintItemModel(title: "右后车门"),
+            PrintItemModel(title: "左前大灯"),
+            PrintItemModel(title: "右前大灯"),
+            PrintItemModel(title: "后保险杠"),
+            PrintItemModel(title: "车顶"),
+            PrintItemModel(title: "车前脸"),
+            PrintItemModel(title: "车后脸"),
         ]
     }()
 }
@@ -117,8 +135,10 @@ extension ChaiCheRuKuVC : UICollectionViewDelegate , UICollectionViewDataSource{
                 self.label.text = model.title
                 if model.isSelected {
                     self.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
+                    self.label.textColor = mainColor
                 }else{
                     self.backgroundColor = UIColor.white
+                    self.label.textColor = UIColor.darkGray
                 }
                 layoutIfNeeded()
                 setNeedsLayout()

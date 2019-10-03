@@ -7,7 +7,22 @@
 //
 
 import Foundation
-
+extension UIImage {
+    ///获取渐变图片
+    class func getImage(startColor:UIColor , endColor:UIColor ,startPoint:CGPoint , endPoint:CGPoint , size:CGSize) -> UIImage?{
+        let gradientLayer = CAGradientLayer.init()
+        gradientLayer.frame = CGRect(origin: CGPoint.zero, size: size)
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        gradientLayer.startPoint = startPoint
+        gradientLayer.endPoint = endPoint
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        gradientLayer.render(in: UIGraphicsGetCurrentContext()!)
+        let imageRet  = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return imageRet
+    }
+    
+}
 extension UIImage {
     class func ImageWithColor(color: UIColor, frame: CGRect) -> UIImage? {
         let aframe = CGRect.init(x: 0, y: 0, width: frame.size.width, height: frame.size.height)

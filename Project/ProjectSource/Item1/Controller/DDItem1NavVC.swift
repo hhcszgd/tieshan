@@ -16,6 +16,7 @@ class DDItem1NavVC: DDBaseNavVC {
 //        rootVC.title = DDLanguageManager.text("tabbar_item1_title")
         self.init(rootViewController: rootVC)
         self.navigationBar.shadowImage = UIImage()
+//        self.navigationBar.shadowImage = UIImage.getImage(startColor: UIColor.DDLightGray, endColor: .white, startPoint: CGPoint(x: 0.5, y: 0), endPoint: CGPoint(x: 0.5, y: 1), size: CGSize(width: SCREENWIDTH, height: 10))
         self.tabBarItem.image = UIImage(named:"tab_icon_home_nor")
         self.tabBarItem.selectedImage = UIImage(named:"tab_icon_home_sel")
     }
