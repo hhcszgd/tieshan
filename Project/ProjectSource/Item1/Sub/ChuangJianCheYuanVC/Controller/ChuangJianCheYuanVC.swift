@@ -22,7 +22,7 @@ extension ChuangJianCheYuanVC{
 
 class ChuangJianCheYuanVC: DDInternalVC {
     let addBtn = UIButton()
-    var models  : [CheYuanOrCheLiangModel] =  [
+    lazy var models  : [CheYuanOrCheLiangModel] =  [
         CheYuanOrCheLiangModel(title: "基本信息:", isValid: false , stringOfClassName: NSStringFromClass(DDSectionHeaderRow.self)),
         CheYuanOrCheLiangModel(title: "联系人姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人姓名"),
         CheYuanOrCheLiangModel(title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话"),
@@ -43,10 +43,22 @@ class ChuangJianCheYuanVC: DDInternalVC {
         
         
         CheYuanOrCheLiangModel(title: "备注:", isValid: true, stringOfClassName: NSStringFromClass(DDTips.self)),
-        CheYuanOrCheLiangModel(title: "手续:", isValid: true, stringOfClassName: NSStringFromClass(DDShouxu.self)),
+        shouXuModel,
         
         
     ]
+    lazy var shouXuModel : CheYuanOrCheLiangModel = {
+        let m = CheYuanOrCheLiangModel(title: "手续:", isValid: true, stringOfClassName: NSStringFromClass(DDShouxu.self))
+        m.shouXuTypes = [
+            ShouXuTypeModel(title: "行驶本", false, 0),
+            ShouXuTypeModel(title: "登记证", false, 1),
+            ShouXuTypeModel(title: "身份证复印件", false, 2),
+            ShouXuTypeModel(title: "营业执照复印件", false, 3),
+            ShouXuTypeModel(title: "车辆报废表", false, 4),
+            ShouXuTypeModel(title: "车辆事故证明", false, 5)
+        ]
+        return m
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "创建车源"
@@ -226,6 +238,7 @@ class CheYuanOrCheLiangModel {
     var addtionalValue = ""
     var id = ""
     var values : [Any] = []
+    var shouXuTypes : [ShouXuTypeModel] = []
     var isValid: Bool = true//是否有效
     var identify : CheRowIdentifyType = .contactName
     
@@ -235,6 +248,18 @@ class CheYuanOrCheLiangModel {
         self.isValid = isValid
         self.stringOfClassName = stringOfClassName
         self.placeHolder = placeholder
+    }
+}
+
+class ShouXuTypeModel {
+    var title = ""
+    var isSelected = false
+    var id : Int = 0
+    convenience init(title: String ,_ isSelected: Bool,_ id: Int){
+        self.init()
+        self.title = title
+        self.isSelected = isSelected
+        self.id = id
     }
 }
 extension ChuangJianCheYuanVC{
@@ -410,34 +435,33 @@ extension ChuangJianCheYuanVC{
     class DDShouxu : UITableViewCell{
         let bottomLine = UIView()
         let title = UILabel()
-        let types: [(String,Int)] = [
-            ("行驶本",0),
-            ("登记证",1),
-            ("身份证复印件",2),
-            ("营业执照复印件",3),
-            ("车辆报废表",4),
-            ("车辆事故证明",5)
-        ]
         lazy var btns: [UIButton] = {
-            
-            return self.types.map { (type ) -> UIButton in
+            var index = 0
+            return self.model.shouXuTypes.map { (type ) -> UIButton in
                 let btn = UIButton()
-                btn.setTitle(type.0, for: UIControlState.normal)
-                btn.setBackgroundImage(UIImage.ImageWithColor(color: mainColor, frame: CGRect(origin: .zero, size: CGSize(width: 88, height: 40))), for: UIControlState.normal)
-
-                btn.setTitleColor(mainColor, for: UIControlState.selected)
+                btn.setTitle(type.title, for: UIControlState.normal)
+                btn.setBackgroundImage(UIImage.ImageWithColor(color: .white, frame: CGRect(origin: .zero, size: CGSize(width: 88, height: 40))), for: UIControlState.normal)
+                btn.setBackgroundImage(UIImage.ImageWithColor(color: mainColor, frame: CGRect(origin: .zero, size: CGSize(width: 88, height: 40))), for: UIControlState.selected)
+                btn.setTitleColor(.white, for: UIControlState.selected)
 
                 btn.setTitleColor(UIColor.gray, for: UIControlState.normal)
                 btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
                 btn.titleLabel?.adjustsFontSizeToFitWidth = true
                 self.contentView.addSubview(btn)
                 btn.addTarget(self , action: #selector(btnClick(sender:)), for: UIControlEvents.touchUpInside)
+                    btn.layer.borderWidth = 1
+                btn.layer.cornerRadius = 6
+                btn.layer.masksToBounds = true
+                btn.tag = index
+                index += 1
                 return btn
             }
         }()
         /// 状态需要模型控制
         @objc func btnClick(sender:UIButton) {
+            model.shouXuTypes[sender.tag].isSelected = !model.shouXuTypes[sender.tag].isSelected
             sender.isSelected = !sender.isSelected
+            setNeedsLayout()
         }
         var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
             didSet{
@@ -456,18 +480,22 @@ extension ChuangJianCheYuanVC{
         }
         override func layoutSubviews() {
             super.layoutSubviews()
-            title.frame = CGRect(x: 10, y: 0, width: 100, height: 38)
+            var titleW : CGFloat = 100
+            if UIScreen.main.bounds.width <= 375{titleW = 52}
+            title.frame = CGRect(x: 10, y: 0, width: titleW, height: 38)
             let margin : CGFloat = 8
             let space = margin * 3 + 10
             let firstX = title.frame.maxX
             let firstY = margin
             let oneH = (bounds.height - margin * 3) / 2
-            let oneW = (bounds.width - title.frame.maxX - space) / 3
+            let oneW = (bounds.width - firstX - space) / 3
             for (index , btn) in btns.enumerated(){
                 btn.frame = CGRect(x: firstX + CGFloat(index % 3) * (oneW + margin) , y: CGFloat(index / 3) * (oneH + margin), width: oneW, height: oneH)
+                btn.isSelected = model.shouXuTypes[index].isSelected
                 if btn.isSelected{
+                    btn.layer.borderColor = mainColor.cgColor
                 }else{
-                    
+                    btn.layer.borderColor = UIColor.lightGray.cgColor
                 }
             }
             bottomLine.frame  = CGRect(x:0, y: 0, width: bounds.height - 1, height: 1)
