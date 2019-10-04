@@ -9,7 +9,7 @@
 import UIKit
 
 class CarListOfCheYuan: DDNormalVC {
-let topBar = ViewTopBar(title: "车源数量")
+    let topBar = ViewTopBar(title: "车源数量")
     let titleCategory =  ChooseCheyuanCateGory(frame: CGRect(x: 0, y: 0, width: 220, height: 40))
     lazy var choostAlert: ChoostCarTypeAlert = {
         let alert = ChoostCarTypeAlert(datas: [
@@ -31,7 +31,7 @@ let topBar = ViewTopBar(title: "车源数量")
         }
         return alert
     }()
-var collection : UICollectionView!
+    var collection : UICollectionView!
     let searchBar = DDSearchBar()
     let addBtn = UIButton()
     lazy var categoryBar : UIView = UIView()
@@ -61,9 +61,14 @@ var collection : UICollectionView!
         addBtn.backgroundColor = .blue
         addBtn.setTitle("增加车源", for: UIControlState.normal)
         addBtn.frame = CGRect(x: 20, y: view.bounds.height - DDSliderHeight - 20 - 40, width: view.bounds.width - 40, height: 40)
+        addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
         layoutCollectionView()
         // Do any additional setup after loading the view.
         self.prepareRequest(index: index)
+    }
+    @objc func addBtnClick(sender:UIButton){
+        
+        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
     }
     func prepareRequest(index:Int) {
         switch index {
@@ -125,7 +130,7 @@ var collection : UICollectionView!
         //        flowLayout.minimumInteritemSpacing = 3
         //        flowLayout.minimumLineSpacing = 3
         flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
-//        flowLayout.headerReferenceSize = CGSize(width: self.view.bounds.width, height: 40)
+        //        flowLayout.headerReferenceSize = CGSize(width: self.view.bounds.width, height: 40)
         self.collection = UICollectionView.init(frame: CGRect(x: 0, y:  topBar.frame.maxY , width: self.view.bounds.width, height: addBtn.frame.minY  - topBar.frame.maxY  - 10), collectionViewLayout: flowLayout)
         self.view.addSubview(collection)
         collection.backgroundColor = UIColor.clear
@@ -160,17 +165,17 @@ var collection : UICollectionView!
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 
@@ -203,33 +208,33 @@ extension CarListOfCheYuan : UICollectionViewDelegate ,UICollectionViewDataSourc
 }
 extension CarListOfCheYuan{
     class CheYuanDataModel: Codable {
-    var pageNum: Int?
-    var pageSize:Int?
-    var size : Int?
-    var startRow : Int?
-    var endRow:Int?
-    var total:Int?
-    var pages: Int?
-    var list:[CheYuanModel]?
-    var prePage:Int?
-    var nextPage:Int?
-    var isFirstPage:Bool?
-    var isLastPage : Bool?
-    var hasPreviousPage : Bool?
-    var hasNextPage: Bool?
-    var navigatePages: Int?
-    var navigatepageNums : [Int]?
-    var navigateFirstPage: Int?
-    var navigateLastPage: Int?
-    var firstPage : Int?
-    var lastPage : Int?
+        var pageNum: Int?
+        var pageSize:Int?
+        var size : Int?
+        var startRow : Int?
+        var endRow:Int?
+        var total:Int?
+        var pages: Int?
+        var list:[CheYuanModel]?
+        var prePage:Int?
+        var nextPage:Int?
+        var isFirstPage:Bool?
+        var isLastPage : Bool?
+        var hasPreviousPage : Bool?
+        var hasNextPage: Bool?
+        var navigatePages: Int?
+        var navigatepageNums : [Int]?
+        var navigateFirstPage: Int?
+        var navigateLastPage: Int?
+        var firstPage : Int?
+        var lastPage : Int?
     }
     
     
     
     class CheYuanModel : Codable {
         var carInfoId : Int? // 1176367626889334786,
-       var carCode:String? // "TSXXX19092225",
+        var carCode:String? // "TSXXX19092225",
         var approachTime : String?// null,
         var carNo: String? // "晋A88884",
         var vin: String? // "33333",
@@ -315,9 +320,9 @@ class ChooseCheyuanCateGory: UIControl {
         self.addSubview(arrow)
         arrow.contentMode = .scaleAspectFit
         self.addTarget(self, action: #selector(btnClick(sender:)), for: UIControlEvents.touchUpInside)
-//        let normalImg = UIImage(named: "icon_xuanze_sel")
-//        let selImg = UIImage(named: "icon_xuanze_nor")
-
+        //        let normalImg = UIImage(named: "icon_xuanze_sel")
+        //        let selImg = UIImage(named: "icon_xuanze_nor")
+        
     }
     @objc func btnClick(sender:UIControl){
         sender.isSelected = !sender.isSelected
@@ -327,11 +332,11 @@ class ChooseCheyuanCateGory: UIControl {
     func transform() {
         UIView.animate(withDuration: 0.1) {
             self.arrow.transform = self.isSelected ? CGAffineTransform(rotationAngle: CGFloat.pi) : .identity
-//            if self.isSelected{
-//                self.arrow.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-//            }else{
-//                self.arrow.transform = .identity
-//            }
+            //            if self.isSelected{
+            //                self.arrow.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+            //            }else{
+            //                self.arrow.transform = .identity
+            //            }
         }
     }
     override func layoutSubviews() {
@@ -373,13 +378,13 @@ class ChoostCarTypeAlert: DDAlertContainer {
         self.removeFromSuperview()
     }
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
+    
 }
 
 /// user-interface setup
@@ -435,6 +440,6 @@ extension ChoostCarTypeAlert : UITableViewDelegate , UITableViewDataSource{
     }
     
     func _layoutSubviews() {
-       
+        
     }
 }

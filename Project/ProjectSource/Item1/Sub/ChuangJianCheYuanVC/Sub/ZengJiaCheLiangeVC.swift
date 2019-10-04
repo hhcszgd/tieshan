@@ -1,47 +1,47 @@
 //
-//  ChuangJianCheYuanVC.swift
+//  ZengJiaCheLiangeVC.swift
 //  Project
 //
-//  Created by WY on 2019/9/21.
-//  Copyright © 2019年 HHCSZGD. All rights reserved.
+//  Created by JohnConnor on 2019/10/4.
+//  Copyright © 2019 HHCSZGD. All rights reserved.
 //
 
 import UIKit
 
-extension ChuangJianCheYuanVC{
-    enum ProfileActionType : String {
-        case setting = "setting"
-        case helpDocument = "helpDocument"
-        case modifyPassword = "modifPassword"
-        case aboutUs = "aboutUs"
-        case serviceTel = "serviceTel"
-        case loginOut = "loginOut"
-    }
-    
-}
-
-class ChuangJianCheYuanVC: ChuangJianVC {
+class ZengJiaCheLiangeVC: ChuangJianVC {
     let addBtn = UIButton()
     lazy var models  : [CheYuanOrCheLiangModel] =  [
-        CheYuanOrCheLiangModel(title: "基本信息:", isValid: false , stringOfClassName: NSStringFromClass(DDSectionHeaderRow.self)),
         CheYuanOrCheLiangModel(title: "联系人姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人姓名"),
         CheYuanOrCheLiangModel(title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话"),
-        CheYuanOrCheLiangModel(title: "车辆台次:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车辆台次"),
-        CheYuanOrCheLiangModel(title: "联系地址:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系地址"),
+        CheYuanOrCheLiangModel(title: "联系人地址:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人地址"),
         CheYuanOrCheLiangModel( isValid: false, stringOfClassName: NSStringFromClass(DDSectionSeparator.self)),
-        CheYuanOrCheLiangModel(title: "银行信息:", isValid: false , stringOfClassName: NSStringFromClass(DDSectionHeaderRow.self)),
+        CheYuanOrCheLiangModel(title: "车牌号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车牌号"),
         
-        CheYuanOrCheLiangModel(title: "银行名称:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择银行"),
+        CheYuanOrCheLiangModel(title: "车辆型号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择车辆型号"),
+        CheYuanOrCheLiangModel(title: "处理方式:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择处理方式"),
+        CheYuanOrCheLiangModel(title: "处理日期:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择处理日期"),
+        CheYuanOrCheLiangModel(title: "手续获取:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择手续获取方式"),
+        shouXuModel,
+        CheYuanOrCheLiangModel(title: "备注:", isValid: true, stringOfClassName: NSStringFromClass(DDTips.self)),
         
         
         
-        CheYuanOrCheLiangModel(title: "支行名称:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入支行名称"),
-        CheYuanOrCheLiangModel(title: "银行账号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入银行账号"),
-        CheYuanOrCheLiangModel(title: "账户姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入账户姓名")
     ]
+    lazy var shouXuModel : CheYuanOrCheLiangModel = {
+        let m = CheYuanOrCheLiangModel(title: "手续:", isValid: true, stringOfClassName: NSStringFromClass(DDShouxu.self))
+        m.shouXuTypes = [
+            ShouXuTypeModel(title: "行驶本", false, 0),
+            ShouXuTypeModel(title: "登记证", false, 1),
+            ShouXuTypeModel(title: "身份证复印件", false, 2),
+            ShouXuTypeModel(title: "营业执照复印件", false, 3),
+            ShouXuTypeModel(title: "车辆报废表", false, 4),
+            ShouXuTypeModel(title: "车辆事故证明", false, 5)
+        ]
+        return m
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        naviBar.title = "创建车源"
+        naviBar.title = "增加车辆"
         _addSubviews()
         self.tableView?.reloadData()
         tableView?.showsVerticalScrollIndicator = false
@@ -54,9 +54,10 @@ class ChuangJianCheYuanVC: ChuangJianVC {
 }
 
 //actions
-extension ChuangJianCheYuanVC{
+extension ZengJiaCheLiangeVC{
     @objc func addBtnClick(sender: UIButton){
         mylog("addBtnClick")
+        
     }
     
     func choose() {
@@ -80,7 +81,7 @@ extension ChuangJianCheYuanVC{
     
 }
 
-extension ChuangJianCheYuanVC : UITableViewDelegate , UITableViewDataSource{
+extension ZengJiaCheLiangeVC : UITableViewDelegate , UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -154,7 +155,7 @@ extension ChuangJianCheYuanVC : UITableViewDelegate , UITableViewDataSource{
     
 }
 
-extension ChuangJianCheYuanVC{
+extension ZengJiaCheLiangeVC{
     func _addSubviews() {
         self.view.addSubview(addBtn)
         let tableViewFrame = CGRect(x: 0, y: DDNavigationBarHeight, width: self.view.bounds.width , height: self.view.bounds.height - DDNavigationBarHeight - DDTabBarHeight)
