@@ -11,6 +11,7 @@ import UIKit
 class CarListOfCheYuan: DDNormalVC {
     let topBar = ViewTopBar(title: "车源数量")
     let titleCategory =  ChooseCheyuanCateGory(frame: CGRect(x: 0, y: 0, width: 220, height: 40))
+    var categoryIndex = 0
     lazy var choostAlert: ChoostCarTypeAlert = {
         let alert = ChoostCarTypeAlert(datas: [
             ChoostCarTypeAlert.ChoostCarTypeModel(title: "未入场", true),
@@ -24,6 +25,8 @@ class CarListOfCheYuan: DDNormalVC {
         ])
         alert.didSelected = {[weak self] index in
             mylog(index )
+            self?.categoryIndex = index
+            self?.titleCategory.title = self?.choostAlert.datas[index].title ?? ""
             if let s = self{
                 s.titleCategory.btnClick(sender: s.titleCategory)
                 
@@ -312,8 +315,15 @@ extension CarListOfCheYuan{
 
 class ChooseCheyuanCateGory: UIControl {
     var clickHandler : ((Bool) -> ())?
-    let titleLabel = UILabel(title: "xxxc的车", font: UIFont.systemFont(ofSize: 15), color: UIColor.darkGray, align: .center)
-    let arrow = UIImageView(image: UIImage(named:"icon_xuanze_sel_SB"))
+    var title = ""{
+        didSet{
+            self.titleLabel.text = title
+            self.layoutIfNeeded()
+            self.setNeedsLayout()
+        }
+    }
+    private let titleLabel = UILabel(title: "xxxc的车", font: UIFont.systemFont(ofSize: 15), color: UIColor.darkGray, align: .center)
+    private let arrow = UIImageView(image: UIImage(named:"icon_xuanze_sel_SB"))
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(titleLabel)
