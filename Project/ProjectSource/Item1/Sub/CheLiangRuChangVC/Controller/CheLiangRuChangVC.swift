@@ -35,7 +35,7 @@ class CheLiangRuChangVC: DDNormalVC {
         // Dispose of any resources that can be recreated.
     }
     @objc func addBtnClick(sender:UIButton){
-        
+        self.navigationController?.pushViewController(CheLiangGuanLiVC(), animated: true)
         mylog("确定")
         //        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
     }
