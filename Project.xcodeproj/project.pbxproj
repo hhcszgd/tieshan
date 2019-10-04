@@ -156,6 +156,7 @@
 		B32200D5233F170400B1C8A0 /* ModiryProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */; };
 		B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D6233F3F1400B1C8A0 /* ModifyName.swift */; };
 		B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200DA233F514200B1C8A0 /* CategoryBarView.swift */; };
+		B37C65A32346E4EF0045386B /* CarListOfCheYuan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65A22346E4EF0045386B /* CarListOfCheYuan.swift */; };
 		BC1E098520C3F2FC00FCC120 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E098420C3F2FC00FCC120 /* File.swift */; };
 		BC1E098720C3F41200FCC120 /* ScrollView_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E098620C3F41200FCC120 /* ScrollView_extension.swift */; };
 		BC23A46C20BE3F2C006B1E58 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC23A46B20BE3F2C006B1E58 /* ArrayExtension.swift */; };
@@ -412,6 +413,7 @@
 		B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModiryProfileVC.swift; sourceTree = "<group>"; };
 		B32200D6233F3F1400B1C8A0 /* ModifyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyName.swift; sourceTree = "<group>"; };
 		B32200DA233F514200B1C8A0 /* CategoryBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBarView.swift; sourceTree = "<group>"; };
+		B37C65A22346E4EF0045386B /* CarListOfCheYuan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListOfCheYuan.swift; sourceTree = "<group>"; };
 		BAB835D84B7E259E8529C7D4 /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1E098420C3F2FC00FCC120 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		BC1E098620C3F41200FCC120 /* ScrollView_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView_extension.swift; sourceTree = "<group>"; };
@@ -1301,6 +1303,7 @@
 		158A1BD72336218A002F7E5F /* Sub */ = {
 			isa = PBXGroup;
 			children = (
+				B37C65A22346E4EF0045386B /* CarListOfCheYuan.swift */,
 			);
 			path = Sub;
 			sourceTree = "<group>";
@@ -2656,6 +2659,7 @@
 				1562F24C1FE12305006A02B5 /* ChooseLanguageVC.swift in Sources */,
 				15DF30521FA9AFAC00588AF1 /* DDVCExtionsion.swift in Sources */,
 				15103FCE2330D881008EC0D1 /* DDLoginVC.swift in Sources */,
+				B37C65A32346E4EF0045386B /* CarListOfCheYuan.swift in Sources */,
 				BCC31EB71FC6E7280037BA74 /* NetWork.swift in Sources */,
 				15816B331FF4C52300136768 /* QRView.swift in Sources */,
 				BCF8E66E1FC1323800C1DF4B /* GDLoadControl.swift in Sources */,
