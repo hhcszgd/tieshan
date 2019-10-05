@@ -160,6 +160,11 @@
 		B37C65A5234720010045386B /* ChuangJianVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65A4234720010045386B /* ChuangJianVC.swift */; };
 		B37C65A7234721090045386B /* ZengJiaCheLiangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65A6234721090045386B /* ZengJiaCheLiangeVC.swift */; };
 		B37C65BB234790A30045386B /* CheLiangGuanLiVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65BA234790A30045386B /* CheLiangGuanLiVC.swift */; };
+		B37C65BD23483BEC0045386B /* ChuJianStep1VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65BC23483BEC0045386B /* ChuJianStep1VC.swift */; };
+		B37C65BF2348794C0045386B /* ChuJianStep2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65BE2348794C0045386B /* ChuJianStep2VC.swift */; };
+		B37C65C1234888FB0045386B /* DengDaiTuoHaoStep2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65C0234888FB0045386B /* DengDaiTuoHaoStep2.swift */; };
+		B37C65C323488C280045386B /* CunFangWeiZhiStep2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65C223488C280045386B /* CunFangWeiZhiStep2.swift */; };
+		B37C65C52348916A0045386B /* CarScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65C42348916A0045386B /* CarScannerVC.swift */; };
 		BC1E098520C3F2FC00FCC120 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E098420C3F2FC00FCC120 /* File.swift */; };
 		BC1E098720C3F41200FCC120 /* ScrollView_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1E098620C3F41200FCC120 /* ScrollView_extension.swift */; };
 		BC23A46C20BE3F2C006B1E58 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC23A46B20BE3F2C006B1E58 /* ArrayExtension.swift */; };
@@ -420,6 +425,11 @@
 		B37C65A4234720010045386B /* ChuangJianVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuangJianVC.swift; sourceTree = "<group>"; };
 		B37C65A6234721090045386B /* ZengJiaCheLiangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZengJiaCheLiangeVC.swift; sourceTree = "<group>"; };
 		B37C65BA234790A30045386B /* CheLiangGuanLiVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheLiangGuanLiVC.swift; sourceTree = "<group>"; };
+		B37C65BC23483BEC0045386B /* ChuJianStep1VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuJianStep1VC.swift; sourceTree = "<group>"; };
+		B37C65BE2348794C0045386B /* ChuJianStep2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuJianStep2VC.swift; sourceTree = "<group>"; };
+		B37C65C0234888FB0045386B /* DengDaiTuoHaoStep2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DengDaiTuoHaoStep2.swift; sourceTree = "<group>"; };
+		B37C65C223488C280045386B /* CunFangWeiZhiStep2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CunFangWeiZhiStep2.swift; sourceTree = "<group>"; };
+		B37C65C42348916A0045386B /* CarScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarScannerVC.swift; sourceTree = "<group>"; };
 		BAB835D84B7E259E8529C7D4 /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1E098420C3F2FC00FCC120 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		BC1E098620C3F41200FCC120 /* ScrollView_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView_extension.swift; sourceTree = "<group>"; };
@@ -1471,6 +1481,7 @@
 		158A1BEB2336218A002F7E5F /* Sub */ = {
 			isa = PBXGroup;
 			children = (
+				B37C65C0234888FB0045386B /* DengDaiTuoHaoStep2.swift */,
 			);
 			path = Sub;
 			sourceTree = "<group>";
@@ -1633,6 +1644,7 @@
 		158A1BFF2336218B002F7E5F /* Sub */ = {
 			isa = PBXGroup;
 			children = (
+				B37C65C223488C280045386B /* CunFangWeiZhiStep2.swift */,
 			);
 			path = Sub;
 			sourceTree = "<group>";
@@ -1673,6 +1685,8 @@
 		158A1C042336218B002F7E5F /* Sub */ = {
 			isa = PBXGroup;
 			children = (
+				B37C65BC23483BEC0045386B /* ChuJianStep1VC.swift */,
+				B37C65BE2348794C0045386B /* ChuJianStep2VC.swift */,
 			);
 			path = Sub;
 			sourceTree = "<group>";
@@ -2017,6 +2031,7 @@
 			children = (
 				15DF30221FA9AFAB00588AF1 /* DDItem1NavVC.swift */,
 				15DF30231FA9AFAB00588AF1 /* DDItem1VC.swift */,
+				B37C65C42348916A0045386B /* CarScannerVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2620,6 +2635,7 @@
 				158A1C27233622BF002F7E5F /* DengDaiChuJianVC.swift in Sources */,
 				BCC31EB81FC6E7280037BA74 /* SharManage.swift in Sources */,
 				15DF30711FA9AFAC00588AF1 /* DDItem2VC.swift in Sources */,
+				B37C65C52348916A0045386B /* CarScannerVC.swift in Sources */,
 				BC9A865B210073C500FBB1CE /* DDErrorView.swift in Sources */,
 				15DF304B1FA9AFAC00588AF1 /* DDInternalVC.swift in Sources */,
 				158A1C3C23374109002F7E5F /* DDModifyPasswordVC.swift in Sources */,
@@ -2628,6 +2644,7 @@
 				153E10001FD01F79004B0489 /* GDFont.swift in Sources */,
 				15DF30611FA9AFAC00588AF1 /* DDTableView.swift in Sources */,
 				15DF30601FA9AFAC00588AF1 /* DDNavigatBar.swift in Sources */,
+				B37C65C323488C280045386B /* CunFangWeiZhiStep2.swift in Sources */,
 				15103FA82330C570008EC0D1 /* DDNavigationItemBar.swift in Sources */,
 				B305CF3223430B0F0059882A /* UILabel_extension.swift in Sources */,
 				15362E1D1FECAE6C003F3C4A /* DDHuDongApiModel.swift in Sources */,
@@ -2693,6 +2710,7 @@
 				158C005B202BFA3B00C181B0 /* DDSpecialLabel.swift in Sources */,
 				BCC31EAC1FC6D7570037BA74 /* GDBaseVC.swift in Sources */,
 				15DF30671FA9AFAC00588AF1 /* GDIBCollectionView.swift in Sources */,
+				B37C65BF2348794C0045386B /* ChuJianStep2VC.swift in Sources */,
 				15D0031E1FE50D4400D10C0C /* AttributeTitle+Extension.swift in Sources */,
 				158A1C13233621E4002F7E5F /* YiRuKuVC.swift in Sources */,
 				BCC31EAD1FC6D7570037BA74 /* GDBaseModel.swift in Sources */,
@@ -2736,6 +2754,7 @@
 				158A1C212336224E002F7E5F /* DengDaiYuChuLiVC.swift in Sources */,
 				15DF2FB91FA9AE0400588AF1 /* AppDelegate.swift in Sources */,
 				158A1C1923362212002F7E5F /* JianXiaoCheLiangVC.swift in Sources */,
+				B37C65BD23483BEC0045386B /* ChuJianStep1VC.swift in Sources */,
 				B305CF39234366E70059882A /* DealDetailCell.swift in Sources */,
 				BC7C3570205A68180083C1B0 /* Calander_extension.swift in Sources */,
 				150356DE1FC424FE0020C9BC /* DDCollectionReusableView.swift in Sources */,
@@ -2746,6 +2765,7 @@
 				1529D9D9200633770022DB44 /* DDMessageApiModel.swift in Sources */,
 				15DF30541FA9AFAC00588AF1 /* DDShowModel.swift in Sources */,
 				1535C3A82029C73200B826D0 /* DDPageControl.swift in Sources */,
+				B37C65C1234888FB0045386B /* DengDaiTuoHaoStep2.swift in Sources */,
 				158A1C1B23362221002F7E5F /* HeDangYiTongGuoVC.swift in Sources */,
 				15DF306E1FA9AFAC00588AF1 /* DDItem1NavVC.swift in Sources */,
 				B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */,

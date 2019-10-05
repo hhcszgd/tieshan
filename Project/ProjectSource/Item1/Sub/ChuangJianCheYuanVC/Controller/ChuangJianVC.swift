@@ -92,7 +92,58 @@ class ShouXuTypeModel {
     }
 }
 extension ChuangJianVC{
-    class DDSingleInputRow : UITableViewCell {
+    class ChuJianBaseInfoCell: DDTableViewCell {
+        var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
+            didSet{
+                title.text = model.title
+            }
+        }
+        let bgView = UIView()
+        let blockView = UIView()
+        lazy var title = UILabel(title: "车辆基本信息", font: UIFont.systemFont(ofSize: 15), color: UIColor.white)
+        let number = UILabel(title: "编号:",font: UIFont.systemFont(ofSize: 15), color: .white)
+        let carNumber = UILabel(title: "车牌号:", font: UIFont.systemFont(ofSize: 15), color: .white)
+        let arrivedTime = UILabel(title: "入场时间:", font: UIFont.systemFont(ofSize: 15), color: .white)
+        let carType  = UILabel(title: "车型:", font: UIFont.systemFont(ofSize: 15), color: .white)
+        override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+            super.init(style: style, reuseIdentifier: reuseIdentifier)
+            self.contentView.addSubview(bgView)
+            self.bgView.addSubview(blockView )
+            self.bgView.addSubview(title)
+            self.bgView.addSubview(number )
+            self.bgView.addSubview(carNumber)
+            self.bgView.addSubview(arrivedTime)
+            self.bgView.addSubview(carType)
+            blockView.backgroundColor = .white
+            bgView.backgroundColor = mainColor
+            layer.cornerRadius = 8
+            layer.masksToBounds = true
+            backgroundColor = .white
+        }
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            bgView.frame = CGRect(x: 10, y: 10, width: bounds.width - 20, height: bounds.height - 20)
+            let margin : CGFloat = 10
+            let h : CGFloat =  (bgView.bounds.height - margin * 2 ) / 3
+            let w : CGFloat =  (bgView.bounds.width - margin * 2 ) / 2
+            blockView.bounds =  CGRect(x: 10, y: 10 , width: 4, height: title.font.lineHeight)
+            title.frame =  CGRect(x: blockView.bounds.width + 20, y: 10, width: 222, height: h)
+            blockView.center = CGPoint(x: 10 + blockView.bounds.width/2, y: title.frame.midY)
+            number.frame = CGRect(x: margin, y: title.frame.maxY, width: w, height: h)
+            carNumber.frame = CGRect(x: margin, y: number.frame.maxY, width: w, height: h)
+            
+            carType.frame = CGRect(x: number.frame.maxX, y: number.frame.minY, width: w, height: h)
+            arrivedTime.frame = CGRect(x: carType.frame.minX, y: carType.frame.maxY, width: w, height: h)
+            self.bgView.layer.cornerRadius = 6
+            self.bgView.layer.masksToBounds = true
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    
+    class DDSingleInputRow : DDTableViewCell {
         let bottomLine = UIView()
         let title = UILabel()
         let textfield = UITextField()
@@ -109,6 +160,7 @@ extension ChuangJianVC{
             self.contentView.addSubview(textfield)
             self.contentView.addSubview(bottomLine)
             bottomLine.backgroundColor = mainBgColor
+//            textfield.textAlignment = .right
         }
         
         required init?(coder: NSCoder) {
@@ -118,11 +170,11 @@ extension ChuangJianVC{
             super.layoutSubviews()
             title.frame = CGRect(x: 10, y: 0, width: 100, height: bounds.height)
             textfield.frame = CGRect(x:title.frame.maxX, y: 0, width: bounds.width - title.frame.maxX - 20, height: bounds.height)
-            bottomLine.frame  = CGRect(x:0, y: 0, width: bounds.height - 1, height: 1)
+            bottomLine.frame  = CGRect(x:0, y: 0, width: bounds.width , height: 1)
         }
         
     }
-    class DDSectionHeaderRow : UITableViewCell {
+    class DDSectionHeaderRow : DDTableViewCell {
         let blockView = UIView()
         let titleLabel = UILabel()
         var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
@@ -149,7 +201,7 @@ extension ChuangJianVC{
     }
     
     
-    class DDSectionSeparator : UITableViewCell {
+    class DDSectionSeparator : DDTableViewCell {
         var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
             didSet{
             }
@@ -164,7 +216,7 @@ extension ChuangJianVC{
             fatalError("init(coder:) has not been implemented")
         }
     }
-    class DDSingleChoose : UITableViewCell{
+    class DDSingleChoose : DDTableViewCell{
         let bottomLine = UIView()
         let title = UILabel()
         let arrow = UIImageView(image: UIImage(named:"icon_arrow_right2"))
@@ -201,7 +253,7 @@ extension ChuangJianVC{
     
     
     
-    class DDTips : UITableViewCell , UITextViewDelegate{
+    class DDTips : DDTableViewCell , UITextViewDelegate{
         let title = UILabel()
         let textfield = UITextView()
         var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
@@ -261,7 +313,7 @@ extension ChuangJianVC{
     
     
     
-    class DDShouxu : UITableViewCell{
+    class DDShouxu : DDTableViewCell{
         let bottomLine = UIView()
         let title = UILabel()
         lazy var btns: [UIButton] = {
@@ -330,5 +382,131 @@ extension ChuangJianVC{
             bottomLine.frame  = CGRect(x:0, y: 0, width: bounds.height - 1, height: 1)
         }
     }
-    
+    class OldLevelRow: DDTableViewCell {
+        var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
+            didSet{
+                carColorTitle.text = model.title
+            }
+        }
+        lazy var carColorTitle:UILabel  =  {
+            let l = UILabel(title: "新旧程度:", font: UIFont.systemFont(ofSize: 15), color: UIColor.darkGray)
+            contentView.addSubview(l)
+            l.sizeToFit()
+            l.frame = CGRect(x: 10, y: 0, width: l.bounds.width , height: bounds.height)
+            return l
+        }()
+        private lazy var colorBtnW : CGFloat = {
+            let left = (bounds.width - firstBtnX - 10)/4
+            return left
+        }()
+        private lazy var firstBtnX : CGFloat = {
+            let x = carColorTitle.frame.maxX + 10
+            return x
+        }()
+
+        var btns : [UIButton]{return [blue,yellow , white , black]}
+        lazy var blue : UIButton = {
+            let b = UIButton(title: "正常")
+            b.frame = CGRect(x: firstBtnX, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            b.addTarget(self , action: #selector(btnClick(sender:)), for: UIControlEvents.touchUpInside)
+            contentView.addSubview(b)
+            b.tag = 0
+            return b
+        }()
+        
+        lazy var yellow: UIButton  =  {
+            let b = UIButton(title: "火灾")
+            contentView.addSubview(b)
+            b.tag = 1
+            b.frame = CGRect(x: blue.frame.maxX, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            b.addTarget(self , action: #selector(btnClick(sender:)), for: UIControlEvents.touchUpInside)
+            return b
+        }()
+        lazy var white: UIButton  =  {
+            let b = UIButton(title: "碰撞")
+            b.frame = CGRect(x: yellow.frame.maxX, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            contentView.addSubview(b)
+            b.addTarget(self , action: #selector(btnClick(sender:)), for: UIControlEvents.touchUpInside)
+            b.tag = 2
+            return b
+        }()
+        lazy var black: UIButton =  {
+            let b = UIButton(title: "水淹")
+            contentView.addSubview(b)
+            b.tag = 3
+            b.frame = CGRect(x: white.frame.maxX, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            b.addTarget(self , action: #selector(btnClick(sender:)), for: UIControlEvents.touchUpInside)
+            return b
+        }()
+        var selectColorIndex = -1
+        
+        @objc func btnClick(sender:UIButton){
+            mylog(sender.title(for: UIControlState.normal))
+            sender.isSelected = !sender.isSelected
+            btns.forEach { (b) in
+                if b != sender{b.isSelected = false }
+            }
+            if sender.isSelected {selectColorIndex = sender.tag }else{selectColorIndex = -1}
+        }
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            mylog(black.title(for: UIControlState.normal))
+        }
+    }
+    class YesOrNoRow : DDTableViewCell{
+        var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
+            didSet{
+                carColorTitle.text = model.title
+            }
+        }
+        lazy var carColorTitle:UILabel  =  {
+            let l = UILabel(title: "新旧程度:", font: UIFont.systemFont(ofSize: 15), color: UIColor.darkGray)
+            contentView.addSubview(l)
+            l.sizeToFit()
+            l.frame = CGRect(x: 10, y: 0, width: l.bounds.width , height: bounds.height)
+            return l
+        }()
+        private lazy var colorBtnW : CGFloat = {
+            let left = (bounds.width - firstBtnX - 10)/4
+            return left
+        }()
+        private lazy var firstBtnX : CGFloat = {
+            let x = carColorTitle.frame.maxX + 10
+            return x
+        }()
+
+        lazy var blue : UIButton = {
+            let b = UIButton(title: "是")
+            b.frame = CGRect(x: yellow.frame.minX - colorBtnW, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            b.addTarget(self , action: #selector(btnClick(sender:)), for: UIControlEvents.touchUpInside)
+            contentView.addSubview(b)
+            b.tag = 0
+            return b
+        }()
+        
+        lazy var yellow: UIButton  =  {
+            let b = UIButton(title: "不是")
+            contentView.addSubview(b)
+            b.tag = 1
+            b.frame = CGRect(x: bounds.width - 10 - colorBtnW, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            b.addTarget(self , action: #selector(btnClick(sender:)), for: UIControlEvents.touchUpInside)
+            return b
+        }()
+        var btns : [UIButton]{return [blue,yellow ]}
+
+        var selectColorIndex = -1
+        
+        @objc func btnClick(sender:UIButton){
+            mylog(sender.title(for: UIControlState.normal))
+            sender.isSelected = !sender.isSelected
+            btns.forEach { (b) in
+                if b != sender{b.isSelected = false }
+            }
+            if sender.isSelected {selectColorIndex = sender.tag }else{selectColorIndex = -1}
+        }
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            mylog(blue.title(for: UIControlState.normal))
+        }
+    }
 }

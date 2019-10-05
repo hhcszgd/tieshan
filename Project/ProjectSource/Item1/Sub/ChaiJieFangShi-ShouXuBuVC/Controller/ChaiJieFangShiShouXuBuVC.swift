@@ -33,7 +33,11 @@ class ChaiJieFangShiShouXuBuVC: DDNormalVC {
         self.prepareRequest(index: index)
     }
     @objc func addBtnClick(sender:UIButton){
-        
+        let scanner = CarScannerVC()
+        scanner.complateHandle = {[weak self] result in
+            mylog(result)
+        }
+        self.present(scanner, animated: true) {}
         mylog("扫描车辆二维码")
         //        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
     }

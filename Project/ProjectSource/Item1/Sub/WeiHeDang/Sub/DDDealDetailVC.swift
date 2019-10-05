@@ -111,9 +111,10 @@ extension DDDealDetailVC : UITableViewDelegate , UITableViewDataSource {
         //        }
         override func layoutSubviews() {
             super.layoutSubviews()
-            let H : CGFloat = 20
-            blockView.frame = CGRect(x: 10, y: (bounds.height - H)/2, width: 4, height: H)
-            title.frame = CGRect(x: blockView.frame.maxX + 10, y: (bounds.height - H)/2, width: bounds.width - blockView.frame.maxX - 20, height: H)
+            let H : CGFloat = title.font.lineHeight
+            blockView.bounds = CGRect(x: 0, y: (bounds.height - H)/2, width: 4, height: title.font.lineHeight)
+            title.frame = CGRect(x: blockView.bounds.width + 20, y: (bounds.height - H)/2, width: bounds.width - blockView.frame.maxX - 20, height: H)
+            blockView.center = CGPoint(x: 10 + blockView.bounds.width/2, y: title.frame.midY)
         }
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")

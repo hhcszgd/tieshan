@@ -35,6 +35,11 @@ class DengDaiYuChuLiVC: DDNormalVC {
     @objc func addBtnClick(sender:UIButton){
         
         mylog("扫描车辆二维码")
+        let scanner = CarScannerVC()
+        scanner.complateHandle = {[weak self] result in
+            mylog(result)
+        }
+        self.present(scanner, animated: true) {}
         //        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
     }
     func prepareRequest(index:Int) {
@@ -148,11 +153,8 @@ class DengDaiYuChuLiVC: DDNormalVC {
 
 extension DengDaiYuChuLiVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if index == 0 {
-            UIApplication.shared.keyWindow?.alert(Bundle.main.loadNibNamed("LookForResultAlert", owner: "LookForResultAlert" , options: nil )?.first as! LookForResultAlert)
-        }else {
-            self.navigationController?.pushViewController(DDDealDetailVC(), animated: true)
-        }
+ self.navigationController?.pushViewController(ChuJianStep2VC(), animated: true)
+        
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
