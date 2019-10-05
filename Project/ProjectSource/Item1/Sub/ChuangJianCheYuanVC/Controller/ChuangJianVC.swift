@@ -143,7 +143,7 @@ extension ChuangJianVC{
         }
     }
     
-    class DDSingleInputRow : DDTableViewCell {
+    class DDSingleInputRow : DDTableViewCell ,UITextFieldDelegate{
         let bottomLine = UIView()
         let title = UILabel()
         let textfield = UITextField()
@@ -160,9 +160,14 @@ extension ChuangJianVC{
             self.contentView.addSubview(textfield)
             self.contentView.addSubview(bottomLine)
             bottomLine.backgroundColor = mainBgColor
+            textfield.delegate = self
+            textfield.returnKeyType = .done
 //            textfield.textAlignment = .right
         }
-        
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textfield.endEditing(true)
+            return true
+        }
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
@@ -174,6 +179,7 @@ extension ChuangJianVC{
         }
         
     }
+    
     class DDSectionHeaderRow : DDTableViewCell {
         let blockView = UIView()
         let titleLabel = UILabel()

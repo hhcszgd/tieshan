@@ -45,7 +45,8 @@ class ChuangJianCheYuanVC: ChuangJianVC {
         _addSubviews()
         self.tableView?.reloadData()
         tableView?.showsVerticalScrollIndicator = false
-        if tableView!.contentSize.height > tableView!.bounds.height{self.tableView?.isScrollEnabled = true}else{self.tableView?.isScrollEnabled = false}
+        tableView?.contentInset = UIEdgeInsetsMake(10, 0, 288, 0)
+//        if tableView!.contentSize.height > tableView!.bounds.height{self.tableView?.isScrollEnabled = true}else{self.tableView?.isScrollEnabled = false}
         
     }
     override func viewWillAppear(_ animated: Bool) {
