@@ -25,7 +25,7 @@ class CarScannerVC: DDInternalVC ,AVCaptureMetadataOutputObjectsDelegate , CarQR
         naviBar.title = ""
 //        naviBar.currentType = NaviBarStyle.withBackBtn
         self.naviBar.backgroundColor = UIColor.clear
-        self.view.backgroundColor = UIColor.purple
+        self.view.backgroundColor = UIColor.white
         self.naviBar.backBtn.setImage(UIImage(named:"back_icon"), for: UIControlState.normal)
     }
      
@@ -86,8 +86,8 @@ extension CarScannerVC {
             self.addSubview( bgView)
             self.addSubview(lineView)
             self.addSubview(flashLightBtn)
-            flashLightBtn.setImage(UIImage(named: "flashlightshut"), for: UIControlState.normal)
-            flashLightBtn.setImage(UIImage(named: "flashlightopen"), for: UIControlState.selected)
+            flashLightBtn.setImage(UIImage(named: "shoudiantong"), for: UIControlState.normal)
+            flashLightBtn.setImage(UIImage(named: "shoudiantong"), for: UIControlState.selected)
             flashLightBtn.addTarget(self, action: #selector(flashBtnClick(sender:)), for: UIControlEvents.touchUpInside)
             self.bgView.image = UIImage.init(named: "pick_bg")
             self.lineView.image = UIImage.init(named: "line")

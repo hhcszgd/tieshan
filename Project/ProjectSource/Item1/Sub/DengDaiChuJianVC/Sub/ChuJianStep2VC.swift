@@ -95,7 +95,7 @@ class ChuJianStep2VC: DDNormalVC {
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10)
         let itemW = (self.collection.bounds.width - flowLayout.sectionInset.left - flowLayout.sectionInset.right - flowLayout.minimumInteritemSpacing * CGFloat(itemCountOneRow - 1)) / CGFloat(itemCountOneRow)
         let itemH  = itemW + 30
-        flowLayout.itemSize = CGSize(width: itemW, height: itemH)
+        flowLayout.itemSize = CGSize(width: itemW - 1, height: itemH)
         flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
         collection.backgroundColor = UIColor.clear
         collection.register(InfoItem.self , forCellWithReuseIdentifier: "PrintTypeItem")

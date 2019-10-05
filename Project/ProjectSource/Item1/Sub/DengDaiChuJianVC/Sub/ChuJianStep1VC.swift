@@ -55,7 +55,7 @@ class ChuJianStep1VC: ChuangJianVC {
         _addSubviews()
         self.tableView?.reloadData()
         tableView?.showsVerticalScrollIndicator = false
-        if tableView!.contentSize.height > tableView!.bounds.height{self.tableView?.isScrollEnabled = true}else{self.tableView?.isScrollEnabled = false}
+//        if tableView!.contentSize.height > tableView!.bounds.height{self.tableView?.isScrollEnabled = true}else{self.tableView?.isScrollEnabled = false}
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -190,11 +190,11 @@ extension ChuJianStep1VC{
     func _addSubviews() {
         self.view.addSubview(addBtn)
         self.view.addSubview(doneBtn)
-        let tableViewFrame = CGRect(x: 0, y: DDNavigationBarHeight, width: self.view.bounds.width , height: self.view.bounds.height - DDNavigationBarHeight - DDTabBarHeight)
+        let tableViewFrame = CGRect(x: 0, y: DDNavigationBarHeight, width: self.view.bounds.width , height: self.view.bounds.height - DDNavigationBarHeight - DDSliderHeight - 52)
         
         self.tableView = UITableView(frame: tableViewFrame, style: UITableViewStyle.plain)
         self.view.addSubview(self.tableView!)
-        addBtn.frame = CGRect(x: 20, y: self.tableView!.frame.maxY, width: (view.bounds.width - 40 - 20)/2, height: 40)
+        addBtn.frame = CGRect(x: 20, y: view.bounds.height - DDSliderHeight - 48, width: (view.bounds.width - 40 - 20)/2, height: 40)
         addBtn.setTitleColor(mainColor, for: .normal)
         addBtn.setTitle("暂存", for: UIControlState.normal)
         addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
@@ -202,7 +202,7 @@ extension ChuJianStep1VC{
         addBtn.layer.masksToBounds = true
         addBtn.layer.borderColor = mainColor.cgColor
         addBtn.layer.borderWidth = 1
-        doneBtn.frame = CGRect(x:addBtn.frame.maxX + 20, y: self.tableView!.frame.maxY, width: addBtn.frame.width, height: 40)
+        doneBtn.frame = CGRect(x:addBtn.frame.maxX + 20, y: addBtn.frame.minY, width: addBtn.frame.width, height: 40)
         doneBtn.backgroundColor = mainColor
         doneBtn.setTitle("初检完成", for: UIControlState.normal)
         doneBtn.addTarget(self , action: #selector(doneBtnClick(sender:)), for: UIControlEvents.touchUpInside)

@@ -129,7 +129,13 @@ extension DDItem1VC : UICollectionViewDelegate ,UICollectionViewDataSource {
         case     "HeDangTongGuo"://业务部核档通过
            userInfo = nil
         case     "SaoYiSao":
-           userInfo = nil
+            let scanner = CarScannerVC()
+            scanner.complateHandle = {[weak self] result in
+                mylog(result)
+            }
+            self.present(scanner, animated: true) {}
+            return
+//           userInfo = nil
         case     "CheLiangRuChang":
            userInfo = nil
         case     "DengDaiChuJian":
@@ -149,11 +155,14 @@ extension DDItem1VC : UICollectionViewDelegate ,UICollectionViewDataSource {
         case     "JianXiaoCheLiang":
             userInfo = nil
         case     "YiRuKu":
-           userInfo = nil
+            target = "ChaiGuoDeChe"
+           userInfo = 2
         case     "WeiChaiJie":
-           userInfo = nil
+            target = "ChaiGuoDeChe"
+           userInfo = 0
         case     "ChaiGuoDeChe":
-            userInfo = nil
+            target = "ChaiGuoDeChe"
+            userInfo = 1
         case     "BuPaiZhaoPianChaJieBu":
             userInfo = nil
         case     "HeDangWeiTongGuo":

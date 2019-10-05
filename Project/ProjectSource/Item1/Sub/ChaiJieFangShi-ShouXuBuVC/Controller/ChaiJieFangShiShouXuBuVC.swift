@@ -17,7 +17,7 @@ class ChaiJieFangShiShouXuBuVC: DDNormalVC {
     var apiModel = ApiModel<CheYuanDataModel>()
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "拆解方式"
+        title = "车辆拆解"
         if let index = userInfo as? Int {
             self.index = index
         }
@@ -152,11 +152,7 @@ class ChaiJieFangShiShouXuBuVC: DDNormalVC {
 
 extension ChaiJieFangShiShouXuBuVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if index == 0 {
-            UIApplication.shared.keyWindow?.alert(Bundle.main.loadNibNamed("LookForResultAlert", owner: "LookForResultAlert" , options: nil )?.first as! LookForResultAlert)
-        }else {
-            self.navigationController?.pushViewController(DDDealDetailVC(), animated: true)
-        }
+        self.navigationController?.pushViewController(ChaiJieFangShiStep2(), animated: true)
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
