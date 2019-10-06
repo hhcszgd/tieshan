@@ -432,6 +432,7 @@
 		B37C65C223488C280045386B /* CunFangWeiZhiStep2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CunFangWeiZhiStep2.swift; sourceTree = "<group>"; };
 		B37C65C42348916A0045386B /* CarScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarScannerVC.swift; sourceTree = "<group>"; };
 		B37C65C623489DD60045386B /* ChaiJieFangShiStep2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaiJieFangShiStep2.swift; sourceTree = "<group>"; };
+		B37C65C82348E2450045386B /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		BAB835D84B7E259E8529C7D4 /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1E098420C3F2FC00FCC120 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		BC1E098620C3F41200FCC120 /* ScrollView_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView_extension.swift; sourceTree = "<group>"; };
@@ -2150,6 +2151,7 @@
 		6447D198E76E0E80E4421A8D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B37C65C82348E2450045386B /* libresolv.tbd */,
 				BCAD741C2054CA5F001F0396 /* Pods_Project.framework */,
 				BC6D894E1FFCC9620039A92E /* Security.framework */,
 				BC6D894C1FFCC9540039A92E /* libsqlite3.0.tbd */,

@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.testLanguage()
         //向微信注册
 //        WXApi.registerApp("wx6f542c8fd815f11e", universalLink: <#String#>)
+
         return true
     }
     

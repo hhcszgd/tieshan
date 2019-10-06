@@ -31,6 +31,7 @@ class ModiryProfileVC: DDNormalVC {
         addLine(mobile)
         icon.titleLabel.text = "头像"
         icon.subImageView.image = UIImage(named: "profile_edit_icon_touxiang")
+        icon.subImageView.contentMode = .scaleAspectFill
         icon.additionalImageView.isHidden = false
         name.titleLabel.text = "姓名"
         name.subTitleLabel.text = DDAccount.share.user_name
@@ -60,6 +61,24 @@ class ModiryProfileVC: DDNormalVC {
     }
     func gotImage(image : UIImage)  {
         mylog(image)
+        var image = image
+        let imgData = UIImageJPEGRepresentation(image, 0.0)
+        if let img = UIImage(data: imgData ?? Data()) {image = img}
+        DDQueryManager.share.uploadImageToAliyun(image:  image, failure: { (err) in
+            GDAlertView.alert("图片上传失败,请重试", image: nil, time: 2, complateBlock: nil)
+        }) { (url ) in
+            mylog(url )
+            DDQueryManager.share.modifyAvatar(type: ApiModel<String>.self, head_url: url) { (apiModel) in
+                if apiModel.ret_code == "0"{
+                    GDAlertView.alert("修改成功")
+                    DDAccount.share.refreshInfo {
+                        self.updateUI()
+                    }
+                }else{
+                    GDAlertView.alert(apiModel.msg)
+                }
+            }
+        }
     }
     func modifyPasswordSuccessAlert(){
         var actions = [DDAlertAction]()

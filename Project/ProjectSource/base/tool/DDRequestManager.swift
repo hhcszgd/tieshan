@@ -16,20 +16,19 @@
 import UIKit
 import Alamofire
 import CoreLocation
-
+import AliyunOSSiOS
 enum DomainType : String  {
-//    case release  = "http://api.bjyltf.com/"
-case release  = "http://tpi.bjyltf.com/"
+    //    case release  = "http://api.bjyltf.com/"
+    case release  = "http://tpi.bjyltf.com/"
     case api = "http://39.106.225.64:8002/"
-
-//    case release = "https://api.bjyltf.com/"
-//    case wap = "https://tap.bjyltf.com/"
+    
+    //    case release = "https://api.bjyltf.com/"
+    //    case wap = "https://tap.bjyltf.com/"
     case wap = "https://tap.bjyltf.com/"
 }
 
 extension DDQueryManager{
     /// write your api here 👇
-    
     
     @discardableResult
     /// 后勤部
@@ -56,7 +55,13 @@ extension DDQueryManager{
         let para = ["token" : DDAccount.share.token ?? ""]
         return self.requestServer(type: type , method: HTTPMethod.get, url: url,headerParas : para , success: success, failure: failure, complate: complate)
     }
-    
+    @discardableResult
+    func modifyAvatar<T>(type : ApiModel<T>.Type,head_url: String,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "user/upHeadUrl"
+        let para = ["head_url" : head_url]
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters: para , success: success, failure: failure, complate: complate)
+        
+    }
     @discardableResult
     func modifyPassword<T>(type : ApiModel<T>.Type, old: String , new: String,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
         let url  =  "auth/uppssword"//TODO 1 要改成真是的memberID
@@ -69,10 +74,125 @@ extension DDQueryManager{
         let url  =  "user/upName"
         let para = ["user_name" : name]
         return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters: para , success: success, failure: failure, complate: complate)
+        
+    }
+    
+}
+extension DDQueryManager {
+    /// https://help.aliyun.com/document_detail/32058.html?spm=a2c4g.11186623.2.16.36764352bmTrH9
+    
+    //https://ts-ios-bucket.oss-cn-beijing.aliyuncs.com/landscape-painting.jpeg
+    func uploadImageToAliyun(image:UIImage, process : OSSNetworkingUploadProgressBlock? = nil ,failure:( (_ error:Error)->Void)? = nil , success:@escaping (String)->() ) ->  OSSTask<AnyObject> {
+        let data = UIImagePNGRepresentation(image)!
+        let put = OSSPutObjectRequest()
+        put.bucketName = bucket
+        let imgName = createImgName()
+        put.objectKey = imgName
+        put.uploadingData = data
+        if let p = process{
+            put.uploadProgress = p
+        }else{
+            put.uploadProgress = {(bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) -> Void in
+                print("bytesSent:\(bytesSent),totalBytesSent:\(totalBytesSent),totalBytesExpectedToSend:\(totalBytesExpectedToSend)");
+            }
+        }
+        let task = aliyunclient.putObject(put)
+        task.continue({ (t) -> Any? in
+            //            self.showResult(task: t)
+            if (t.error != nil) {
+                failure?(t.error!)
+                mylog(t.error!)
+                //                self.ossAlert(title: "error", message: error.description)
+            }else
+            {
+//                OSSPutObjectResult: OSSResult
+//                if let result = t.result as? OSSPutObjectResult{
+//                    mylog(result.serverReturnJsonString)
+//                }
+                let imgUrl = "https://\(self.bucket).oss-cn-beijing.aliyuncs.com/\(imgName)"
+                mylog("😃 \(imgUrl)")
+                success(imgUrl)
+            }
+            return nil
+        })//.waitUntilFinished()
+        return task
+    }
+    func createImgName() -> String {
+        var fileNameInServer = "\(Date().timeIntervalSince1970 )"
+        if fileNameInServer.contains("."){
+            if let index = fileNameInServer.index(of: "."){
+                fileNameInServer.remove(at: index)
+            }
+        }
+        return fileNameInServer + ".jpeg"
+    }
+    func createBukets() {
+        
+        let create = OSSCreateBucketRequest()
+        create.bucketName = "ts-ios-bucket";
+        create.xOssACL = "public-read-write";
+        create.location = "oss-cn-beijing";
+        
+        let createTask = aliyunclient.createBucket(create)
+        createTask.continue ({ (task ) -> Any? in
+            if (task.error == nil) {
+                NSLog("create bucket success!");
+            } else {
+                mylog("create bucket failed, error:😂 \(task.error)" );
+            }
+            return nil
+        })
+        
+    }
+    func showFileOf(bucket:String = "ts-ios-bucket"){
+        let getBucket = OSSGetBucketRequest()
+        getBucket.bucketName = bucket
+        // getBucket.marker = @"";
+        // getBucket.prefix = @"";
+        // getBucket.delimiter = @"";
+        let getBucketTask = aliyunclient.getBucket(getBucket)
+        getBucketTask.continue ({ (task ) -> Any? in
+            if (task.error == nil ) {
+                let result = task.result;
+                mylog("get bucket success!😃 \(result)");
+                //                for  objectInfo in result.contents {
+                //                    mylog("list object: \(bojectInfo)");
+                //                }
+            } else {
+                mylog("get bucket failed, error:😂\(task.error)" );
+            }
+            return nil;
+        })
+    }
+    
+    func getBukets() {
+        
+        let getService = OSSGetServiceRequest()
+        let getservicetask = aliyunclient.getService(getService)
+        getservicetask.continue ({ (t) -> Any? in
+            if t.error != nil {mylog(t.error)}else{
+                let result = t.result
+                mylog(result)
+                mylog(t)
+            }
+            return nil
+        })
+        
+        
     }
 }
-
 class DDQueryManager: NSObject {
+    lazy var endpoint = "https://oss-cn-beijing.aliyuncs.com"
+    lazy var accessKey = "LTAIfjRRZiTek2Cp"
+    //    lazy var bucket = "ts－disintegrate"
+    //    lazy var bucket = "ssbbctalk"
+    lazy var bucket = "ts-ios-bucket"
+    lazy var secretKey = "PsdzkH2zJVAVQu1iBuMnuPNkKgnAo0"
+    lazy var provider = OSSStsTokenCredentialProvider(accessKeyId: accessKey, secretKeyId: secretKey, securityToken: "")
+    lazy var aliyunclient = OSSClient(endpoint: endpoint, credentialProvider: provider)
+    
+    
+    
     let version = ""
     var sessionManager : SessionManager!
     var token : String? = "token"
@@ -204,8 +324,8 @@ extension DDQueryManager{
         header["VERSIONID"] = "2.0"
         header["language"] = language
         header[ "token"] = DDAccount.share.token ?? ""
-//        header["Content-Type"] = "application/json"
-//        header["Accept"] = "application/json"
+        //        header["Content-Type"] = "application/json"
+        //        header["Accept"] = "application/json"
         if let url  = URL(string: urlFull){
             let task = DDQueryManager.share.sessionManager.request(url , method: method , parameters: para ,encoding: encoding , headers:header).responseJSON(completionHandler: { (response) in
                 //                if print{mylog(response.debugDescription.unicodeStr)}
@@ -505,7 +625,7 @@ extension DDQueryManager{
 
 class DDRequestManager: NSObject {
     let version = "v1/"
-//    let version = "v\(DDCurrentAppVersion)/"
+    //    let version = "v\(DDCurrentAppVersion)/"
     
     let client = COSClient.init(appId: "1255626690", withRegion: "sh")
     var token : String? = "token"
@@ -513,7 +633,7 @@ class DDRequestManager: NSObject {
         
         
         let mgr = DDRequestManager()
-//        mgr.result.session.configuration.timeoutIntervalForRequest = 10
+        //        mgr.result.session.configuration.timeoutIntervalForRequest = 10
         return mgr
     }()
     var networkStatus : (oldStatus : Bool , newStatus : Bool ) =  (oldStatus : false , newStatus : false )
@@ -545,9 +665,9 @@ class DDRequestManager: NSObject {
         }
         return reachabilityManager
     }()
-//    let result = SessionManager.default
+    //    let result = SessionManager.default
     private func performRequest(url : String,method:HTTPMethod , parameters: Parameters? ,  print : Bool = false  ) -> DataRequest? {
-
+        
         if let status = networkReachabilityManager?.networkReachabilityStatus{
             switch status {
             case .notReachable:
@@ -567,7 +687,7 @@ class DDRequestManager: NSObject {
         var parameters = parameters == nil ? Parameters() : parameters!
         parameters["l"] = DDLanguageManager.languageIdentifier
         parameters["c"] = DDLanguageManager.countryCode
-//        let url = replaceHostSurfix(urlStr: url, surfix: hostSurfix)
+        //        let url = replaceHostSurfix(urlStr: url, surfix: hostSurfix)
         let url = (DomainType.release.rawValue + version) + url
         if let url  = URL(string: url){
             let result = Alamofire.request(url , method: method , parameters: parameters ).responseJSON(completionHandler: { (response) in
@@ -583,24 +703,24 @@ class DDRequestManager: NSObject {
                 }
             })
             return result
-        
-//                .responseJSON(completionHandler: { (response) in
-//                mylog(String.init(data: response.data ?? Data(), encoding: String.Encoding.utf8))
-//                mylog("print request result -->:\(response.result)")
-//                "xx".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)
-//                let testOriginalStr = "http://www.hailao.com/你好世界"
-//                let urlEncode = testOriginalStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)
-//                let urlDecodeStr = urlEncode?.removingPercentEncoding
-//                mylog("encode : \(urlEncode)")
-//                mylog("decode : \(urlDecodeStr)")
-//                
-//                let tt = "\\U751f\\U6210key\\U6210\\U529f"
-////                mylog("tttt\(tt.u)")
-//            })
+            
+            //                .responseJSON(completionHandler: { (response) in
+            //                mylog(String.init(data: response.data ?? Data(), encoding: String.Encoding.utf8))
+            //                mylog("print request result -->:\(response.result)")
+            //                "xx".addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)
+            //                let testOriginalStr = "http://www.hailao.com/你好世界"
+            //                let urlEncode = testOriginalStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)
+            //                let urlDecodeStr = urlEncode?.removingPercentEncoding
+            //                mylog("encode : \(urlEncode)")
+            //                mylog("decode : \(urlDecodeStr)")
+            //
+            //                let tt = "\\U751f\\U6210key\\U6210\\U529f"
+            ////                mylog("tttt\(tt.u)")
+            //            })
         }else{return nil }
     }
     private  func replaceHostSurfix( urlStr : String , surfix : String = "cn") -> String {
-//        var urlStr = "http://www.baidu.com/fould/tindex.html?name=name"
+        //        var urlStr = "http://www.baidu.com/fould/tindex.html?name=name"
         var urlStr  = urlStr
         if let url = URL(string: urlStr) {
             var host = url.host ?? ""
@@ -652,13 +772,13 @@ class DDRequestManager: NSObject {
         let para = ["device_number" : deviceID  , "type" : "ios"] as [String : Any]
         return  performRequest(url: url , method: HTTPMethod.get, parameters: para , print : print )
     }
-  
+    
     func getPublickKey(publicKey :@escaping (String?) -> Void)  {
         if let tempPublicKey = UserDefaults.standard.value(forKey: "Public_Key") as? String{
             publicKey(tempPublicKey)
         }else{
             DDRequestManager.share.getPublicKey()?.responseJSON(completionHandler: { (response ) in
-//                dump(response.value)
+                //                dump(response.value)
                 if let result = DDJsonCode.decodeAlamofireResponse(ApiModel<PublickKeyModel>.self, from: response), let tempPublicKey = result.data?.public_key{
                     let salt = "1sA5d1gPPms8Oolos"
                     let headerToken = ( tempPublicKey + salt).md5()
@@ -686,14 +806,14 @@ class DDRequestManager: NSObject {
         return  performRequest(url: url , method: HTTPMethod.get, parameters: para , print : print )
     }
     
- 
+    
     /*
      home page api
      */
     @discardableResult
     func homePage(_ print : Bool = false ) -> DataRequest? {
         let url  =  "index"
-//        "40d1783fbb98f6ed3b17c661786d5edf"
+        //        "40d1783fbb98f6ed3b17c661786d5edf"
         let para = ["token" : DDAccount.share.token ?? ""]
         return  performRequest(url: url , method: HTTPMethod.get, parameters: para , print : print )
     }
@@ -762,7 +882,7 @@ class DDRequestManager: NSObject {
         let destination: DownloadRequest.DownloadFileDestination = { _, _ in
             let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
             let fileURL = documentsURL.appendingPathComponent("xxx.pdf")
-//            let fileURL = documentsURL.appendPathComponent("pig.png")
+            //            let fileURL = documentsURL.appendPathComponent("pig.png")
             fullPath = fileURL.absoluteString
             return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
             print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\(documentsURL)")
@@ -772,9 +892,9 @@ class DDRequestManager: NSObject {
             print(response)
             print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\(response.destinationURL)")
             if response.error == nil, let filePath = response.destinationURL?.path {
-//                let image = UIImage(contentsOfFile: imagePath)
+                //                let image = UIImage(contentsOfFile: imagePath)
                 complate(fullPath)
-            print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\(filePath)")
+                print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\(filePath)")
                 
             }else{
                 complate(nil)
@@ -833,7 +953,7 @@ class DDRequestManager: NSObject {
     func bandBankCard(ownName : String , cardNum:String , mobile:String , bankID : String , verify : String , _ print : Bool = false ) -> DataRequest? {
         let url  =  "member/\(DDAccount.share.id ?? "0")/bank"//TODO 1 替换成真实memberID
         let  para = ["token" : DDAccount.share.token ?? "" , "bank_id" : bankID , "number" : cardNum , "mobile" : mobile ,"verify" : verify , "name":ownName]
-
+        
         return  performRequest(url: url , method: HTTPMethod.post, parameters: para , print : print )
     }
     
@@ -884,7 +1004,7 @@ class DDRequestManager: NSObject {
             "bank_id" :bank_id ,
             "price":"\(priceFloat)" ,
             "payment_password":payment_password
-            ]
+        ]
         return  performRequest(url: url , method: HTTPMethod.post, parameters: para , print : print )
     }
     
@@ -901,7 +1021,7 @@ class DDRequestManager: NSObject {
     
     @discardableResult
     func setNotificationStatus(push_status:String? ,push_shock:String?,push_voice:String? , _ print : Bool = false ) -> DataRequest? {
-//        let url  =  "member/\(DDAccount.share.id ?? "")"
+        //        let url  =  "member/\(DDAccount.share.id ?? "")"
         let url  =  "member/\(DDAccount.share.id ?? "")/push"
         var  para = [
             "token" : DDAccount.share.token ?? ""
@@ -933,7 +1053,7 @@ class DDRequestManager: NSObject {
     func getOrderList(type : String? , page : Int = 1 , _ print : Bool = false ) -> DataRequest? {
         let url  =  "member/\(DDAccount.share.id ?? "")/order"
         var  para = ["token" : DDAccount.share.token ?? "" , "page" : "\(page)"]
-//        var  para = ["token" : "e97d7946bb7ae016632ecdff7310262f" , "page" : "\(page)"]
+        //        var  para = ["token" : "e97d7946bb7ae016632ecdff7310262f" , "page" : "\(page)"]
         
         if let typeReal = type {para["type"] = typeReal}
         return  performRequest(url: url , method: HTTPMethod.get, parameters: para , print : print )
@@ -942,8 +1062,8 @@ class DDRequestManager: NSObject {
     @discardableResult
     func orderDetail(order_id : String , _ print : Bool = false ) -> DataRequest? {
         let url  =  "member/\(DDAccount.share.id ?? "")/order/\(order_id)"
-                var  para = ["token" : DDAccount.share.token ?? ""]
-//        let para = ["token" : "e97d7946bb7ae016632ecdff7310262f" ]/// token要改
+        var  para = ["token" : DDAccount.share.token ?? ""]
+        //        let para = ["token" : "e97d7946bb7ae016632ecdff7310262f" ]/// token要改
         return  performRequest(url: url , method: HTTPMethod.get, parameters: para , print : print )
     }
     
@@ -955,7 +1075,7 @@ class DDRequestManager: NSObject {
         if let content = complain_content{
             para["complain_content"] = content
         }
-//        let para = ["token" : "e97d7946bb7ae016632ecdff7310262f" ]/// token要改
+        //        let para = ["token" : "e97d7946bb7ae016632ecdff7310262f" ]/// token要改
         return  performRequest(url: url , method: HTTPMethod.post, parameters: para , print : print )
     }
     
@@ -1064,7 +1184,7 @@ class DDRequestManager: NSObject {
         if (type != nil) && (type != "") {
             para["type"] = "1"
         }
-//        let para = ["token" : "e97d7946bb7ae016632ecdff7310262f" ]/// token要改
+        //        let para = ["token" : "e97d7946bb7ae016632ecdff7310262f" ]/// token要改
         return  performRequest(url: url , method: HTTPMethod.get, parameters: para , print : print )
     }
     
@@ -1108,10 +1228,10 @@ class DDRequestManager: NSObject {
                     self.client?.completionHandler = {(/*COSTaskRsp **/resp, /*NSDictionary */context) in
                         try? FileManager.default.removeItem(atPath: filePath)
                         if let  resp = resp as? COSObjectUploadTaskRsp{
-//                            mylog(context)
-//                            mylog(resp.descMsg)
-//                            mylog(resp.fileData)
-//
+                            //                            mylog(context)
+                            //                            mylog(resp.descMsg)
+                            //                            mylog(resp.fileData)
+                            //
                             mylog(resp.data)
                             dump(resp)
                             mylog(resp.sourceURL)//发给服务器
@@ -1138,7 +1258,7 @@ class DDRequestManager: NSObject {
                     
                 })
                 
-               
+                
                 
                 
             }catch{
@@ -1146,7 +1266,7 @@ class DDRequestManager: NSObject {
                 compateHandler(nil)
             }
             
-//            let filePath = realDocuPath.append//appendingPathComponent("Account.data")
+            //            let filePath = realDocuPath.append//appendingPathComponent("Account.data")
         }
     }
     
@@ -1215,19 +1335,19 @@ class DDRequestManager: NSObject {
 extension DDRequestManager{
     func test () {
         
-//        result.session.configuration.timeoutIntervalForRequest = 5
-//        result.request(URL(string:"http://api.hailao.cc/index/index")!, method: HTTPMethod.post, parameters: ["hi":"lao"] , headers: HTTPHeaders()).responseJSON { (response) in
-//            switch response.result{
-//            case .success :
-//                break
-//                
-//            case .failure :
-//                GDAlertView.alert("error", image: nil , time: 2, complateBlock: nil )//请求超时处理
-//                dump(response)
-//                break
-//            }
-//            
-//        }
+        //        result.session.configuration.timeoutIntervalForRequest = 5
+        //        result.request(URL(string:"http://api.hailao.cc/index/index")!, method: HTTPMethod.post, parameters: ["hi":"lao"] , headers: HTTPHeaders()).responseJSON { (response) in
+        //            switch response.result{
+        //            case .success :
+        //                break
+        //
+        //            case .failure :
+        //                GDAlertView.alert("error", image: nil , time: 2, complateBlock: nil )//请求超时处理
+        //                dump(response)
+        //                break
+        //            }
+        //
+        //        }
         
     }
 }
@@ -1246,7 +1366,7 @@ class PHPRequestManager : NSObject, URLSessionDelegate{
         let request = NSMutableURLRequest(url: url )
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        let params
+        //        let params
         
         var  session1 = URLSession(configuration: URLSessionConfiguration.default, delegate: self , delegateQueue: OperationQueue.main)
         self.sessiono = session1
@@ -1256,9 +1376,9 @@ class PHPRequestManager : NSObject, URLSessionDelegate{
             mylog(result )
             mylog("\(data )--\(response)--\(error )")
         }
-//        let dataTask = session1.dataTask(with: request){ (data , response , error ) in
-//            mylog("\(data )--\(response)--\(error )")
-//        }
+        //        let dataTask = session1.dataTask(with: request){ (data , response , error ) in
+        //            mylog("\(data )--\(response)--\(error )")
+        //        }
         dataTask.resume()
     }
     func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Swift.Void){
@@ -1268,3 +1388,47 @@ class PHPRequestManager : NSObject, URLSessionDelegate{
         }
     }
 }
+/*
+ 上传文件
+ 假设您在控制台有已创建的 Bucket。SDK 的所有操作都会返回一个OSSTask，您可以为这个 Task 设置一个延续动作，等待其异步完成，也可以通过调用waitUntilFinished阻塞等待其完成。
+ OSSPutObjectRequest * put = [OSSPutObjectRequest new];
+ put.bucketName = @"<bucketName>";
+ put.objectKey = @"<objectKey>";
+ put.uploadingData = <NSData *>; // 直接上传NSData
+ put.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
+ NSLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
+ };
+ OSSTask * putTask = [client putObject:put];
+ [putTask continueWithBlock:^id(OSSTask *task) {
+ if (!task.error) {
+ NSLog(@"upload object success!");
+ } else {
+ NSLog(@"upload object failed, error: %@" , task.error);
+ }
+ return nil;
+ }];
+ // 可以等待任务完成
+ // [putTask waitUntilFinished];
+ 下载指定文件
+ 以下代码用于下载指定 Object 为NSData：
+ OSSGetObjectRequest * request = [OSSGetObjectRequest new];
+ request.bucketName = @"<bucketName>";
+ request.objectKey = @"<objectKey>";
+ request.downloadProgress = ^(int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+ NSLog(@"%lld, %lld, %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
+ };
+ OSSTask * getTask = [client getObject:request];
+ [getTask continueWithBlock:^id(OSSTask *task) {
+ if (!task.error) {
+ NSLog(@"download object success!");
+ OSSGetObjectResult * getResult = task.result;
+ NSLog(@"download result: %@", getResult.downloadedData);
+ } else {
+ NSLog(@"download object failed, error: %@" ,task.error);
+ }
+ return nil;
+ }];
+ // 如果需要阻塞等待任务完成
+ // [task waitUntilFinished];
+ 
+ */

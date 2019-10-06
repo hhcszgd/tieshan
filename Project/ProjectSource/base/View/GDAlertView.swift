@@ -53,7 +53,7 @@ class GDAlertView: MBProgressHUD {
     
     
     
-   class func alert(_ message : String? ,image : UIImage? , time : Int , complateBlock : MBProgressHUDCompletionBlock? ) -> () {
+   class func alert(_ message : String? ,image : UIImage? = nil, time : Int = 2, complateBlock : MBProgressHUDCompletionBlock? = nil) -> () {
     if UIApplication.shared.keyWindow == nil  {return}
         if message == nil && image == nil  { return }
     
