@@ -89,7 +89,6 @@ extension ZengJiaCheLiangeVC : UITableViewDelegate , UITableViewDataSource{
         let model = models[indexPath.row]
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        mylog(3333333333333333333)
         return 1
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

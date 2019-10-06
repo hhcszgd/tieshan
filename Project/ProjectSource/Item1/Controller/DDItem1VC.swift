@@ -133,7 +133,8 @@ extension DDItem1VC : UICollectionViewDelegate ,UICollectionViewDataSource {
             scanner.complateHandle = {[weak self] result in
                 mylog(result)
             }
-            self.present(scanner, animated: true) {}
+            self.navigationController?.pushViewController(scanner, animated: true)
+//            self.present(scanner, animated: true) {}
             return
 //           userInfo = nil
         case     "CheLiangRuChang":

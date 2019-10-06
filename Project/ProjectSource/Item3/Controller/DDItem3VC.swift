@@ -156,7 +156,6 @@ extension DDItem3VC : UITableViewDelegate , UITableViewDataSource{
         }
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        mylog(3333333333333333333)
         return 1
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -252,6 +251,7 @@ extension DDItem3VC{
         tableView?.backgroundColor = .clear
         tableView?.separatorStyle = .none
         icon.addTarget(self , action: #selector(modifyIcon(sender:)), for: UIControlEvents.touchUpInside)
+        icon.adjustsImageWhenHighlighted = false
         pending.addTarget(self , action: #selector(pending(sender:)), for: UIControlEvents.touchUpInside)
         pended.addTarget(self , action: #selector(pended(sender:)), for: UIControlEvents.touchUpInside)
         toStorage.addTarget(self , action: #selector(toStore(sender:)), for: UIControlEvents.touchUpInside)

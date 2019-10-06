@@ -22,11 +22,14 @@ class CarScannerVC: DDInternalVC ,AVCaptureMetadataOutputObjectsDelegate , CarQR
         // Do any additional setup after loading the view.
     }
     func configNavBar()  {
-        naviBar.title = ""
+        naviBar.attributeTitle = NSAttributedString(string: "扫描车位", attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
 //        naviBar.currentType = NaviBarStyle.withBackBtn
         self.naviBar.backgroundColor = UIColor.clear
-        self.view.backgroundColor = UIColor.white
-        self.naviBar.backBtn.setImage(UIImage(named:"back_icon"), for: UIControlState.normal)
+        self.view.backgroundColor = UIColor.lightGray
+        self.naviBar.backBtn.setImage(UIImage(named:"nav_back_white"), for: UIControlState.normal)
+        if self.navigationController == nil {
+            self.naviBar.backBtn.isHidden = true
+        }
     }
      
     func setup()  {
@@ -37,6 +40,12 @@ class CarScannerVC: DDInternalVC ,AVCaptureMetadataOutputObjectsDelegate , CarQR
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    func skip(view : CarScannerVC.CarQRView  ){
+        guard ((self.navigationController?.popViewController(animated: true)) != nil) else{
+            self.dismiss(animated: true , completion: nil )
+            return
+        }
     }
     func qrView(view: CarScannerVC.CarQRView, didCompletedWithQRValue: String) {
         mylog(didCompletedWithQRValue)
@@ -59,6 +68,7 @@ class CarScannerVC: DDInternalVC ,AVCaptureMetadataOutputObjectsDelegate , CarQR
 
 @objc protocol CarQRViewDelegate : NSObjectProtocol{
     func qrView(view : CarScannerVC.CarQRView  , didCompletedWithQRValue : String)
+    func skip(view : CarScannerVC.CarQRView  )
 }
 
 extension CarScannerVC {
@@ -67,6 +77,9 @@ extension CarScannerVC {
         weak var delegate : CarQRViewDelegate?
         let bgView  = UIImageView()//背景框
         let lineView = UIImageView()//上下扫描的线
+        let descrip = UILabel(title: "将二维码/条码放入框内,即可自动扫描", font: UIFont.systemFont(ofSize: 14), color: .white, align: .center)
+        let flashdescrip = UILabel(title: "轻触点亮/关闭", font: UIFont.systemFont(ofSize: 14), color: .white, align: .center)
+        let skipBtn = UIButton()
         let session = AVCaptureSession()
         var sublayer    : AVCaptureVideoPreviewLayer?
         let videoCaptureDevice: AVCaptureDevice? = AVCaptureDevice.default(for: AVMediaType.video)
@@ -86,17 +99,27 @@ extension CarScannerVC {
             self.addSubview( bgView)
             self.addSubview(lineView)
             self.addSubview(flashLightBtn)
-            flashLightBtn.setImage(UIImage(named: "shoudiantong"), for: UIControlState.normal)
-            flashLightBtn.setImage(UIImage(named: "shoudiantong"), for: UIControlState.selected)
+            self.addSubview(descrip)
+            self.addSubview(skipBtn)
+            self.addSubview(flashdescrip)
+            flashLightBtn.setImage(UIImage(named: "icon_shoudiantong_nor"), for: UIControlState.normal)
+            flashLightBtn.setImage(UIImage(named: "icon_shoudiantong_sel"), for: UIControlState.selected)
             flashLightBtn.addTarget(self, action: #selector(flashBtnClick(sender:)), for: UIControlEvents.touchUpInside)
             self.bgView.image = UIImage.init(named: "pick_bg")
             self.lineView.image = UIImage.init(named: "line")
             if videoCaptureDevice?.isTorchAvailable ?? false{
                 flashLightBtn.isHidden = false
+                flashdescrip.isHidden = false
             }else{
                 flashLightBtn.isHidden = true
+                flashdescrip.isHidden = true
             }
-            
+            skipBtn.setTitle("跳过扫描", for: UIControlState.normal)
+            skipBtn.backgroundColor = mainColor
+            skipBtn.addTarget(self , action: #selector(skipBtnClick(sender:)), for: UIControlEvents.touchUpInside)
+        }
+        @objc func skipBtnClick(sender:UIButton) {
+            self.delegate?.skip(view: self)
         }
         @objc func flashBtnClick(sender:UIButton) {
             sender.isSelected = !sender.isSelected
@@ -213,6 +236,7 @@ extension CarScannerVC {
             let  bgY  : CGFloat = (size.height - bgH) * 0.5;
             //  背景的位置
             self.bgView.frame = CGRect.init(x: bgX, y: bgY, width: bgW, height: bgH)
+            descrip.frame = CGRect.init(x: 0, y: bgView.frame.maxY , width: bounds.width , height: 40)
             //  线的frame
             self.lineView.frame = CGRect.init(x: bgX, y: bgY, width: bgW, height: 2)
             //  使用核心动画
@@ -223,7 +247,11 @@ extension CarScannerVC {
             positionAnimation.duration = 2
             positionAnimation.repeatCount = Float(NSIntegerMax)
             self.lineView.layer.add(positionAnimation, forKey: "positionAnimation")
-            self.flashLightBtn.frame = CGRect(x: self.bounds.width/2 - 22 , y: self.bounds.height - 88, width:44, height:44)
+            self.skipBtn.frame = CGRect(x: 24 , y: self.bounds.height - 88, width:self.bounds.width - 48, height:44)
+            flashLightBtn.frame = CGRect(x: self.bounds.width/2 - 22 , y: self.skipBtn.frame.minY - 100, width:44, height:44)
+            flashdescrip.frame = CGRect(x: 0 , y: self.flashLightBtn.frame.maxY + 10, width:bounds.width, height:34)
+            skipBtn.layer.cornerRadius = 8
+            skipBtn.layer.masksToBounds = true
         }
         
         deinit {
