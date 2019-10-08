@@ -37,7 +37,7 @@ class ChuJianStep2VC: DDNormalVC {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "拆车入库"
+        title = "车辆初检"
         // Do any additional setup after loading the view.
     }
     func setupBottomBtn() {
@@ -135,6 +135,7 @@ extension ChuJianStep2VC : UICollectionViewDelegate , UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0{
             mylog("perform take photo")
+            self.navigationController?.pushViewController(TakePhotoVC(), animated: true)
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

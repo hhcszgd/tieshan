@@ -23,21 +23,21 @@ extension ChuangJianCheYuanVC{
 class ChuangJianCheYuanVC: ChuangJianVC {
     let addBtn = UIButton()
     lazy var models  : [CheYuanOrCheLiangModel] =  [
-        CheYuanOrCheLiangModel(title: "基本信息:", isValid: false , stringOfClassName: NSStringFromClass(DDSectionHeaderRow.self)),
-        CheYuanOrCheLiangModel(title: "联系人姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人姓名"),
-        CheYuanOrCheLiangModel(title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话"),
-        CheYuanOrCheLiangModel(title: "车辆台次:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车辆台次"),
-        CheYuanOrCheLiangModel(title: "联系地址:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系地址"),
+        CheYuanOrCheLiangModel( title: "基本信息:", isValid: false , stringOfClassName: NSStringFromClass(DDSectionHeaderRow.self)),
+        CheYuanOrCheLiangModel(identify:"contacts",title: "联系人姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人姓名"),
+        CheYuanOrCheLiangModel(identify:"phone",title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话"),
+        CheYuanOrCheLiangModel(identify:"count",title: "车辆台次:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车辆台次"),
+        CheYuanOrCheLiangModel(identify:"carLocation",title: "联系地址:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系地址"),
         CheYuanOrCheLiangModel( isValid: false, stringOfClassName: NSStringFromClass(DDSectionSeparator.self)),
         CheYuanOrCheLiangModel(title: "银行信息:", isValid: false , stringOfClassName: NSStringFromClass(DDSectionHeaderRow.self)),
         
-        CheYuanOrCheLiangModel(title: "银行名称:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择银行"),
+        CheYuanOrCheLiangModel(identify:"bankName",title: "银行名称:",value : "中国建设银行", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择银行"),
         
         
         
-        CheYuanOrCheLiangModel(title: "支行名称:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入支行名称"),
-        CheYuanOrCheLiangModel(title: "银行账号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入银行账号"),
-        CheYuanOrCheLiangModel(title: "账户姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入账户姓名")
+        CheYuanOrCheLiangModel(identify:"bankBranch",title: "支行名称:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入支行名称"),
+        CheYuanOrCheLiangModel(identify:"account",title: "银行账号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入银行账号"),
+        CheYuanOrCheLiangModel(identify:"payee",title: "账户姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入账户姓名")
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,23 @@ class ChuangJianCheYuanVC: ChuangJianVC {
 //actions
 extension ChuangJianCheYuanVC{
     @objc func addBtnClick(sender: UIButton){
+        var dict : [String: String ] = [:]
+        self.models.forEach { (model ) in
+            if !model.identify.isEmpty{dict[model.identify] = model.value}
+            
+        }
+        DDQueryManager.share.chuangJianCheYuan(type: ApiModel<String>.self, para: dict, failure: { (error ) in
+            GDAlertView.alert("创建失败,请重试")
+        }) { (apiModel) in
+            mylog(apiModel.msg)
+            mylog(apiModel.ret_code)
+            mylog(apiModel.data)
+            if apiModel.ret_code == "0"{
+                GDAlertView.alert("创建成功") {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }else{GDAlertView.alert(apiModel.msg)}
+        }
         mylog("addBtnClick")
     }
     

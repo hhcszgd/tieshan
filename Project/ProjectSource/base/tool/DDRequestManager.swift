@@ -30,6 +30,26 @@ enum DomainType : String  {
 extension DDQueryManager{
     /// write your api here 👇
     
+        @discardableResult
+    /// 后勤部
+    ///     int    1：未核档(暂存)，2：已核档，3：核档不通过
+    func cheYuanList<T>(type : ApiModel<T>.Type , page : String? , pageSize : String? = "10", isVerify:String? = "1",searchInfo : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "carSource/selectCarSourceList"
+        var para : [String : String] =  [:]
+        if let p = page{para["page"] = p}
+        if let p = pageSize{para["pageSize"] = p}
+//        if let p = isVerify{para["isVerify"] = p}
+        if let p = searchInfo{para["searchInfo"] = p}
+        return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters:para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    
+    @discardableResult
+    /// 创建车源
+    func chuangJianCheYuan<T>(type : ApiModel<T>.Type , para : [String : String] ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "carSource/addCarSource"
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    
     @discardableResult
     /// 后勤部
     ///     int    1：未核档(暂存)，2：已核档，3：核档不通过
@@ -46,7 +66,7 @@ extension DDQueryManager{
     @discardableResult
     func login<T>(type : ApiModel<T>.Type , userName : String , passWord : String, success:@escaping (ApiModel<T>)->() ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil ) -> DataRequest? {
         let url  =  "auth/login"
-        let para = ["username" : userName , "password": passWord]
+        let para = ["username" : userName , "password": passWord,"type":"1"]
         return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para  , needToken : false , success: success, failure: failure, complate: complate)
     }
     @discardableResult

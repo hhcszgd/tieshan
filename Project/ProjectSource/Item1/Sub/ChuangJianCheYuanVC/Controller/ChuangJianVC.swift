@@ -69,14 +69,16 @@ class CheYuanOrCheLiangModel {
     var values : [Any] = []
     var shouXuTypes : [ShouXuTypeModel] = []
     var isValid: Bool = true//是否有效
-    var identify : CheRowIdentifyType = .contactName
+    var identify : String = ""
     
-    convenience init(title: String = "", isValid: Bool = true, stringOfClassName : String, placeholder: String = ""){
+    convenience init(identify: String = "", title: String = "",value:String = "", isValid: Bool = true, stringOfClassName : String, placeholder: String = ""){
         self.init()
         self.title = title
         self.isValid = isValid
         self.stringOfClassName = stringOfClassName
         self.placeHolder = placeholder
+        self.value = value
+        self.identify = identify
     }
 }
 
@@ -168,6 +170,12 @@ extension ChuangJianVC{
             textfield.endEditing(true)
             return true
         }
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+             let textt = NSString(string: textField.text ?? "").replacingCharacters(in: range, with: string)
+             mylog(textt)
+            self.model.value = textt
+             return true
+         }
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

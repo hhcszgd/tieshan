@@ -5,7 +5,37 @@
 //  Created by WY on 2019/9/21.
 //  Copyright © 2019年 HHCSZGD. All rights reserved.
 //
-
+class CheYuanModel: Codable {
+    var carLocation : String?
+    var phone : String?
+    var count : String?
+    var bankName : String?
+    var id : String?
+    var contacts : String?
+    var account : String?
+}
+class CheYuanDataModel: Codable {
+    var list : [CheYuanModel]?
+    var navigatepageNums : [Int]?
+    var pageNum : Int?
+    var  pageSize : Int?
+    var  size : Int?
+    var  startRow : Int?
+    var  endRow : Int?
+    var  total : Int?
+    var  pages : Int?
+    var  prePage : Int?
+    var  nextPage : Int?
+    var  isFirstPage : Bool?
+    var  isLastPage : Bool?
+    var  hasPreviousPage : Bool?
+    var  hasNextPage : Bool?
+    var  navigatePages : Int?
+    var  navigateFirstPage : Int?
+    var  navigateLastPage : Int?
+    var  lastPage : Int?
+    var  firstPage : Int?
+}
 import UIKit
 
 class ChaKanCheYuanVC: DDNormalVC {
@@ -36,18 +66,24 @@ class ChaKanCheYuanVC: DDNormalVC {
     }
     /// 1：未核档(暂存)，2：已核档，3：核档不通过
     func requestServer(type:Int)  {
-        DDQueryManager.share.heDangJiLu(type: ApiModel<CheYuanDataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
-            mylog(result.msg)
-            let test : CheYuanModel = CheYuanModel()
-            test.approachTime = "1999-09-09"
-            test.carNo = "京A 8888"
-            test.isVerify = 1
-            test.carCode = "ssssssseed"
-            test.vin = "laslsadlfserrsrr"
-            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
-            self.apiModel = result
+        DDQueryManager.share.cheYuanList(type: ApiModel<CheYuanDataModel>.self, page: "1", searchInfo: nil) { (result) in
+            dump(result)
+//            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
+//            self.apiModel = result
             self.collection.reloadData()
         }
+//        DDQueryManager.share.heDangJiLu(type: ApiModel<CheYuanDataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
+//            mylog(result.msg)
+//            let test : CheYuanModel = CheYuanModel()
+//            test.approachTime = "1999-09-09"
+//            test.carNo = "京A 8888"
+//            test.isVerify = 1
+//            test.carCode = "ssssssseed"
+//            test.vin = "laslsadlfserrsrr"
+//            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
+//            self.apiModel = result
+//            self.collection.reloadData()
+//        }
     }
     
     func layoutCollectionView() {
@@ -144,42 +180,42 @@ extension ChaKanCheYuanVC : UICollectionViewDelegate ,UICollectionViewDataSource
     
 }
 extension ChaKanCheYuanVC{
-    class CheYuanDataModel: Codable {
-        var pageNum: Int?
-        var pageSize:Int?
-        var size : Int?
-        var startRow : Int?
-        var endRow:Int?
-        var total:Int?
-        var pages: Int?
-        var list:[CheYuanModel]?
-        var prePage:Int?
-        var nextPage:Int?
-        var isFirstPage:Bool?
-        var isLastPage : Bool?
-        var hasPreviousPage : Bool?
-        var hasNextPage: Bool?
-        var navigatePages: Int?
-        var navigatepageNums : [Int]?
-        var navigateFirstPage: Int?
-        var navigateLastPage: Int?
-        var firstPage : Int?
-        var lastPage : Int?
-    }
-    
-    
-    
-    class CheYuanModel : Codable {
-        var carInfoId : Int? // 1176367626889334786,
-        var carCode:String? // "TSXXX19092225",
-        var approachTime : String?// null,
-        var carNo: String? // "晋A88884",
-        var vin: String? // "33333",
-        /// 1：未核档(暂存)，2：已核档，3：核档不通过
-        var isVerify: Int = 0// 2,
-        var carProcessingId: Int = 0 // 1176367626889336667,
-        var verificationResult:String? // null
-    }
+//    class CheYuanDataModel: Codable {
+//        var pageNum: Int?
+//        var pageSize:Int?
+//        var size : Int?
+//        var startRow : Int?
+//        var endRow:Int?
+//        var total:Int?
+//        var pages: Int?
+//        var list:[CheYuanModel]?
+//        var prePage:Int?
+//        var nextPage:Int?
+//        var isFirstPage:Bool?
+//        var isLastPage : Bool?
+//        var hasPreviousPage : Bool?
+//        var hasNextPage: Bool?
+//        var navigatePages: Int?
+//        var navigatepageNums : [Int]?
+//        var navigateFirstPage: Int?
+//        var navigateLastPage: Int?
+//        var firstPage : Int?
+//        var lastPage : Int?
+//    }
+//
+//
+//
+//    class CheYuanModel : Codable {
+//        var carInfoId : Int? // 1176367626889334786,
+//        var carCode:String? // "TSXXX19092225",
+//        var approachTime : String?// null,
+//        var carNo: String? // "晋A88884",
+//        var vin: String? // "33333",
+//        /// 1：未核档(暂存)，2：已核档，3：核档不通过
+//        var isVerify: Int = 0// 2,
+//        var carProcessingId: Int = 0 // 1176367626889336667,
+//        var verificationResult:String? // null
+//    }
     
     class CheYuanItem : UICollectionViewCell {
         var model : CheYuanModel?  {
@@ -187,10 +223,10 @@ extension ChaKanCheYuanVC{
                 guard let model = model  else {
                     return
                 }
-                name.text = "编号:\(model.carCode ?? "")"
-                address.text = "入场时间: \(model.approachTime ?? "")"
-                mobile.text = "车牌:\(model.carNo ?? "")"
-                bankname.text = "VIN:\(model.vin ?? "")"
+                name.text = "编号:\(model.account ?? "")"
+                address.text = "入场时间: \(model.contacts ?? "")"
+                mobile.text = "车牌:\(model.carLocation ?? "")"
+                bankname.text = "VIN:\(model.count ?? "")"
                 
             }
         }

@@ -161,7 +161,7 @@ extension CarScannerVC {
                         self.session.addOutput(metadataOutput)
                         
                         metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-                        metadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr,AVMetadataObject.ObjectType.ean8, AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.pdf417]
+                        metadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr,AVMetadataObject.ObjectType.ean8, AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.pdf417,.code128]
                     } else {
                         print("Could not add metadata output")
                     }
@@ -227,13 +227,15 @@ extension CarScannerVC {
         //    }
         override func layoutSubviews() {
             super.layoutSubviews()
+            let metadataOutput = AVCaptureMetadataOutput()
+            mylog(metadataOutput.availableMetadataObjectTypes)
             mylog(self.bounds)
             sublayer?.frame = self.bounds
             let  size = self.bounds.size;
             let  bgW : CGFloat = 200
             let bgH  : CGFloat = 200
             let  bgX  : CGFloat = (size.width - bgW) * 0.5;
-            let  bgY  : CGFloat = (size.height - bgH) * 0.5;
+            let  bgY  : CGFloat = (size.height - bgH) * 0.3;
             //  背景的位置
             self.bgView.frame = CGRect.init(x: bgX, y: bgY, width: bgW, height: bgH)
             descrip.frame = CGRect.init(x: 0, y: bgView.frame.maxY , width: bounds.width , height: 40)
