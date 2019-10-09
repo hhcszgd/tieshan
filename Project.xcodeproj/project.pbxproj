@@ -157,6 +157,14 @@
 		B32200D5233F170400B1C8A0 /* ModiryProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */; };
 		B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D6233F3F1400B1C8A0 /* ModifyName.swift */; };
 		B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200DA233F514200B1C8A0 /* CategoryBarView.swift */; };
+		B35BFCD8234E44D1009F3F31 /* PlateNoDotSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B35BFCCE234E44D1009F3F31 /* PlateNoDotSlider.m */; };
+		B35BFCD9234E44D1009F3F31 /* PlateSquareView.m in Sources */ = {isa = PBXBuildFile; fileRef = B35BFCD0234E44D1009F3F31 /* PlateSquareView.m */; };
+		B35BFCDA234E44D1009F3F31 /* libSPlate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B35BFCD1234E44D1009F3F31 /* libSPlate.a */; };
+		B35BFCDB234E44D1009F3F31 /* PlateCameraController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B35BFCD2234E44D1009F3F31 /* PlateCameraController.mm */; };
+		B35BFCDC234E44D1009F3F31 /* PlateVerticalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B35BFCD4234E44D1009F3F31 /* PlateVerticalButton.m */; };
+		B35BFCDD234E44D1009F3F31 /* PlateImageResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B35BFCD7234E44D1009F3F31 /* PlateImageResource.bundle */; };
+		B35BFCDF234E44E4009F3F31 /* 9DD232F7B4C7398BA6C2.lic in Resources */ = {isa = PBXBuildFile; fileRef = B35BFCDE234E44E4009F3F31 /* 9DD232F7B4C7398BA6C2.lic */; };
+		B35BFCE2234E45E4009F3F31 /* PlateMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = B35BFCE1234E45E4009F3F31 /* PlateMainController.m */; };
 		B37C65A32346E4EF0045386B /* CarListOfCheYuan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65A22346E4EF0045386B /* CarListOfCheYuan.swift */; };
 		B37C65A5234720010045386B /* ChuangJianVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65A4234720010045386B /* ChuangJianVC.swift */; };
 		B37C65A7234721090045386B /* ZengJiaCheLiangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37C65A6234721090045386B /* ZengJiaCheLiangeVC.swift */; };
@@ -424,6 +432,20 @@
 		B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModiryProfileVC.swift; sourceTree = "<group>"; };
 		B32200D6233F3F1400B1C8A0 /* ModifyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyName.swift; sourceTree = "<group>"; };
 		B32200DA233F514200B1C8A0 /* CategoryBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBarView.swift; sourceTree = "<group>"; };
+		B35BFCCD234E44D0009F3F31 /* PlateVerticalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateVerticalButton.h; sourceTree = "<group>"; };
+		B35BFCCE234E44D1009F3F31 /* PlateNoDotSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlateNoDotSlider.m; sourceTree = "<group>"; };
+		B35BFCCF234E44D1009F3F31 /* SPlate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPlate.h; sourceTree = "<group>"; };
+		B35BFCD0234E44D1009F3F31 /* PlateSquareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlateSquareView.m; sourceTree = "<group>"; };
+		B35BFCD1234E44D1009F3F31 /* libSPlate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSPlate.a; sourceTree = "<group>"; };
+		B35BFCD2234E44D1009F3F31 /* PlateCameraController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlateCameraController.mm; sourceTree = "<group>"; };
+		B35BFCD3234E44D1009F3F31 /* PlateNoDotSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateNoDotSlider.h; sourceTree = "<group>"; };
+		B35BFCD4234E44D1009F3F31 /* PlateVerticalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlateVerticalButton.m; sourceTree = "<group>"; };
+		B35BFCD5234E44D1009F3F31 /* PlateCameraController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateCameraController.h; sourceTree = "<group>"; };
+		B35BFCD6234E44D1009F3F31 /* PlateSquareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateSquareView.h; sourceTree = "<group>"; };
+		B35BFCD7234E44D1009F3F31 /* PlateImageResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PlateImageResource.bundle; sourceTree = "<group>"; };
+		B35BFCDE234E44E4009F3F31 /* 9DD232F7B4C7398BA6C2.lic */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 9DD232F7B4C7398BA6C2.lic; sourceTree = "<group>"; };
+		B35BFCE0234E45E3009F3F31 /* PlateMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlateMainController.h; sourceTree = "<group>"; };
+		B35BFCE1234E45E4009F3F31 /* PlateMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlateMainController.m; sourceTree = "<group>"; };
 		B37C65A22346E4EF0045386B /* CarListOfCheYuan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListOfCheYuan.swift; sourceTree = "<group>"; };
 		B37C65A4234720010045386B /* ChuangJianVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChuangJianVC.swift; sourceTree = "<group>"; };
 		B37C65A6234721090045386B /* ZengJiaCheLiangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZengJiaCheLiangeVC.swift; sourceTree = "<group>"; };
@@ -510,6 +532,7 @@
 				BC6D893E1FFCB1EF0039A92E /* UIKit.framework in Frameworks */,
 				BC6D893C1FFCB1E80039A92E /* CoreGraphics.framework in Frameworks */,
 				BC6D893A1FFCB1DD0039A92E /* CoreText.framework in Frameworks */,
+				B35BFCDA234E44D1009F3F31 /* libSPlate.a in Frameworks */,
 				BC6D89381FFCB1CB0039A92E /* QuartzCore.framework in Frameworks */,
 				BC6D89341FFCB1B30039A92E /* SystemConfiguration.framework in Frameworks */,
 				BC6D89321FFCB1A50039A92E /* libz.tbd in Frameworks */,
@@ -1814,6 +1837,8 @@
 		15DF2FE91FA9AFAB00588AF1 /* ProjectSource */ = {
 			isa = PBXGroup;
 			children = (
+				B35BFCDE234E44E4009F3F31 /* 9DD232F7B4C7398BA6C2.lic */,
+				B35BFCCC234E44D0009F3F31 /* Plate */,
 				15103FC82330D838008EC0D1 /* DDLogin */,
 				BCC31EA41FC6D7570037BA74 /* snak */,
 				15DF2FEA1FA9AFAB00588AF1 /* base */,
@@ -2201,6 +2226,26 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		B35BFCCC234E44D0009F3F31 /* Plate */ = {
+			isa = PBXGroup;
+			children = (
+				B35BFCE0234E45E3009F3F31 /* PlateMainController.h */,
+				B35BFCE1234E45E4009F3F31 /* PlateMainController.m */,
+				B35BFCCD234E44D0009F3F31 /* PlateVerticalButton.h */,
+				B35BFCCE234E44D1009F3F31 /* PlateNoDotSlider.m */,
+				B35BFCCF234E44D1009F3F31 /* SPlate.h */,
+				B35BFCD0234E44D1009F3F31 /* PlateSquareView.m */,
+				B35BFCD1234E44D1009F3F31 /* libSPlate.a */,
+				B35BFCD2234E44D1009F3F31 /* PlateCameraController.mm */,
+				B35BFCD3234E44D1009F3F31 /* PlateNoDotSlider.h */,
+				B35BFCD4234E44D1009F3F31 /* PlateVerticalButton.m */,
+				B35BFCD5234E44D1009F3F31 /* PlateCameraController.h */,
+				B35BFCD6234E44D1009F3F31 /* PlateSquareView.h */,
+				B35BFCD7234E44D1009F3F31 /* PlateImageResource.bundle */,
+			);
+			path = Plate;
+			sourceTree = "<group>";
+		};
 		BC6D892A1FFCB1500039A92E /* AlipaySDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2496,6 +2541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC9ACA9920D89E2400097FFB /* loading2.png in Resources */,
+				B35BFCDF234E44E4009F3F31 /* 9DD232F7B4C7398BA6C2.lic in Resources */,
 				BC9ACA9820D89E2400097FFB /* loading1.png in Resources */,
 				158A1C3723372F43002F7E5F /* DDForgetPasswordVC.xib in Resources */,
 				B305CF422344E7910059882A /* ChaiCheRuKuVC.xib in Resources */,
@@ -2518,6 +2564,7 @@
 				15DF306D1FA9AFAC00588AF1 /* Traditional.strings in Resources */,
 				BC6D89531FFCF11B0039A92E /* AlipaySDK.bundle in Resources */,
 				15E79F341FE2285A0049F767 /* Russian.strings in Resources */,
+				B35BFCDD234E44D1009F3F31 /* PlateImageResource.bundle in Resources */,
 				15177B981FAB09AD00FC92BA /* InfoPlist.strings in Resources */,
 				B305CF362343104B0059882A /* DealDetailHeader.xib in Resources */,
 				15E79F281FE224A70049F767 /* Korean.strings in Resources */,
@@ -2634,6 +2681,7 @@
 			files = (
 				15DF30691FA9AFAC00588AF1 /* GDIBScrollView.swift in Sources */,
 				1529488D1FC0245300CCABB0 /* TestMoveItem2VC.swift in Sources */,
+				B35BFCD8234E44D1009F3F31 /* PlateNoDotSlider.m in Sources */,
 				1568F6A6200D91F10009BAC0 /* DDWelcomVC.swift in Sources */,
 				BCC31EB31FC6E71C0037BA74 /* GDNavigatBar.swift in Sources */,
 				150F0FA520DB96D600E7672A /* GDBaseControl+extension.swift in Sources */,
@@ -2659,6 +2707,7 @@
 				1574F68A2335244300547B29 /* DDSettingVC.swift in Sources */,
 				158A1C0D233621A2002F7E5F /* BuPaiZhaoPianchaJieBuVC.swift in Sources */,
 				158A1C25233622AE002F7E5F /* WeiHeDangVC.swift in Sources */,
+				B35BFCD9234E44D1009F3F31 /* PlateSquareView.m in Sources */,
 				BC1E098520C3F2FC00FCC120 /* File.swift in Sources */,
 				1573BEBC20103C770048917F /* DDADView.swift in Sources */,
 				BC23A46C20BE3F2C006B1E58 /* ArrayExtension.swift in Sources */,
@@ -2687,6 +2736,7 @@
 				157BF70E2004E04B009802B3 /* DDLeftRightAutoScrollView.swift in Sources */,
 				15816B321FF4C52300136768 /* QRCodeScannerVC.swift in Sources */,
 				15DF304F1FA9AFAC00588AF1 /* DDRootTabBarVC.swift in Sources */,
+				B35BFCDB234E44D1009F3F31 /* PlateCameraController.mm in Sources */,
 				15925D19200EE25400C554CA /* AppDelegate+extension.swift in Sources */,
 				B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */,
 				15555ACC200F20AC00C3B5E5 /* DDNewFeature.swift in Sources */,
@@ -2751,6 +2801,7 @@
 				15DF305D1FA9AFAC00588AF1 /* DDPhotoManager.swift in Sources */,
 				158A1C3623372F43002F7E5F /* DDForgetPasswordVC.swift in Sources */,
 				1584C2581FAB29E200F09CD3 /* DDFlowLayout.swift in Sources */,
+				B35BFCDC234E44D1009F3F31 /* PlateVerticalButton.m in Sources */,
 				157503041FD62D3000D051D6 /* DDHomeModel.swift in Sources */,
 				158A1C15233621F5002F7E5F /* WeiChaiJieVC.swift in Sources */,
 				15DF304E1FA9AFAC00588AF1 /* DDRootNavVC.swift in Sources */,
@@ -2763,6 +2814,7 @@
 				158944312112FE1D002FA917 /* DDAlertOrSheet.swift in Sources */,
 				158A1C212336224E002F7E5F /* DengDaiYuChuLiVC.swift in Sources */,
 				15DF2FB91FA9AE0400588AF1 /* AppDelegate.swift in Sources */,
+				B35BFCE2234E45E4009F3F31 /* PlateMainController.m in Sources */,
 				158A1C1923362212002F7E5F /* JianXiaoCheLiangVC.swift in Sources */,
 				B37C65BD23483BEC0045386B /* ChuJianStep1VC.swift in Sources */,
 				B305CF39234366E70059882A /* DealDetailCell.swift in Sources */,
@@ -3040,6 +3092,7 @@
 					"$(PROJECT_DIR)/Project/ProjectSource/snak/WeChatSDK/**",
 					"$(PROJECT_DIR)/Project/ProjectSource/snak/AlipaySDK/**",
 					"$(PROJECT_DIR)/Project/ProjectSource/snak/WeChatSDK",
+					"$(PROJECT_DIR)/Project/ProjectSource/Plate",
 				);
 				MACH_O_TYPE = mh_execute;
 				MARKETING_VERSION = 1.0;
@@ -3091,6 +3144,7 @@
 					"$(PROJECT_DIR)/Project/ProjectSource/snak/WeChatSDK/**",
 					"$(PROJECT_DIR)/Project/ProjectSource/snak/AlipaySDK/**",
 					"$(PROJECT_DIR)/Project/ProjectSource/snak/WeChatSDK",
+					"$(PROJECT_DIR)/Project/ProjectSource/Plate",
 				);
 				MACH_O_TYPE = mh_execute;
 				MARKETING_VERSION = 1.0;

@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 import CryptoSwift
 import Alamofire
+let authCode  = "9DD232F7B4C7398BA6C2"
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

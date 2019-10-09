@@ -16,3 +16,6 @@
 #import <WXApi.h>
 
 #import <JPUSHService.h>
+#import "PlateCameraController.h"
+
+#import "PlateMainController.h"

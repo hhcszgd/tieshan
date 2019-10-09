@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+//import PlateMainController
 class CheLiangRuChangVC: DDNormalVC {
     let addBtn = UIButton()
     let takePhotoBtn = UIButton()
@@ -23,6 +23,8 @@ class CheLiangRuChangVC: DDNormalVC {
         view.addSubview(takePhotoBtn)
         takePhotoBtn.setImage(UIImage(named:"zhaoxiangjo"), for: UIControlState.normal)
         takePhotoBtn.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+        
+        takePhotoBtn.addTarget(self , action: #selector(tokePhoto(sender:)), for: UIControlEvents.touchUpInside)
         let photoBtnX : CGFloat = 20
         let photoBtnW = view.bounds.width - photoBtnX * 2
         let photoBtnH = photoBtnW * 0.64
@@ -33,6 +35,15 @@ class CheLiangRuChangVC: DDNormalVC {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @objc func tokePhoto(sender:UIButton){
+        let vc = PlateMainController(authorizationCode: "")
+        vc?.actionBlock = { str in
+            GDAlertView.alert(str)
+        }
+        self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+        mylog("确定")
+        //        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
     }
     @objc func addBtnClick(sender:UIButton){
         self.navigationController?.pushViewController(CheLiangGuanLiVC(), animated: true)
