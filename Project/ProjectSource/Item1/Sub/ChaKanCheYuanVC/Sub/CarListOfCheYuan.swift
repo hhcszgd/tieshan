@@ -7,20 +7,21 @@
 //
 
 import UIKit
-
+///state： 1-待入场状态 2-待核档状态 3-待商委注销状态 4-待领取残值状态 5-待报废状态 6-报废成功 7-核档未通过 查全部的状态不用传状态码，就是查全部状态的
 class CarListOfCheYuan: DDNormalVC {
     let topBar = ViewTopBar(title: "车源数量")
     let titleCategory =  ChooseCheyuanCateGory(frame: CGRect(x: 0, y: 0, width: 220, height: 40))
     var categoryIndex = 0
     lazy var choostAlert: ChoostCarTypeAlert = {
         let alert = ChoostCarTypeAlert(datas: [
-            ChoostCarTypeAlert.ChoostCarTypeModel(title: "未入场", true),
-            ChoostCarTypeAlert.ChoostCarTypeModel(title: "未拓号", false),
+            ChoostCarTypeAlert.ChoostCarTypeModel(title: "全部", true),
+            ChoostCarTypeAlert.ChoostCarTypeModel(title: "未入场", false),
             ChoostCarTypeAlert.ChoostCarTypeModel(title: "待核档", false),
-            ChoostCarTypeAlert.ChoostCarTypeModel(title: "核档不通过", false),
-            ChoostCarTypeAlert.ChoostCarTypeModel(title: "待商委照片上传", false),
-            ChoostCarTypeAlert.ChoostCarTypeModel(title: "待打印回收证明", false),
-            ChoostCarTypeAlert.ChoostCarTypeModel(title: "待手续发放", false),
+            ChoostCarTypeAlert.ChoostCarTypeModel(title: "待商委注销", false),
+            ChoostCarTypeAlert.ChoostCarTypeModel(title: "待领取残值", false),
+            ChoostCarTypeAlert.ChoostCarTypeModel(title: "待报废", false),
+            ChoostCarTypeAlert.ChoostCarTypeModel(title: "报废成功", false),
+            ChoostCarTypeAlert.ChoostCarTypeModel(title: "核档不通过", false)
             
         ])
         alert.didSelected = {[weak self] index in
@@ -31,6 +32,7 @@ class CarListOfCheYuan: DDNormalVC {
                 s.titleCategory.btnClick(sender: s.titleCategory)
                 
             }
+            self?.requestServer(type:self?.categoryIndex ?? 0)
         }
         return alert
     }()
@@ -38,15 +40,14 @@ class CarListOfCheYuan: DDNormalVC {
     let searchBar = DDSearchBar()
     let addBtn = UIButton()
     lazy var categoryBar : UIView = UIView()
-    var index: Int = 0
+//    var index: Int = 0
     var apiModel = ApiModel<CheYuanDataModel>()
+    var cheYuanID : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "车源列表"
+        if let id = self.userInfo as? String{self.cheYuanID = id}
         self.navigationItem.titleView = titleCategory
-        if let index = userInfo as? Int {
-            self.index = index
-        }
         layoutCategoryBar()
         layoutSearchBar()
         titleCategory.clickHandler = { [weak self] isSelected in
@@ -67,37 +68,36 @@ class CarListOfCheYuan: DDNormalVC {
         addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
         layoutCollectionView()
         // Do any additional setup after loading the view.
-        self.prepareRequest(index: index)
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.requestServer(type:self.categoryIndex)
     }
     @objc func addBtnClick(sender:UIButton){
-        
-        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
+        let vc = ZengJiaCheLiangeVC()
+        vc.userInfo = self.cheYuanID
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    func prepareRequest(index:Int) {
-        switch index {
-        case  0 :
-            self.requestServer(type:1)
-        case 1 :
-            self.requestServer(type:3)
-        default:
-            self.requestServer(type:2)
-        }
-        
-        self.requestServer(type:index)
-    }
+//    func prepareRequest(index:Int) {
+//        switch index {
+//        case  0 :
+//            self.requestServer(type:1)
+//        case 1 :
+//            self.requestServer(type:3)
+//        default:
+//            self.requestServer(type:2)
+//        }
+//
+//        self.requestServer(type:index)
+//    }
     /// 1：未核档(暂存)，2：已核档，3：核档不通过
     func requestServer(type:Int)  {
-        DDQueryManager.share.heDangJiLu(type: ApiModel<CheYuanDataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
-            mylog(result.msg)
-            let test : CheYuanModel = CheYuanModel()
-            test.approachTime = "1999-09-09"
-            test.carNo = "京A 8888"
-            test.isVerify = 1
-            test.carCode = "ssssssseed"
-            test.vin = "laslsadlfserrsrr"
-            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
-            self.apiModel = result
+        let state = self.categoryIndex == 0 ? nil : "\(self.categoryIndex)"
+        DDQueryManager.share.carListOfCheYuan(type: ApiModel<CheYuanDataModel>.self, id: self.cheYuanID, page: "1",state: state, findMsg: nil) { (apiModel) in
+            self.apiModel = apiModel
             self.collection.reloadData()
+            mylog(apiModel.msg)
         }
     }
     func layoutCategoryBar(){
@@ -186,11 +186,11 @@ class CarListOfCheYuan: DDNormalVC {
 
 extension CarListOfCheYuan : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if index == 0 {
-            UIApplication.shared.keyWindow?.alert(Bundle.main.loadNibNamed("LookForResultAlert", owner: "LookForResultAlert" , options: nil )?.first as! LookForResultAlert)
-        }else {
-            self.navigationController?.pushViewController(DDDealDetailVC(), animated: true)
-        }
+//        if categoryIndex == 0 {
+//            UIApplication.shared.keyWindow?.alert(Bundle.main.loadNibNamed("LookForResultAlert", owner: "LookForResultAlert" , options: nil )?.first as! LookForResultAlert)
+//        }else {
+//            self.navigationController?.pushViewController(DDDealDetailVC(), animated: true)
+//        }
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -236,15 +236,12 @@ extension CarListOfCheYuan{
     
     
     class CheYuanModel : Codable {
-        var carInfoId : Int? // 1176367626889334786,
+        var status : String?
         var carCode:String? // "TSXXX19092225",
-        var approachTime : String?// null,
         var carNo: String? // "晋A88884",
         var vin: String? // "33333",
-        /// 1：未核档(暂存)，2：已核档，3：核档不通过
-        var isVerify: Int = 0// 2,
-        var carProcessingId: Int = 0 // 1176367626889336667,
-        var verificationResult:String? // null
+        var approachTime : String?// null,
+        var carInfoId : Int? // 1176367626889334786,
     }
     
     class CheYuanItem : UICollectionViewCell {
@@ -257,16 +254,8 @@ extension CarListOfCheYuan{
                 arrivedTime.text = "入场时间: \(model.approachTime ?? "")"
                 carNumber.text = "车牌:\(model.carNo ?? "")"
                 vin.text = "VIN:\(model.vin ?? "")"
-                if model.isVerify == 1{
-                    reason.setTitleColor(UIColor.orange.withAlphaComponent(0.8), for: UIControlState.normal)
-                    reason.setTitle("待核档", for: UIControlState.normal)
-                }else if model.isVerify == 2{
-                    reason.setTitleColor(mainColor, for: UIControlState.normal)
-                    reason.setTitle("已核档", for: UIControlState.normal)
-                }else if model.isVerify == 3{
-                    reason.setTitleColor(UIColor.red, for: UIControlState.normal)
-                    reason.setTitle("核档未通过  查看原因 >>", for: UIControlState.normal)
-                }
+                reason.setTitle(model.status, for: UIControlState.normal)
+
             }
         }
         

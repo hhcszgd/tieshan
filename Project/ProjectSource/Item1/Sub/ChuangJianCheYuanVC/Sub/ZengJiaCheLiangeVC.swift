@@ -11,18 +11,18 @@ import UIKit
 class ZengJiaCheLiangeVC: ChuangJianVC {
     let addBtn = UIButton()
     lazy var models  : [CheYuanOrCheLiangModel] =  [
-        CheYuanOrCheLiangModel(title: "联系人姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人姓名"),
-        CheYuanOrCheLiangModel(title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话"),
-        CheYuanOrCheLiangModel(title: "联系人地址:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人地址"),
+        CheYuanOrCheLiangModel(identify:"contacts", title: "联系人姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人姓名"),
+        CheYuanOrCheLiangModel(identify:"contactsPhone", title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话"),
+        CheYuanOrCheLiangModel(identify:"contactsAddress", title: "联系人地址:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人地址"),
         CheYuanOrCheLiangModel( isValid: false, stringOfClassName: NSStringFromClass(DDSectionSeparator.self)),
-        CheYuanOrCheLiangModel(title: "车牌号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车牌号"),
+        CheYuanOrCheLiangModel(identify:"carNo", title: "车牌号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车牌号"),
         
-        CheYuanOrCheLiangModel(title: "车辆型号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择车辆型号"),
-        CheYuanOrCheLiangModel(title: "处理方式:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择处理方式"),
-        CheYuanOrCheLiangModel(title: "处理日期:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择处理日期"),
-        CheYuanOrCheLiangModel(title: "手续获取:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择手续获取方式"),
+        CheYuanOrCheLiangModel(identify:"carName", title: "车辆型号:",value: "科鲁兹滋滋滋滋", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择车辆型号"),
+        CheYuanOrCheLiangModel(identify:"processingType", title: "处理方式:",value: "拖车", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择处理方式"),
+        CheYuanOrCheLiangModel(identify:"processingDate", title: "处理日期:",value: "2019-09-18 15:39:56", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择处理日期"),
+        CheYuanOrCheLiangModel(identify:"proceduresType", title: "手续获取:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择手续获取方式"),
         shouXuModel,
-        CheYuanOrCheLiangModel(title: "备注:", isValid: true, stringOfClassName: NSStringFromClass(DDTips.self)),
+        CheYuanOrCheLiangModel(identify:"proceduresType", title: "备注:", isValid: true, stringOfClassName: NSStringFromClass(DDTips.self)),
         
         
         
@@ -30,18 +30,20 @@ class ZengJiaCheLiangeVC: ChuangJianVC {
     lazy var shouXuModel : CheYuanOrCheLiangModel = {
         let m = CheYuanOrCheLiangModel(title: "手续:", isValid: true, stringOfClassName: NSStringFromClass(DDShouxu.self))
         m.shouXuTypes = [
-            ShouXuTypeModel(title: "行驶本", false, 0),
-            ShouXuTypeModel(title: "登记证", false, 1),
-            ShouXuTypeModel(title: "身份证复印件", false, 2),
-            ShouXuTypeModel(title: "营业执照复印件", false, 3),
-            ShouXuTypeModel(title: "车辆报废表", false, 4),
-            ShouXuTypeModel(title: "车辆事故证明", false, 5)
+            ShouXuTypeModel(title: "行驶本", false, 0 ,identify:"drivLicense"),
+            ShouXuTypeModel(title: "登记证", false, 1, identify:"registLicense"),
+            ShouXuTypeModel(title: "身份证复印件", false, 2, identify:"peopleLicense"),
+            ShouXuTypeModel(title: "营业执照复印件", false, 3, identify:"busineseLicense"),
+            ShouXuTypeModel(title: "车辆报废表", false, 4, identify:"breakLicense"),
+            ShouXuTypeModel(title: "车辆事故证明", false, 5, identify:"exceptionLicense")
         ]
         return m
     }()
+    var cheYuanID = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         naviBar.title = "增加车辆"
+        if let id = self.userInfo as? String {self.cheYuanID = id}
         _addSubviews()
         self.tableView?.reloadData()
         tableView?.showsVerticalScrollIndicator = false
@@ -58,6 +60,27 @@ class ZengJiaCheLiangeVC: ChuangJianVC {
 extension ZengJiaCheLiangeVC{
     @objc func addBtnClick(sender: UIButton){
         mylog("addBtnClick")
+        var dict : [String:Codable] = [:]
+        models.forEach { (model) in
+            if model.identify == "proceduresType"{
+                model.shouXuTypes.forEach { (shouXuModel) in
+                    dict[shouXuModel.identify] = "\(shouXuModel.status)"
+                }
+            }else{
+                dict[model.identify] = model.value
+            }
+        }
+        dict["carSource"] = self.cheYuanID
+        DDQueryManager.share.addCar(type: ApiModel<String>.self, para: dict) { (apiModel) in
+            if apiModel.ret_code == "0"{
+                GDAlertView.alert("增加成功") {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }else{
+                GDAlertView.alert(apiModel.msg) 
+            }
+            
+        }
         
     }
     

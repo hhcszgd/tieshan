@@ -40,12 +40,12 @@ class ChuJianStep1VC: ChuangJianVC {
     lazy var shouXuModel : CheYuanOrCheLiangModel = {
         let m = CheYuanOrCheLiangModel(title: "手续:", isValid: true, stringOfClassName: NSStringFromClass(DDShouxu.self))
         m.shouXuTypes = [
-            ShouXuTypeModel(title: "行驶本", false, 0),
-            ShouXuTypeModel(title: "登记证", false, 1),
-            ShouXuTypeModel(title: "身份证复印件", false, 2),
-            ShouXuTypeModel(title: "营业执照复印件", false, 3),
-            ShouXuTypeModel(title: "车辆报废表", false, 4),
-            ShouXuTypeModel(title: "车辆事故证明", false, 5)
+//            ShouXuTypeModel(title: "行驶本", false, 0),
+//            ShouXuTypeModel(title: "登记证", false, 1),
+//            ShouXuTypeModel(title: "身份证复印件", false, 2),
+//            ShouXuTypeModel(title: "营业执照复印件", false, 3),
+//            ShouXuTypeModel(title: "车辆报废表", false, 4),
+//            ShouXuTypeModel(title: "车辆事故证明", false, 5)
         ]
         return m
     }()

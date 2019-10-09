@@ -86,7 +86,10 @@ class ShouXuTypeModel {
     var title = ""
     var isSelected = false
     var id : Int = 0
-    convenience init(title: String ,_ isSelected: Bool,_ id: Int){
+    var identify = ""
+    var status : Int{return isSelected ? 2 : 1}
+    
+    convenience init(title: String ,_ isSelected: Bool,_ id: Int , identify : String){
         self.init()
         self.title = title
         self.isSelected = isSelected
@@ -316,6 +319,10 @@ extension ChuangJianVC{
             if text == "\n"{
                 textView.endEditing(true)
                 return false
+            }else{
+                let textt = NSString(string: textView.text ?? "").replacingCharacters(in: range, with: text)
+                 mylog(textt)
+                self.model.value = textt
             }
             //        if textView.text.count > 120 && text.count > 0{
             //            return false

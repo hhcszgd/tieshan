@@ -29,6 +29,30 @@ enum DomainType : String  {
 
 extension DDQueryManager{
     /// write your api here 👇
+    //
+    func addCar<T>(type : ApiModel<T>.Type,para : [String:Codable],failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "carSource/addCar"
+//        var para : [String : String] =  [:]
+//        if let p = page{para["page"] = p}
+//        if let p = pageSize{para["pageSize"] = p}
+//        if let p = state{para["state"] = p}
+//        if let p = findMsg{para["findMsg"] = p}
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    
+            @discardableResult
+        /// 后勤部
+        /// state： 1-待入场状态 2-待核档状态 3-待商委注销状态 4-待领取残值状态 5-待报废状态 6-报废成功 7-核档未通过 查全部的状态不用传状态码，就是查全部状态的
+    func carListOfCheYuan<T>(type : ApiModel<T>.Type,id : String , page : String? , pageSize : String? = "10", state:String? = nil,findMsg : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+            let url  =  "carSource/selectCarInfoListApp"
+            var para : [String : String] =  ["id":id]
+            if let p = page{para["page"] = p}
+            if let p = pageSize{para["pageSize"] = p}
+            if let p = state{para["state"] = p}
+            if let p = findMsg{para["findMsg"] = p}
+            return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters:para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+        }
+    
     
         @discardableResult
     /// 后勤部

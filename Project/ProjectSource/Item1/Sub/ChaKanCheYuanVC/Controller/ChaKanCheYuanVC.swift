@@ -69,7 +69,8 @@ class ChaKanCheYuanVC: DDNormalVC {
         DDQueryManager.share.cheYuanList(type: ApiModel<CheYuanDataModel>.self, page: "1", searchInfo: nil) { (result) in
             dump(result)
 //            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
-//            self.apiModel = result
+            self.apiModel = result
+            self.topBar.titleLabel.text = "车源数量\(result.data?.total ?? 0)"
             self.collection.reloadData()
         }
 //        DDQueryManager.share.heDangJiLu(type: ApiModel<CheYuanDataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
@@ -159,7 +160,9 @@ class ChaKanCheYuanVC: DDNormalVC {
 
 extension ChaKanCheYuanVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(CarListOfCheYuan(), animated: true)
+        let vc = CarListOfCheYuan()
+        vc.userInfo = self.apiModel.data?.list?[indexPath.item].id
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -223,10 +226,13 @@ extension ChaKanCheYuanVC{
                 guard let model = model  else {
                     return
                 }
-                name.text = "编号:\(model.account ?? "")"
-                address.text = "入场时间: \(model.contacts ?? "")"
-                mobile.text = "车牌:\(model.carLocation ?? "")"
-                bankname.text = "VIN:\(model.count ?? "")"
+                name.text = model.contacts
+                address.text = "地址: \(model.carLocation ?? "")"
+                mobile.text = "电话:\(model.phone ?? "")"
+                bankname.text = "银行:\(model.bankName ?? "")"
+//                address.text = "银行账号:\(model.carLocation ?? "")"
+                bankCardNum.text = "银行账号:\(model.account ?? "")"
+                carNum.text = "\(model.count ?? "")辆车"
                 
             }
         }
