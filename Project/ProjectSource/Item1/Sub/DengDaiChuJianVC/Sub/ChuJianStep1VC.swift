@@ -9,10 +9,11 @@
 import UIKit
 
 class ChuJianStep1VC: ChuangJianVC {
+    var model  = DengDaiChuJianVC.CheYuanModel ()
     let addBtn = UIButton()
     let doneBtn = UIButton()
     lazy var models  : [CheYuanOrCheLiangModel] =  [
-        CheYuanOrCheLiangModel(title: "车辆基本信息:", isValid: true, stringOfClassName: NSStringFromClass(ChuJianBaseInfoCell.self),placeholder: "请输入车牌数量"),
+        CheYuanOrCheLiangModel(title: "车辆基本信息:", isValid: true, stringOfClassName: NSStringFromClass(ChuJianBaseInfoCell.self), futureModel: self.model),
         CheYuanOrCheLiangModel( isValid: true, stringOfClassName: NSStringFromClass(DDSectionSeparator.self)),
         CheYuanOrCheLiangModel(title: "车牌数量:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车牌数量"),
         // TODO: 新旧程度

@@ -30,6 +30,26 @@ enum DomainType : String  {
 extension DDQueryManager{
     /// write your api here 👇
     //
+    func dengDaiChuJian<T>(type : ApiModel<T>.Type, page : String? , pageSize : String? = "10", state:String? = nil,findMsg : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "carSource/selectCarInfoByIsInitialSurvey"
+            var para : [String : String] =  [:]
+           if let p = page{para["page"] = p}
+           if let p = pageSize{para["pageSize"] = p}
+           if let p = findMsg{para["findMsg"] = p}
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters:para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    
+    func ruChang<T>(type : ApiModel<T>.Type,carNo : String , cardColor : String , selfWeight: String ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "carSource/insertCarSurveyPart"
+        let para =  [
+            "carNo":carNo,
+            "cardColor": cardColor,
+            "selfWeight" : selfWeight
+        ]
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    
+    
     func addCar<T>(type : ApiModel<T>.Type,para : [String:Codable],failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
         let url  =  "carSource/addCar"
 //        var para : [String : String] =  [:]

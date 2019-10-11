@@ -216,7 +216,7 @@ extension CarListOfCheYuan{
         var size : Int?
         var startRow : Int?
         var endRow:Int?
-        var total:Int?
+        var total:String?
         var pages: Int?
         var list:[CheYuanModel]?
         var prePage:Int?

@@ -70,7 +70,7 @@ extension ZengJiaCheLiangeVC{
                 dict[model.identify] = model.value
             }
         }
-        dict["carSource"] = self.cheYuanID
+        dict["carSource"] = Int(self.cheYuanID)
         DDQueryManager.share.addCar(type: ApiModel<String>.self, para: dict) { (apiModel) in
             if apiModel.ret_code == "0"{
                 GDAlertView.alert("增加成功") {

@@ -5,22 +5,44 @@
 //  Created by WY on 2019/9/21.
 //  Copyright © 2019年 HHCSZGD. All rights reserved.
 //
-
 import UIKit
+private let scanCarNumAuthCode = "9DD232F7B4C7398BA6C2";
 //import PlateMainController
+extension CheLiangRuChangVC: PlateCameraDelegate {
+    func cameraController(_ cameraController: UIViewController!, recognizePlateSuccessWithResult plateStr: String!, plateColor: String!, plateImage: UIImage!, squareImage: UIImage!, andFullImage fullImage: UIImage!) {
+        self.navigationController?.popViewController(animated: true)
+        takePhotoBtn.setImage(squareImage, for: UIControlState.normal)
+        carImage = squareImage
+        carBrandNum = plateStr
+        carBrandColor = plateColor
+    }
+    
+    
+}
 class CheLiangRuChangVC: DDNormalVC {
     let addBtn = UIButton()
+    var carBrandColor = ""
+    var carBrandNum = ""
+    var carImage = UIImage()
     let takePhotoBtn = UIButton()
+    lazy var scanner: PlateCameraController = {
+        let vc = PlateCameraController(authorizationCode: scanCarNumAuthCode)!
+        vc.delegate = self
+        vc.deviceDirection = .portrait
+        return vc
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "车辆入场"
         view.addSubview(addBtn)
+        addBtn.adjustsImageWhenHighlighted = false
         addBtn.backgroundColor = .blue
         addBtn.setTitle("确定", for: UIControlState.normal)
         addBtn.frame = CGRect(x: 20, y: view.bounds.height - DDSliderHeight - 20 - 40, width: view.bounds.width - 40, height: 40)
         addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
         
         view.addSubview(takePhotoBtn)
+        takePhotoBtn.imageView?.contentMode = .scaleAspectFit
         takePhotoBtn.setImage(UIImage(named:"zhaoxiangjo"), for: UIControlState.normal)
         takePhotoBtn.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
         
@@ -37,16 +59,16 @@ class CheLiangRuChangVC: DDNormalVC {
         // Dispose of any resources that can be recreated.
     }
     @objc func tokePhoto(sender:UIButton){
-        let vc = PlateMainController(authorizationCode: "")
-        vc?.actionBlock = { str in
-            GDAlertView.alert(str)
-        }
-        self.navigationController?.pushViewController(vc ?? UIViewController(), animated: true)
+        self.navigationController?.pushViewController(scanner ?? UIViewController(), animated: true)
         mylog("确定")
         //        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
     }
     @objc func addBtnClick(sender:UIButton){
-        self.navigationController?.pushViewController(CheLiangGuanLiVC(), animated: true)
+        let vc = CheLiangGuanLiVC()
+        vc.carImage = carImage
+        vc.carBrandNum = carBrandNum
+        vc.carBrandColor = carBrandColor
+        self.navigationController?.pushViewController(vc , animated: true)
         mylog("确定")
         //        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
     }

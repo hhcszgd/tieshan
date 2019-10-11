@@ -22,7 +22,7 @@ class CheYuanDataModel: Codable {
     var  size : Int?
     var  startRow : Int?
     var  endRow : Int?
-    var  total : Int?
+    var  total : String?
     var  pages : Int?
     var  prePage : Int?
     var  nextPage : Int?
@@ -70,7 +70,7 @@ class ChaKanCheYuanVC: DDNormalVC {
             dump(result)
 //            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
             self.apiModel = result
-            self.topBar.titleLabel.text = "车源数量\(result.data?.total ?? 0)"
+            self.topBar.titleLabel.text = "车源数量\(result.data?.total ?? "0")"
             self.collection.reloadData()
         }
 //        DDQueryManager.share.heDangJiLu(type: ApiModel<CheYuanDataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in

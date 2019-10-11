@@ -70,8 +70,8 @@ class CheYuanOrCheLiangModel {
     var shouXuTypes : [ShouXuTypeModel] = []
     var isValid: Bool = true//是否有效
     var identify : String = ""
-    
-    convenience init(identify: String = "", title: String = "",value:String = "", isValid: Bool = true, stringOfClassName : String, placeholder: String = ""){
+    var futureModel: Any?
+    convenience init(identify: String = "", title: String = "",value:String = "", isValid: Bool = true, stringOfClassName : String, placeholder: String = "" , futureModel:Any? = nil){
         self.init()
         self.title = title
         self.isValid = isValid
@@ -79,6 +79,7 @@ class CheYuanOrCheLiangModel {
         self.placeHolder = placeholder
         self.value = value
         self.identify = identify
+        self.futureModel = futureModel
     }
 }
 
@@ -101,15 +102,29 @@ extension ChuangJianVC{
         var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
             didSet{
                 title.text = model.title
+                guard let infoModel = model.futureModel as? DengDaiChuJianVC.CheYuanModel else{
+                    return
+                }
+                number.text = "编号: \(infoModel.carCode ?? "null")"
+                carNumber.text =  "车牌号: \(infoModel.carNo ?? "null")"
+                arrivedTime.text =  "入场时间: \(infoModel.approachTime ?? 0)"
+                carType.text  =  "车型: \(infoModel.carName ?? "null")"
+                
             }
         }
+        lazy var infoModel : DengDaiChuJianVC.CheYuanModel = {
+            guard let m = model.futureModel as? DengDaiChuJianVC.CheYuanModel else{
+                return DengDaiChuJianVC.CheYuanModel()
+            }
+            return m
+        }()
         let bgView = UIView()
         let blockView = UIView()
         lazy var title = UILabel(title: "车辆基本信息", font: UIFont.systemFont(ofSize: 15), color: UIColor.white)
-        let number = UILabel(title: "编号:",font: UIFont.systemFont(ofSize: 15), color: .white)
-        let carNumber = UILabel(title: "车牌号:", font: UIFont.systemFont(ofSize: 15), color: .white)
-        let arrivedTime = UILabel(title: "入场时间:", font: UIFont.systemFont(ofSize: 15), color: .white)
-        let carType  = UILabel(title: "车型:", font: UIFont.systemFont(ofSize: 15), color: .white)
+        lazy var number = UILabel(title: "编号: \(infoModel.carCode)",font: UIFont.systemFont(ofSize: 15), color: .white)
+        lazy var carNumber = UILabel(title: "车牌号: \(infoModel.carNo)", font: UIFont.systemFont(ofSize: 15), color: .white)
+        lazy var arrivedTime = UILabel(title: "入场时间: \(infoModel.approachTime)", font: UIFont.systemFont(ofSize: 15), color: .white)
+        lazy var carType  = UILabel(title: "车型: \(infoModel.carName)", font: UIFont.systemFont(ofSize: 15), color: .white)
         override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             self.contentView.addSubview(bgView)
