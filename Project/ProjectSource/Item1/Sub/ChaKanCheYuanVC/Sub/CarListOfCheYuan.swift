@@ -211,26 +211,26 @@ extension CarListOfCheYuan : UICollectionViewDelegate ,UICollectionViewDataSourc
 }
 extension CarListOfCheYuan{
     class CheYuanDataModel: Codable {
-        var pageNum: Int?
-        var pageSize:Int?
-        var size : Int?
-        var startRow : Int?
-        var endRow:Int?
+        var pageNum: String?
+        var pageSize:String?
+        var size : String?
+        var startRow : String?
+        var endRow:String?
         var total:String?
-        var pages: Int?
+        var pages: String?
         var list:[CheYuanModel]?
-        var prePage:Int?
-        var nextPage:Int?
+        var prePage:String?
+        var nextPage:String?
         var isFirstPage:Bool?
         var isLastPage : Bool?
         var hasPreviousPage : Bool?
         var hasNextPage: Bool?
-        var navigatePages: Int?
-        var navigatepageNums : [Int]?
-        var navigateFirstPage: Int?
-        var navigateLastPage: Int?
-        var firstPage : Int?
-        var lastPage : Int?
+        var navigatePages: String?
+        var navigatepageNums : [String]?
+        var navigateFirstPage: String?
+        var navigateLastPage: String?
+        var firstPage : String?
+        var lastPage : String?
     }
     
     
@@ -241,7 +241,7 @@ extension CarListOfCheYuan{
         var carNo: String? // "晋A88884",
         var vin: String? // "33333",
         var approachTime : String?// null,
-        var carInfoId : Int? // 1176367626889334786,
+        var carInfoId : String? // 1176367626889334786,
     }
     
     class CheYuanItem : UICollectionViewCell {

@@ -158,7 +158,7 @@ extension DengDaiChuJianVC : UICollectionViewDelegate ,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = ChuJianStep1VC()
         guard let m = self.apiModel.data?.list?[indexPath.item] else { return  }
-        vc.model = m
+        vc.baseInfoModel = m
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -179,33 +179,33 @@ extension DengDaiChuJianVC : UICollectionViewDelegate ,UICollectionViewDataSourc
     
 }
 extension DengDaiChuJianVC{
-    class CheYuanDataModel: Codable {
-        var pageNum: Int?
-        var pageSize:Int?
-        var size : Int?
-        var startRow : Int?
-        var endRow:Int?
+     class CheYuanDataModel: Codable {
+        var pageNum: String?
+        var pageSize:String?
+        var size : String?
+        var startRow : String?
+        var endRow:String?
         var total:String?
-        var pages: Int?
+        var pages: String?
         var list:[CheYuanModel]?
-        var prePage:Int?
-        var nextPage:Int?
+        var prePage:String?
+        var nextPage:String?
         var isFirstPage:Bool?
         var isLastPage : Bool?
         var hasPreviousPage : Bool?
         var hasNextPage: Bool?
-        var navigatePages: Int?
-        var navigatepageNums : [Int]?
-        var navigateFirstPage: Int?
-        var navigateLastPage: Int?
-        var firstPage : Int?
-        var lastPage : Int?
+        var navigatePages: String?
+        var navigatepageNums : [String]?
+        var navigateFirstPage: String?
+        var navigateLastPage: String?
+        var firstPage : String?
+        var lastPage : String?
     }
     
     
     
     class CheYuanModel : Codable {
-        var approachTime : Int?// null,
+        var approachTime : String?// null,
         var carNo: String? // "晋A88884",
         var carName: String? // "
         var id: String? // "
@@ -220,7 +220,7 @@ extension DengDaiChuJianVC{
                     return
                 }
                 number.text = "编号:\(model.carCode ?? "")"
-                arrivedTime.text = "入场时间: \(model.approachTime ?? 0)"
+                arrivedTime.text = "入场时间: \(model.approachTime ?? "0")"
                 carNumber.text = "车牌:\(model.carNo ?? "")"
                 carType.text = "车型:\(model.carName ?? "")"
             }

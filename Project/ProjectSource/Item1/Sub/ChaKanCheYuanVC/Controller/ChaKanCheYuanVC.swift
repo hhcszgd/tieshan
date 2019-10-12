@@ -16,25 +16,25 @@ class CheYuanModel: Codable {
 }
 class CheYuanDataModel: Codable {
     var list : [CheYuanModel]?
-    var navigatepageNums : [Int]?
-    var pageNum : Int?
-    var  pageSize : Int?
-    var  size : Int?
-    var  startRow : Int?
-    var  endRow : Int?
+    var navigatepageNums : [String]?
+    var pageNum : String?
+    var  pageSize : String?
+    var  size : String?
+    var  startRow : String?
+    var  endRow : String?
     var  total : String?
-    var  pages : Int?
-    var  prePage : Int?
-    var  nextPage : Int?
+    var  pages : String?
+    var  prePage : String?
+    var  nextPage : String?
     var  isFirstPage : Bool?
     var  isLastPage : Bool?
     var  hasPreviousPage : Bool?
     var  hasNextPage : Bool?
-    var  navigatePages : Int?
-    var  navigateFirstPage : Int?
-    var  navigateLastPage : Int?
-    var  lastPage : Int?
-    var  firstPage : Int?
+    var  navigatePages : String?
+    var  navigateFirstPage : String?
+    var  navigateLastPage : String?
+    var  lastPage : String?
+    var  firstPage : String?
 }
 import UIKit
 

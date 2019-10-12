@@ -107,7 +107,7 @@ extension ChuangJianVC{
                 }
                 number.text = "编号: \(infoModel.carCode ?? "null")"
                 carNumber.text =  "车牌号: \(infoModel.carNo ?? "null")"
-                arrivedTime.text =  "入场时间: \(infoModel.approachTime ?? 0)"
+                arrivedTime.text =  "入场时间: \(infoModel.approachTime ?? "0")"
                 carType.text  =  "车型: \(infoModel.carName ?? "null")"
                 
             }
@@ -171,7 +171,13 @@ extension ChuangJianVC{
             didSet{
                 title.text = model.title
                 textfield.placeholder = model.placeHolder
-                textfield.text = model.value.isEmpty ? nil : model.value
+                if  !model.value.isEmpty{
+                    if model.value == "0"{
+                            textfield.text = nil
+                    }else{
+                        textfield.text = model.value
+                    }
+                }else{ textfield.text = nil }
             }
         }
         override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -422,6 +428,20 @@ extension ChuangJianVC{
         var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
             didSet{
                 carColorTitle.text = model.title
+                /// 新旧程度 1:正常 ,2:火灾 , 3:碰撞 ,4:水淹
+                switch model.value {
+                case "1":
+                    self.btnClick(sender: blue)
+                case "2":
+                    self.btnClick(sender: yellow)
+                case "3":
+                    self.btnClick(sender: white)
+                case "4":
+                    self.btnClick(sender: black)
+                    
+                default:
+                    break
+                }
             }
         }
         lazy var carColorTitle:UILabel  =  {
@@ -482,17 +502,35 @@ extension ChuangJianVC{
             btns.forEach { (b) in
                 if b != sender{b.isSelected = false }
             }
-            if sender.isSelected {selectColorIndex = sender.tag }else{selectColorIndex = -1}
+            if sender.isSelected {
+                selectColorIndex = sender.tag
+                model.value = "\(selectColorIndex + 1)"
+            }else{selectColorIndex = -1}
         }
         override func layoutSubviews() {
             super.layoutSubviews()
-            mylog(black.title(for: UIControlState.normal))
+            carColorTitle.frame = CGRect(x: 10, y: 0, width: carColorTitle.bounds.width , height: bounds.height)
+            firstBtnX = carColorTitle.frame.maxX + 10
+            colorBtnW  =  (bounds.width - firstBtnX - 10)/4
+            blue.frame = CGRect(x: firstBtnX, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            yellow.frame = CGRect(x: blue.frame.maxX, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            white.frame = CGRect(x: yellow.frame.maxX, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            black.frame = CGRect(x: white.frame.maxX, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
         }
     }
     class YesOrNoRow : DDTableViewCell{
         var model : CheYuanOrCheLiangModel = CheYuanOrCheLiangModel() {
             didSet{
                 carColorTitle.text = model.title
+                ///是否是铝圈，1.是，2.不是
+                switch model.value {
+                  case "1":
+                      self.btnClick(sender: blue)
+                  case "2":
+                      self.btnClick(sender: yellow)
+                  default:
+                      break
+                  }
             }
         }
         lazy var carColorTitle:UILabel  =  {
@@ -538,10 +576,15 @@ extension ChuangJianVC{
             btns.forEach { (b) in
                 if b != sender{b.isSelected = false }
             }
-            if sender.isSelected {selectColorIndex = sender.tag }else{selectColorIndex = -1}
+            if sender.isSelected {
+                selectColorIndex = sender.tag
+                model.value = "\(selectColorIndex + 1)"
+            }else{selectColorIndex = -1}
         }
         override func layoutSubviews() {
             super.layoutSubviews()
+            yellow.frame = CGRect(x: bounds.width - 10 - colorBtnW, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
+            blue.frame = CGRect(x: yellow.frame.minX - colorBtnW, y: carColorTitle.frame.minY, width: colorBtnW, height: bounds.height)
             mylog(blue.title(for: UIControlState.normal))
         }
     }

@@ -9,31 +9,34 @@
 import UIKit
 
 class ChuJianStep1VC: ChuangJianVC {
-    var model  = DengDaiChuJianVC.CheYuanModel ()
+    
+    var baseInfoModel  = DengDaiChuJianVC.CheYuanModel ()
+    var detailInfoModel  = DetailCarInfoModel()
     let addBtn = UIButton()
     let doneBtn = UIButton()
     lazy var models  : [CheYuanOrCheLiangModel] =  [
-        CheYuanOrCheLiangModel(title: "车辆基本信息:", isValid: true, stringOfClassName: NSStringFromClass(ChuJianBaseInfoCell.self), futureModel: self.model),
-        CheYuanOrCheLiangModel( isValid: true, stringOfClassName: NSStringFromClass(DDSectionSeparator.self)),
-        CheYuanOrCheLiangModel(title: "车牌数量:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车牌数量"),
+        CheYuanOrCheLiangModel(title: "车辆基本信息:", isValid: true, stringOfClassName: NSStringFromClass(ChuJianBaseInfoCell.self), futureModel: self.baseInfoModel),
+        CheYuanOrCheLiangModel( isValid: false, stringOfClassName: NSStringFromClass(DDSectionSeparator.self)),
+        CheYuanOrCheLiangModel(identify:"plateCount" , title: "车牌数量:", value:detailInfoModel.plateCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车牌数量"),
         // TODO: 新旧程度
-        CheYuanOrCheLiangModel(title: "新旧程度:", isValid: true, stringOfClassName: NSStringFromClass(OldLevelRow.self),placeholder: "请输入车牌数量"),
-        CheYuanOrCheLiangModel(title: "空调泵:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入空调泵数量"),
-        CheYuanOrCheLiangModel(title: "电池:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入电池数量"),
-        CheYuanOrCheLiangModel(title: "马达:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入马达数量"),
-        CheYuanOrCheLiangModel(title: "车门:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车门数量"),
-        CheYuanOrCheLiangModel(title: "铝圈数量:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入铝圈数量数量"),
-        CheYuanOrCheLiangModel(title: "电机:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入电机数量"),
+        CheYuanOrCheLiangModel(identify: "carDegree"   ,title: "新旧程度:", value:detailInfoModel.carDegree ?? "",  isValid: true, stringOfClassName: NSStringFromClass(OldLevelRow.self)),
+        CheYuanOrCheLiangModel(identify: "conditionPumpCount"   ,title: "空调泵:", value:detailInfoModel.conditionPumpCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入空调泵数量"),
+        CheYuanOrCheLiangModel(identify: "batteryCount"  ,title: "电池:", value:detailInfoModel.batteryCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入电池数量"),
+        CheYuanOrCheLiangModel(identify: "motorCount"  ,title: "马达:", value: detailInfoModel.motorCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入马达数量"),
+        CheYuanOrCheLiangModel(identify: "doorCount"  ,title: "车门:", value:detailInfoModel.doorCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车门数量"),
+        CheYuanOrCheLiangModel(identify: "alloyRimCount"  ,title: "铝圈数量:", value:detailInfoModel.alloyRimCount ?? "" ,  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入铝圈数量数量"),
+        CheYuanOrCheLiangModel(identify: "cisternCount"   ,title: "水箱:", value:detailInfoModel.cisternCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入水箱数量"),
+        CheYuanOrCheLiangModel(identify: detailInfoModel.electricalMachineryCount ?? "" ,title: "电机:", value: detailInfoModel.electricalMachineryCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入电机数量"),
         // TODO: 是否是铝圈
         
         
-        CheYuanOrCheLiangModel(title: "铝圈:", isValid: true, stringOfClassName: NSStringFromClass(YesOrNoRow.self),placeholder: "请输入水箱数量"),
-        CheYuanOrCheLiangModel(title: "轮胎:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入水箱数量"),
-        CheYuanOrCheLiangModel(title: "座椅:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入座椅数量"),
-        CheYuanOrCheLiangModel(title: "空调:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入空调数量"),
-        CheYuanOrCheLiangModel(title: "三元催化器:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入三元催化器数量"),
+        CheYuanOrCheLiangModel(identify: detailInfoModel.isAlloyRim ?? "" ,title: "铝圈:", value:detailInfoModel.isAlloyRim ?? "",  isValid: true, stringOfClassName: NSStringFromClass(YesOrNoRow.self)),
+        CheYuanOrCheLiangModel(identify: detailInfoModel.tyreCount ?? "" ,title: "轮胎:",  value:detailInfoModel.tyreCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入轮胎数量"),
+        CheYuanOrCheLiangModel(identify: detailInfoModel.chairCount ?? "" ,title: "座椅:" , value:detailInfoModel.chairCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入座椅数量"),
+        CheYuanOrCheLiangModel(identify: "conditionerCount" ,title: "空调:",value: detailInfoModel.conditionerCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入空调数量"),
+        CheYuanOrCheLiangModel(identify: "catalyticConverterCount" ,title: "三元催化器:",value:detailInfoModel.catalyticConverterCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入三元催化器数量"),
         
-        CheYuanOrCheLiangModel(title: "备注:", isValid: true, stringOfClassName: NSStringFromClass(DDTips.self)),
+        CheYuanOrCheLiangModel(identify: "remark" ,title: "备注:",value:detailInfoModel.remark ?? "" , isValid: true, stringOfClassName: NSStringFromClass(DDTips.self)),
         
         
         
@@ -53,11 +56,19 @@ class ChuJianStep1VC: ChuangJianVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         naviBar.title = "车辆初检"
-        _addSubviews()
-        self.tableView?.reloadData()
         tableView?.showsVerticalScrollIndicator = false
+        self.request()
 //        if tableView!.contentSize.height > tableView!.bounds.height{self.tableView?.isScrollEnabled = true}else{self.tableView?.isScrollEnabled = false}
         
+    }
+    func request() {
+        
+        DDQueryManager.share.chuJianInfo(type: ApiModel<DetailCarInfoModel>.self, id: "\(self.baseInfoModel.id ?? "0" )") { (apiModel) in
+            mylog("😈 \(apiModel.ret_code)")
+            if let m = apiModel.data {self.detailInfoModel = m}
+            self._addSubviews()
+            dump(apiModel.data)
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -221,5 +232,34 @@ extension ChuJianStep1VC{
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
+    }
+}
+extension UIViewController{
+    class DetailCarInfoModel : Codable{
+        var id : String?
+        var disintegratePlantId : String?
+        var carInfoId : String?
+        var plateCount : String?
+        var carDegree : String?
+        var conditionPumpCount : String?
+        var batteryCount : String?
+        var motorCount : String?
+        var doorCount : String?
+        var alloyRimCount : String?
+        var cisternCount : String?
+        var electricalMachineryCount : String?
+        var tyreCount : String?
+        var chairCount : String?
+        var conditionerCount : String?
+        var catalyticConverterCount : String?
+        var remark : String?
+        var createTime : String?
+        var selfWeight : String?
+        var dismantlingWay : String?
+        var isDelete : String?
+        var createOperator : String?
+        var createOperatorId : String?
+        var cardColor : String?
+        var isAlloyRim : String?
     }
 }

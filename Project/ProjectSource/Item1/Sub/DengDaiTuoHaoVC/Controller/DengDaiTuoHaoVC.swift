@@ -173,26 +173,26 @@ extension DengDaiTuoHaoVC : UICollectionViewDelegate ,UICollectionViewDataSource
 }
 extension DengDaiTuoHaoVC{
     class CheYuanDataModel: Codable {
-        var pageNum: Int?
-        var pageSize:Int?
-        var size : Int?
-        var startRow : Int?
-        var endRow:Int?
-        var total:Int?
-        var pages: Int?
+        var pageNum: String?
+        var pageSize:String?
+        var size : String?
+        var startRow : String?
+        var endRow:String?
+        var total:String?
+        var pages: String?
         var list:[CheYuanModel]?
-        var prePage:Int?
-        var nextPage:Int?
+        var prePage:String?
+        var nextPage:String?
         var isFirstPage:Bool?
         var isLastPage : Bool?
         var hasPreviousPage : Bool?
         var hasNextPage: Bool?
-        var navigatePages: Int?
-        var navigatepageNums : [Int]?
-        var navigateFirstPage: Int?
-        var navigateLastPage: Int?
-        var firstPage : Int?
-        var lastPage : Int?
+        var navigatePages: String?
+        var navigatepageNums : [String]?
+        var navigateFirstPage: String?
+        var navigateLastPage: String?
+        var firstPage : String?
+        var lastPage : String?
     }
     
     

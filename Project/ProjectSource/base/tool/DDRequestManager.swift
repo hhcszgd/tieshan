@@ -29,7 +29,18 @@ enum DomainType : String  {
 
 extension DDQueryManager{
     /// write your api here 👇
-    //
+    ///初检信息,有值则返显
+    func chuJianInfo<T>(type : ApiModel<T>.Type, id : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "carSource/selectCarSurveyByCarInfoId"
+        let para = ["id" : Int(id ?? "0") ]
+        return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters:para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    //暂时未用到
+    func cheLiangJiBenXinXi<T>(type : ApiModel<T>.Type, id : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "carSource/selectCarInfoByIdAndCarEnter"
+            let para = ["id" : id]
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters:para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
     func dengDaiChuJian<T>(type : ApiModel<T>.Type, page : String? , pageSize : String? = "10", state:String? = nil,findMsg : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
            let url  =  "carSource/selectCarInfoByIsInitialSurvey"
             var para : [String : String] =  [:]
@@ -350,11 +361,11 @@ extension DDQueryManager{
         if let parametersUnwrap = parameters{para = parametersUnwrap}
         //        para["l"] = DDLanguageManager.languageIdentifier
         //        para["c"] = DDLanguageManager.countryCode
-        para["l"] = "110"
+//        para["l"] = "110"
         //        if urlFull != DomainType.api.rawValue + "Initkey/rest"{//初始化接口不需要token
         if needToken {
             if let tokenReal = DDAccount.share.token {
-                para["token"] = tokenReal
+                header[ "token"] =  tokenReal
             }else{
                 
                 
@@ -381,13 +392,13 @@ extension DDQueryManager{
         //        }
         
         //        let language = DDLanguageManager.countryCode
-        let language = "110"
-        header["APPID"] = "2"
-        header["VERSIONMINI"] = "20160501"
-        header["DID"] = UIDevice.current.identifierForVendor?.uuidString ?? ""
-        header["VERSIONID"] = "2.0"
-        header["language"] = language
-        header[ "token"] = DDAccount.share.token ?? ""
+//        let language = "110"
+//        header["APPID"] = "2"
+//        header["VERSIONMINI"] = "20160501"
+//        header["DID"] = UIDevice.current.identifierForVendor?.uuidString ?? ""
+//        header["VERSIONID"] = "2.0"
+//        header["language"] = language
+//        header[ "token"] = DDAccount.share.token ?? ""
         //        header["Content-Type"] = "application/json"
         //        header["Accept"] = "application/json"
         if let url  = URL(string: urlFull){
