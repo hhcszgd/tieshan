@@ -15,24 +15,24 @@ class ChuJianStep1VC: ChuangJianVC {
     let addBtn = UIButton()
     let doneBtn = UIButton()
     lazy var models  : [CheYuanOrCheLiangModel] =  [
-        CheYuanOrCheLiangModel(title: "车辆基本信息:", isValid: true, stringOfClassName: NSStringFromClass(ChuJianBaseInfoCell.self), futureModel: self.baseInfoModel),
+        CheYuanOrCheLiangModel(title: "车辆基本信息:", isValid: false, stringOfClassName: NSStringFromClass(ChuJianBaseInfoCell.self), futureModel: self.baseInfoModel),
         CheYuanOrCheLiangModel( isValid: false, stringOfClassName: NSStringFromClass(DDSectionSeparator.self)),
-        CheYuanOrCheLiangModel(identify:"plateCount" , title: "车牌数量:", value:detailInfoModel.plateCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车牌数量"),
+        CheYuanOrCheLiangModel(identify:"plateCount" , title: "车牌数量:", value:detailInfoModel.plateCount ?? "0",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车牌数量"),
         // TODO: 新旧程度
-        CheYuanOrCheLiangModel(identify: "carDegree"   ,title: "新旧程度:", value:detailInfoModel.carDegree ?? "",  isValid: true, stringOfClassName: NSStringFromClass(OldLevelRow.self)),
-        CheYuanOrCheLiangModel(identify: "conditionPumpCount"   ,title: "空调泵:", value:detailInfoModel.conditionPumpCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入空调泵数量"),
+        CheYuanOrCheLiangModel(identify: "carDegree"   ,title: "新旧程度:", value:detailInfoModel.carDegree ?? "1",  isValid: true, stringOfClassName: NSStringFromClass(OldLevelRow.self)),
+        CheYuanOrCheLiangModel(identify: "conditionPumpCount"   ,title: "空调泵:", value:detailInfoModel.conditionPumpCount ?? "0",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入空调泵数量"),
         CheYuanOrCheLiangModel(identify: "batteryCount"  ,title: "电池:", value:detailInfoModel.batteryCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入电池数量"),
         CheYuanOrCheLiangModel(identify: "motorCount"  ,title: "马达:", value: detailInfoModel.motorCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入马达数量"),
         CheYuanOrCheLiangModel(identify: "doorCount"  ,title: "车门:", value:detailInfoModel.doorCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车门数量"),
         CheYuanOrCheLiangModel(identify: "alloyRimCount"  ,title: "铝圈数量:", value:detailInfoModel.alloyRimCount ?? "" ,  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入铝圈数量数量"),
         CheYuanOrCheLiangModel(identify: "cisternCount"   ,title: "水箱:", value:detailInfoModel.cisternCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入水箱数量"),
-        CheYuanOrCheLiangModel(identify: detailInfoModel.electricalMachineryCount ?? "" ,title: "电机:", value: detailInfoModel.electricalMachineryCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入电机数量"),
+        CheYuanOrCheLiangModel(identify: "electricalMachineryCount" ?? "" ,title: "电机:", value: detailInfoModel.electricalMachineryCount ?? "",  isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入电机数量"),
         // TODO: 是否是铝圈
         
         
-        CheYuanOrCheLiangModel(identify: detailInfoModel.isAlloyRim ?? "" ,title: "铝圈:", value:detailInfoModel.isAlloyRim ?? "",  isValid: true, stringOfClassName: NSStringFromClass(YesOrNoRow.self)),
-        CheYuanOrCheLiangModel(identify: detailInfoModel.tyreCount ?? "" ,title: "轮胎:",  value:detailInfoModel.tyreCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入轮胎数量"),
-        CheYuanOrCheLiangModel(identify: detailInfoModel.chairCount ?? "" ,title: "座椅:" , value:detailInfoModel.chairCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入座椅数量"),
+        CheYuanOrCheLiangModel(identify: "isAlloyRim" ,title: "铝圈:", value:detailInfoModel.isAlloyRim ?? "",  isValid: true, stringOfClassName: NSStringFromClass(YesOrNoRow.self)),
+        CheYuanOrCheLiangModel(identify: "tyreCount" ,title: "轮胎:",  value:detailInfoModel.tyreCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入轮胎数量"),
+        CheYuanOrCheLiangModel(identify: "chairCount" ,title: "座椅:" , value:detailInfoModel.chairCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入座椅数量"),
         CheYuanOrCheLiangModel(identify: "conditionerCount" ,title: "空调:",value: detailInfoModel.conditionerCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入空调数量"),
         CheYuanOrCheLiangModel(identify: "catalyticConverterCount" ,title: "三元催化器:",value:detailInfoModel.catalyticConverterCount ?? "", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入三元催化器数量"),
         
@@ -77,13 +77,34 @@ class ChuJianStep1VC: ChuangJianVC {
 
 //actions
 extension ChuJianStep1VC{
+    var para: [String:Codable] {
+        var p : [String:Codable] =  [:]
+        models.forEach { (m ) in
+            if m.isValid{
+                p[m.identify] = m.value// Int(m.value ?? "0") ?? 0
+                mylog("🤑 \(m.title) , 😷 \(m.identify)")
+            }
+        }
+        p["id"] = detailInfoModel.id // Int(detailInfoModel.id ?? "0") ?? 0
+        return p
+    }
+    
     @objc func addBtnClick(sender: UIButton){
         mylog("addBtnClick")
+        DDQueryManager.share.zanCunChuJianInfo(type: ApiModel<String>.self,para: para) { (apiModel) in
+            mylog(apiModel.ret_code)
+            dump(apiModel)
+        }
         
     }
     @objc func doneBtnClick(sender: UIButton){
         mylog("doneBtnClick")
-        
+        var temp = para
+        temp["carInfoId"] = detailInfoModel.carInfoId
+        DDQueryManager.share.wanChengChuJianInfo(type: ApiModel<String>.self,para: temp) { (apiModel) in
+               mylog(apiModel.ret_code)
+               dump(apiModel)
+           }
     }
     func choose() {
         var actions = [DDAlertAction]()

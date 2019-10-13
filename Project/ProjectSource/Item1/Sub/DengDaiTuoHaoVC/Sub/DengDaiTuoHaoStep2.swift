@@ -9,12 +9,22 @@
 import UIKit
 
 class DengDaiTuoHaoStep2: DDNormalVC {
-
+    var baseInfoModel = DengDaiTuoHaoVC.CheYuanModel(){didSet{
+        info.arrivedTime.text = "入场时间:\(baseInfoModel.approach_time ?? "")"
+        info.number.text = "编号:\(baseInfoModel.car_no ?? "")"
+        info.carType.text = "车型:\(baseInfoModel.car_name ?? "")"
+        info.carNumber.text = "车型:\(baseInfoModel.car_code ?? "")"
+        }
+    }
     let addBtn = UIButton()
     let doneBtn = UIButton()
     let info = ChuangJianVC.ChuJianBaseInfoCell()
     let headerTitle = DDDealDetailVC.SectionHeader()
     var chaiJieFangShi: UILabel!
+    var apiModel = ApiModel<[ItemModel]>() //= {
+//        let m = ApiModel<String>()
+//
+//    }()
     lazy var collection: UICollectionView = {
         let c = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.flowLayout)
         return c
@@ -38,8 +48,40 @@ class DengDaiTuoHaoStep2: DDNormalVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "车辆初检"
+        request()
         // Do any additional setup after loading the view.
     }
+    func request() {
+        DDQueryManager.share.getImagesOfTuoHao(type: ApiModel<[ItemModel]>.self, carInfoId: baseInfoModel.car_info_id ?? "0") { (apiModel) in
+            mylog(apiModel.msg)
+            // test
+            
+            let testReShow = ItemModel()
+            testReShow.file_name = "拓号图"
+            testReShow.file_url = self.testImg
+            testReShow.first_type = "tuo_pic"
+            testReShow.two_type = "tuopic"
+            apiModel.data = [testReShow]
+            //
+            
+            let m = ItemModel()
+            m.file_name = "拍摄拓号图"
+            m.file_url = "placeholder"
+            if apiModel.ret_code == "0"{
+                if (apiModel.data ?? []).isEmpty{
+                    apiModel.data = [m]
+                }else{
+                    apiModel.data?.insert(m, at: 0)
+                }
+                self.apiModel = apiModel
+                self.collection.reloadData()
+            }else{
+//                self.apiModel.data = [m]
+                GDAlertView.alert(apiModel.msg)
+            }
+        }
+    }
+    
     func setupBottomBtn() {
         self.view.addSubview(addBtn)
                self.view.addSubview(doneBtn)
@@ -77,13 +119,33 @@ class DengDaiTuoHaoStep2: DDNormalVC {
             self.automaticallyAdjustsScrollViewInsets = false
         }
     }
+    let testImg = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493962239167&di=c5619e5047afc37c28beaf04eb2937bd&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120423%2F107913-12042323220753.jpg"
     @objc func addBtnClick(sender: UIButton){
         mylog("addBtnClick")
-        
+        if apiModel.data?.count ?? 0 > 1 {
+            let m = apiModel.data![1]
+                
+                DDQueryManager.share.wanChengTuoHaoImage(type: ApiModel<String>.self, carInfoId: baseInfoModel.car_info_id ?? "", status: "1", img: m) { (apiModel) in
+                    if apiModel.ret_code == "0"{
+                        GDAlertView.alert("暂存成功")
+                    }else{GDAlertView.alert(apiModel.msg)}
+                }
+            
+        }
     }
     @objc func doneBtnClick(sender: UIButton){
         mylog("doneBtnClick")
-        
+        mylog("addBtnClick")
+        if apiModel.data?.count ?? 0 > 1 {
+            let m = apiModel.data![1]
+                
+                DDQueryManager.share.wanChengTuoHaoImage(type: ApiModel<String>.self, carInfoId: baseInfoModel.car_info_id ?? "", status: "2", img: m) { (apiModel) in
+                    if apiModel.ret_code == "0"{
+                        GDAlertView.alert(apiModel.msg)
+                    }else{GDAlertView.alert(apiModel.msg)}
+                }
+            
+        }
     }
     func setLayout () {
         
@@ -112,19 +174,7 @@ class DengDaiTuoHaoStep2: DDNormalVC {
      // Pass the selected object to the new view controller.
      }
      */
-    lazy var types: [ItemModel] = {
-        let url = "https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1570261863&di=3933a340bbd7484226e88d074f3c5716&src=http://pic.cn2che.com/Editors/2011-10/14/U5337P33DT20111013075237.jpg"
-        return [
-            ItemModel( "拍摄拓号组", "placeholder"),
-            ItemModel(  "照片一", url),
-            ItemModel( "照片二", url),
-            ItemModel( "照片三", url),
-            ItemModel( "照片四", url),
-            ItemModel("照片五", url),
-            ItemModel("照片六", url),
-            ItemModel("照片七", url)
-        ]
-    }()
+
 }
 extension DengDaiTuoHaoStep2 : UICollectionViewDelegate , UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -133,29 +183,27 @@ extension DengDaiTuoHaoStep2 : UICollectionViewDelegate , UICollectionViewDataSo
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return types.count
+        return apiModel.data?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PrintTypeItem", for: indexPath)
-        if let t = cell as? InfoItem{t.model = types[indexPath.item]}
+        if let t = cell as? InfoItem{t.model = apiModel.data?[indexPath.item] ?? ItemModel()}
         return cell
     }
-    class ItemModel {
-        var title = ""
-        var image : UIImage?
-        var imageUrl : String?
-        convenience init(_ title: String = "",_ imageUrl: String? = nil){
-            self.init()
-            self.title = title
-            self.imageUrl = imageUrl
-        }
+    class ItemModel : Codable{
+        var file_url  : String? //": "www.yyyyyyyyyyyyy",
+        var first_type  : String? //": "tuo_pic",
+        var two_type : String? //": "tuopic",
+        var file_name : String? // ": "拓号图1",
+        var id : String?
+
     }
     class InfoItem: UICollectionViewCell {
         var model: ItemModel = ItemModel(){
             didSet{
-                self.label.text = model.title
-                if let i = model.imageUrl , i != "placeholder"{
+                self.label.text = model.file_name
+                if let i = model.file_url , i != "placeholder"{
                     self.imageView.setImageUrl(url: i)
                 }else{
                     imageView.image = UIImage(named: "tianjiazhaopian")

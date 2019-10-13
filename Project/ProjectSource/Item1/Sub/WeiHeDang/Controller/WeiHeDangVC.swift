@@ -53,7 +53,7 @@ class WeiHeDangVC: DDNormalVC {
             let test : HeDangModel = HeDangModel()
             test.approachTime = "1999-09-09"
             test.carNo = "京A 8888"
-            test.isVerify = 1
+            test.isVerify = "1"
             test.carCode = "ssssssseed"
             test.vin = "laslsadlfserrsrr"
             if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
@@ -201,15 +201,31 @@ extension WeiHeDangVC{
     
     
     class HeDangModel : Codable {
-        var carInfoId : Int? // 1176367626889334786,
+        var carInfoId : String? // 1176367626889334786,
        var carCode:String? // "TSXXX19092225",
         var approachTime : String?// null,
         var carNo: String? // "晋A88884",
         var vin: String? // "33333",
         /// 1：未核档(暂存)，2：已核档，3：核档不通过
-        var isVerify: Int = 0// 2,
-        var carProcessingId: Int = 0 // 1176367626889336667,
+        var isVerify: String = "0"// 2,
+        var carProcessingId: String = "0" // 1176367626889336667,
         var verificationResult:String? // null
+        /*
+         "verificationResult": {
+                     "id": 1174940417674842113,
+                     "disintegratePlantId": 1,
+                     "procedureLogId": null,
+                     "carInfoId": 1175032285603434436,
+                     "type": 2,
+                     "result": null,
+                     "remark": "1",
+                     "createTime": "2019-09-20 14:56:40",
+                     "operatorId": 1169144575697227776,
+                     "operator": "李大钊",
+                     "state": 3,
+                     "isDelete": 2
+                 }
+         */
     }
     
     class HeDangItem : UICollectionViewCell {
@@ -222,13 +238,13 @@ extension WeiHeDangVC{
                 arrivedTime.text = "入场时间: \(model.approachTime ?? "")"
                 carNumber.text = "车牌:\(model.carNo ?? "")"
                 vin.text = "VIN:\(model.vin ?? "")"
-                if model.isVerify == 1{
+                if model.isVerify == "1"{
                     reason.setTitleColor(UIColor.orange.withAlphaComponent(0.8), for: UIControlState.normal)
                     reason.setTitle("待核档", for: UIControlState.normal)
-                }else if model.isVerify == 2{
+                }else if model.isVerify == "2"{
                     reason.setTitleColor(mainColor, for: UIControlState.normal)
                     reason.setTitle("已核档", for: UIControlState.normal)
-                }else if model.isVerify == 3{
+                }else if model.isVerify == "3"{
                     reason.setTitleColor(UIColor.red, for: UIControlState.normal)
                     reason.setTitle("核档未通过  查看原因 >>", for: UIControlState.normal)
                 }

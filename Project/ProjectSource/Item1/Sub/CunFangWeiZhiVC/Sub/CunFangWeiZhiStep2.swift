@@ -12,6 +12,7 @@ class CunFangWeiZhiStep2: ChuangJianVC {
     let addBtn = UIButton()
     let doneBtn = UIButton()
     let scanBtn = UIButton()
+    var baseInfoModel : CunFangWeiZhiVC.CheYuanModel = CunFangWeiZhiVC.CheYuanModel()
     lazy var models  : [CheYuanOrCheLiangModel] =  [
         CheYuanOrCheLiangModel(title: "车辆基本信息:", isValid: true, stringOfClassName: NSStringFromClass(ChuJianBaseInfoCell.self)),
         CheYuanOrCheLiangModel(title: "车辆存放位置", isValid: true, stringOfClassName: NSStringFromClass(DDSectionHeaderRow.self)),
@@ -23,6 +24,11 @@ class CunFangWeiZhiStep2: ChuangJianVC {
         
         
     ]
+    func getLocation (id: String = "0") {
+        DDQueryManager.share.huoQuCunFangWeiZhiXinXi(type: ApiModel<[[String:String]]>.self , id : id) { (apiModel) in
+            mylog(apiModel.data)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         naviBar.title = "存放位置"
@@ -45,14 +51,17 @@ extension CunFangWeiZhiStep2{
     }
     @objc func doneBtnClick(sender: UIButton){
         mylog("doneBtnClick")
+        DDQueryManager.share.confirmCunFangWeiZhi(type: ApiModel<String>.self, id: baseInfoModel.id ?? "") { (apiModel) in
+            GDAlertView.alert(apiModel.msg)
+        }
+    }
+    @objc func scanBtnClick(sender: UIButton){
+        
         let scanner = CarScannerVC()
         scanner.complateHandle = {[weak self] result in
             mylog(result)
         }
         self.present(scanner, animated: true) {}
-    }
-    @objc func scanBtnClick(sender: UIButton){
-        mylog("doneBtnClick")
         
     }
     func choose() {
@@ -81,6 +90,7 @@ extension CunFangWeiZhiStep2 : UITableViewDelegate , UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = models[indexPath.row]
+        self.getLocation()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -147,6 +157,16 @@ extension CunFangWeiZhiStep2 : UITableViewDelegate , UITableViewDataSource{
             
         case NSStringFromClass(ChuJianBaseInfoCell.self):
             let cell = ChuJianBaseInfoCell.init(style: UITableViewCellStyle.default, reuseIdentifier: "ChuJianBaseInfoCell")
+            let c = DengDaiChuJianVC.CheYuanModel()
+//            var carNo: String? // "晋A88884",
+//            var carName: String? // "
+//            var id: String? // "
+//            var carInfoId : Int? // 1176367626889334786,
+//            var carCode:String? /
+            cell.number.text = "编号: \(baseInfoModel.carNo ?? "")"
+            cell.carType.text = "车型: \(baseInfoModel.carName ?? "")"
+            cell.arrivedTime.text = "入场时间: \(baseInfoModel.approachTime ?? "")"
+            cell.carNumber.text = "车牌: \(baseInfoModel.carCode)"
             cell.model = model
             return cell
         case NSStringFromClass(OldLevelRow.self):
@@ -179,7 +199,7 @@ extension CunFangWeiZhiStep2{
         self.view.addSubview(scanBtn)
         addBtn.frame = CGRect(x: 20, y: self.tableView!.frame.maxY, width: (view.bounds.width - 40 - 20)/2, height: 40)
         addBtn.setTitleColor(mainColor, for: .normal)
-        addBtn.setTitle("暂存", for: UIControlState.normal)
+        addBtn.setTitle("取消", for: UIControlState.normal)
         addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
         addBtn.layer.cornerRadius = 8
         addBtn.layer.masksToBounds = true
@@ -187,7 +207,7 @@ extension CunFangWeiZhiStep2{
         addBtn.layer.borderWidth = 1
         doneBtn.frame = CGRect(x:addBtn.frame.maxX + 20, y: self.tableView!.frame.maxY, width: addBtn.frame.width, height: 40)
         doneBtn.backgroundColor = mainColor
-        doneBtn.setTitle("初检完成", for: UIControlState.normal)
+        doneBtn.setTitle("确定", for: UIControlState.normal)
         doneBtn.addTarget(self , action: #selector(doneBtnClick(sender:)), for: UIControlEvents.touchUpInside)
         doneBtn.layer.cornerRadius = 8
         doneBtn.layer.masksToBounds = true

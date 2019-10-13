@@ -143,6 +143,7 @@
 		15E79F321FE228480049F767 /* Malay.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E79F311FE228480049F767 /* Malay.strings */; };
 		15E79F341FE2285A0049F767 /* Russian.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15E79F331FE2285A0049F767 /* Russian.strings */; };
 		15E79F361FE255A70049F767 /* DDStorgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E79F351FE255A70049F767 /* DDStorgeManager.swift */; };
+		B30270D6235341A8006E9288 /* DaiHuiXingCheLiangStep2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30270D5235341A8006E9288 /* DaiHuiXingCheLiangStep2VC.swift */; };
 		B305CF3023430A420059882A /* DDDealDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF2F23430A420059882A /* DDDealDetailVC.swift */; };
 		B305CF3223430B0F0059882A /* UILabel_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3123430B0F0059882A /* UILabel_extension.swift */; };
 		B305CF3423430EC40059882A /* DealDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3323430EC40059882A /* DealDetailHeader.swift */; };
@@ -418,6 +419,7 @@
 		15E79F331FE2285A0049F767 /* Russian.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Russian.strings; sourceTree = "<group>"; };
 		15E79F351FE255A70049F767 /* DDStorgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDStorgeManager.swift; sourceTree = "<group>"; };
 		9C975D751135A674C5F77CB3 /* Pods-Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project/Pods-Project.debug.xcconfig"; sourceTree = "<group>"; };
+		B30270D5235341A8006E9288 /* DaiHuiXingCheLiangStep2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaiHuiXingCheLiangStep2VC.swift; sourceTree = "<group>"; };
 		B305CF2F23430A420059882A /* DDDealDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDDealDetailVC.swift; sourceTree = "<group>"; };
 		B305CF3123430B0F0059882A /* UILabel_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel_extension.swift; sourceTree = "<group>"; };
 		B305CF3323430EC40059882A /* DealDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealDetailHeader.swift; sourceTree = "<group>"; };
@@ -1188,6 +1190,7 @@
 		158A1BC323362189002F7E5F /* Sub */ = {
 			isa = PBXGroup;
 			children = (
+				B30270D5235341A8006E9288 /* DaiHuiXingCheLiangStep2VC.swift */,
 			);
 			path = Sub;
 			sourceTree = "<group>";
@@ -2816,6 +2819,7 @@
 				15DF2FB91FA9AE0400588AF1 /* AppDelegate.swift in Sources */,
 				B35BFCE2234E45E4009F3F31 /* PlateMainController.m in Sources */,
 				158A1C1923362212002F7E5F /* JianXiaoCheLiangVC.swift in Sources */,
+				B30270D6235341A8006E9288 /* DaiHuiXingCheLiangStep2VC.swift in Sources */,
 				B37C65BD23483BEC0045386B /* ChuJianStep1VC.swift in Sources */,
 				B305CF39234366E70059882A /* DealDetailCell.swift in Sources */,
 				BC7C3570205A68180083C1B0 /* Calander_extension.swift in Sources */,

@@ -53,17 +53,9 @@ class ChaiJieFangShiShouXuBuVC: DDNormalVC {
         
         self.requestServer(type:index)
     }
-    /// 1：未核档(暂存)，2：已核档，3：核档不通过
     func requestServer(type:Int)  {
-        DDQueryManager.share.heDangJiLu(type: ApiModel<CheYuanDataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
+        DDQueryManager.share.chaiJieLiebiao(type: ApiModel<CheYuanDataModel>.self, page: "1", findMsg: nil) { (result ) in
             mylog(result.msg)
-            let test : CheYuanModel = CheYuanModel()
-            test.approachTime = "1999-09-09"
-            test.carNo = "京A 8888"
-            test.isVerify = 1
-            test.carCode = "ssssssseed"
-            test.vin = "laslsadlfserrsrr"
-            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
             self.apiModel = result
             self.collection.reloadData()
         }
@@ -152,7 +144,9 @@ class ChaiJieFangShiShouXuBuVC: DDNormalVC {
 
 extension ChaiJieFangShiShouXuBuVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(ChaiJieFangShiStep2(), animated: true)
+        let vc = ChaiJieFangShiStep2()
+        vc.carInfoId = self.apiModel.data?.list?[indexPath.item].car_info_id ?? ""
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -173,40 +167,41 @@ extension ChaiJieFangShiShouXuBuVC : UICollectionViewDelegate ,UICollectionViewD
 }
 extension ChaiJieFangShiShouXuBuVC{
     class CheYuanDataModel: Codable {
-        var pageNum: Int?
-        var pageSize:Int?
-        var size : Int?
-        var startRow : Int?
-        var endRow:Int?
-        var total:Int?
-        var pages: Int?
+        var pageNum: String?
+        var pageSize:String?
+        var size : String?
+        var startRow : String?
+        var endRow:String?
+        var total:String?
+        var pages: String?
         var list:[CheYuanModel]?
-        var prePage:Int?
-        var nextPage:Int?
+        var prePage:String?
+        var nextPage:String?
         var isFirstPage:Bool?
         var isLastPage : Bool?
         var hasPreviousPage : Bool?
         var hasNextPage: Bool?
-        var navigatePages: Int?
-        var navigatepageNums : [Int]?
-        var navigateFirstPage: Int?
-        var navigateLastPage: Int?
-        var firstPage : Int?
-        var lastPage : Int?
+        var navigatePages: String?
+        var navigatepageNums : [String]?
+        var navigateFirstPage: String?
+        var navigateLastPage: String?
+        var firstPage : String?
+        var lastPage : String?
     }
     
     
     
     class CheYuanModel : Codable {
-        var carInfoId : Int? // 1176367626889334786,
-        var carCode:String? // "TSXXX19092225",
-        var approachTime : String?// null,
-        var carNo: String? // "晋A88884",
-        var vin: String? // "33333",
-        /// 1：未核档(暂存)，2：已核档，3：核档不通过
-        var isVerify: Int = 0// 2,
-        var carProcessingId: Int = 0 // 1176367626889336667,
-        var verificationResult:String? // null
+        /*
+         [{\"car_name\":\"科鲁兹滋滋滋滋\",\"car_info_id\":\"1183047045422911488\",\"approach_time\":\"2019-10-12 23:52:13\",\"car_no\":\"苏a2396v\",\"car_code\":\"TSXXX191000061\"},
+         
+         */
+        var car_name : String? // 1176367626889334786,
+        var car_info_id:String? // "TSXXX19092225",
+        var approach_time : String?// null,
+        var car_no: String? // "晋A88884",
+        var car_code: String? // "33333",
+
     }
     
     
@@ -216,10 +211,10 @@ extension ChaiJieFangShiShouXuBuVC{
                 guard let model = model  else {
                     return
                 }
-                number.text = "编号:\(model.carCode ?? "")"
-                arrivedTime.text = "入场时间: \(model.approachTime ?? "")"
-                carNumber.text = "车牌:\(model.carNo ?? "")"
-                carType.text = "车型:\(model.vin ?? "")"
+                number.text = "编号:\(model.car_code ?? "")"
+                arrivedTime.text = "入场时间: \(model.approach_time ?? "")"
+                carNumber.text = "车牌:\(model.car_no ?? "")"
+                carType.text = "车型:\(model.car_name ?? "")"
             }
         }
         

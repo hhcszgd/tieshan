@@ -30,7 +30,7 @@ class DengDaiTuoHaoVC: DDNormalVC {
         addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
         layoutCollectionView()
         // Do any additional setup after loading the view.
-        self.prepareRequest(index: index)
+        self.prepareRequest()
     }
     @objc func addBtnClick(sender:UIButton){
         let scanner = CarScannerVC()
@@ -41,29 +41,9 @@ class DengDaiTuoHaoVC: DDNormalVC {
         mylog("扫描车辆二维码")
         //        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
     }
-    func prepareRequest(index:Int) {
-        switch index {
-        case  0 :
-            self.requestServer(type:1)
-        case 1 :
-            self.requestServer(type:3)
-        default:
-            self.requestServer(type:2)
-        }
-        
-        self.requestServer(type:index)
-    }
-    /// 1：未核档(暂存)，2：已核档，3：核档不通过
-    func requestServer(type:Int)  {
-        DDQueryManager.share.heDangJiLu(type: ApiModel<CheYuanDataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
+    func prepareRequest() {
+        DDQueryManager.share.dengDaiTuoHao(type: ApiModel<CheYuanDataModel>.self, page: "1", findMsg: nil) { (result ) in
             mylog(result.msg)
-            let test : CheYuanModel = CheYuanModel()
-            test.approachTime = "1999-09-09"
-            test.carNo = "京A 8888"
-            test.isVerify = 1
-            test.carCode = "ssssssseed"
-            test.vin = "laslsadlfserrsrr"
-            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
             self.apiModel = result
             self.collection.reloadData()
         }
@@ -152,7 +132,9 @@ class DengDaiTuoHaoVC: DDNormalVC {
 
 extension DengDaiTuoHaoVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(DengDaiTuoHaoStep2(), animated: true)
+        let vc = DengDaiTuoHaoStep2()
+        vc.baseInfoModel = self.apiModel.data?.list?[indexPath.item] ?? DengDaiTuoHaoVC.CheYuanModel()
+        self.navigationController?.pushViewController(vc , animated: true)
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -198,15 +180,13 @@ extension DengDaiTuoHaoVC{
     
     
     class CheYuanModel : Codable {
-        var carInfoId : Int? // 1176367626889334786,
-        var carCode:String? // "TSXXX19092225",
-        var approachTime : String?// null,
-        var carNo: String? // "晋A88884",
-        var vin: String? // "33333",
-        /// 1：未核档(暂存)，2：已核档，3：核档不通过
-        var isVerify: Int = 0// 2,
-        var carProcessingId: Int = 0 // 1176367626889336667,
-        var verificationResult:String? // null
+        var car_name : String?
+        var car_info_id:String? // "TSXXX19092225",
+        var approach_time : String?// null,
+        var car_no: String? // "晋A88884",
+        var vin: String? // "33333",        var carProcessingId: Int = 0 // 1176367626889336667,
+        var car_code:String? // null
+        
     }
     
     class CheYuanItem : UICollectionViewCell {
@@ -215,10 +195,10 @@ extension DengDaiTuoHaoVC{
                 guard let model = model  else {
                     return
                 }
-                number.text = "编号:\(model.carCode ?? "")"
-                arrivedTime.text = "入场时间: \(model.approachTime ?? "")"
-                carNumber.text = "车牌:\(model.carNo ?? "")"
-                carType.text = "车型:\(model.vin ?? "")"
+                number.text = "编号:\(model.car_code ?? "")"
+                arrivedTime.text = "入场时间: \(model.approach_time ?? "")"
+                carNumber.text = "车牌:\(model.car_no ?? "")"
+                carType.text = "车型:\(model.car_name ?? "")"
             }
         }
         

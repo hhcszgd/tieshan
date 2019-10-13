@@ -28,7 +28,201 @@ enum DomainType : String  {
 }
 
 extension DDQueryManager{
-    /// write your api here 👇
+    // write your api here 👇
+    
+    //
+    ///完成毁形
+       func wanChengTuoHuiXingImage<T>(type : ApiModel<T>.Type, carInfoId : String,status: String ,img: DaiHuiXingCheLiangStep2VC.ItemModel ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/addBreakPic"
+               var d = [String:String]()
+               d["filed_name"] = img.file_name ?? ""
+               d["fileUrl"] = img.file_url ?? ""
+               d["first_type"] = img.first_type ?? ""
+               d["two_type"] = img.two_type ?? ""
+             
+               let p : [String: Codable] = [
+                   "carInfoId":carInfoId,
+                   "status":status,
+                   "data": [d]
+           ]
+           return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:p, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
+       }
+       ///返显huixing图片
+       ///
+           func getImagesOfHuiXing<T>(type : ApiModel<T>.Type, carInfoId : String ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+              let url  =  "doCarsQuery/findPreBreakCarsById"
+                var para : [String : Codable] =  ["carInfoId":carInfoId]
+              return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+          }
+    ///等待毁形
+        func daiHuiXing<T>(type : ApiModel<T>.Type, page : String? , pageSize : String? = "10",findMsg : String?  ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/findPreBreakCars"
+            var para : [String : String] =  [:]
+                 if let p = page{para["page"] = p}
+                 if let p = pageSize{para["pageSize"] = p}
+                 if let p = findMsg{para["findMsg"] = p}
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    
+    
+    
+    
+    //确定存放位置
+    func confirmCunFangWeiZhi<T>(type : ApiModel<T>.Type, id  : String,carLocationArea: String = "1" ,carLocationRow: String = "1" ,  carLocationColumn : String = "1" ,carLocationNumber : String = "1" ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "carSource/editCarInfoLocation"
+            var d = [String:String]()
+            d["id"] = id
+            d["carLocationArea"] = carLocationArea
+            d["carLocationRow"] = carLocationRow
+            d["carLocationColumn"] = carLocationColumn
+          d["carLocationNumber"] = carLocationNumber
+    
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:d, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    
+    /// 获取区 排 个数 层数
+    func huoQuCunFangWeiZhiXinXi<T>(type : ApiModel<T>.Type, id : String ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+          let url  =  "carSource/selectLocationListByPid"
+           let para = ["id" : id]
+    
+          return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+      }
+    //确定拆解方式
+    func confirmChaiJieFangShi<T>(type : ApiModel<T>.Type, carInfoId : String, dismantleWay: String  ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+              let url  =  "doCarsQuery/dismantleWay"
+               let para = ["carInfoId" : carInfoId,"dismantleWay":dismantleWay]
+        
+              return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+          }
+    ///获取车辆初检图片(拆解时)
+    func getCarImageWhenChaiJie<T>(type : ApiModel<T>.Type, carInfoId : String  ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/findPrePicById"
+            let para = ["carInfoId" : carInfoId]
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    ///获取车辆初检信息(拆解时)
+    func getCarInfoWhenChaiJie<T>(type : ApiModel<T>.Type, carInfoId : String  ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/findSurveyById"
+            let para = ["carInfoId" : carInfoId]
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    ///存放列表
+    //
+    func cunFangWeiZhiLiebiao<T>(type : ApiModel<T>.Type, page : String? , pageSize : String? = "10",findMsg : String?  ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "carSource/selectCarInfoListByDisintegratePlantId"
+            var para : [String : String] =  [:]
+                 if let p = page{para["page"] = p}
+                 if let p = pageSize{para["pageSize"] = p}
+                 if let p = findMsg{para["findMsg"] = p}
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    ///拆解列表
+    //
+    func chaiJieLiebiao<T>(type : ApiModel<T>.Type, page : String? , pageSize : String? = "10",findMsg : String?  ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/findDismantleCars"
+            var para : [String : String] =  [:]
+                 if let p = page{para["page"] = p}
+                 if let p = pageSize{para["pageSize"] = p}
+                 if let p = findMsg{para["findMsg"] = p}
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    ///暂存或完成拓号doCarsQuery/addTuoPic
+    func wanChengTuoHaoImage<T>(type : ApiModel<T>.Type, carInfoId : String,status: String ,img: DengDaiTuoHaoStep2.ItemModel ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "doCarsQuery/addTuoPic"
+            var d = [String:String]()
+            d["filed_name"] = img.file_name ?? ""
+            d["fileUrl"] = img.file_url ?? ""
+            d["first_type"] = img.first_type ?? ""
+            d["two_type"] = img.two_type ?? ""
+          
+            let p : [String: Codable] = [
+                "carInfoId":carInfoId,
+                "status":status,
+                "data": [d]
+        ]
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:p, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    ///返显拓号图片
+    ///
+        func getImagesOfTuoHao<T>(type : ApiModel<T>.Type, carInfoId : String ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/findCpTuoPic"
+             var para : [String : Codable] =  ["carInfoId":carInfoId]
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    ///等待拓号
+        func dengDaiTuoHao<T>(type : ApiModel<T>.Type, page : String? , pageSize : String? = "10",findMsg : String?  ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/findCopyNumberCars"
+            var para : [String : String] =  [:]
+                 if let p = page{para["page"] = p}
+                 if let p = pageSize{para["pageSize"] = p}
+                 if let p = findMsg{para["findMsg"] = p}
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    ///
+    /// 车辆预处理图片暂存于完成
+    func wanChengChuJianImage<T>(type : ApiModel<T>.Type, para : ChuJianStep2VC.ZanCunBaoCunModel ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+            let url  =  "doCarsQuery/addPrePic"
+        var a = para.data.map { (m ) -> [String:String] in
+            var d = [String:String]()
+            d["filed_name"] = m.filed_name ?? ""
+            d["fileUrl"] = m.fileUrl ?? ""
+            d["first_type"] = m.first_type ?? ""
+            d["two_type"] = m.two_type ?? ""
+            return d
+        }
+            let p : [String: Codable] = [
+                "carInfoId":para.carInfoId,
+                "status":para.status,
+                "data":a
+        ]
+            return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:p, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
+        }
+    
+    /// ///获取车辆预处理车辆图片
+    ///
+    func getImagesOfYuChuLi<T>(type : ApiModel<T>.Type, carInfoId : String ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/doFindCars"
+             var para : [String : Codable] =  ["carInfoId":carInfoId]
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    
+    // doCarsQuery/findPretreatmentCars 等待预处理
+    func dengDaiYuChuLi<T>(type : ApiModel<T>.Type, page : String? , pageSize : String? = "10", state:String? = nil,findMsg : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/findPretreatmentCars"
+            var para : [String : String] =  [:]
+           if let p = page{para["page"] = p}
+           if let p = pageSize{para["pageSize"] = p}
+           if let p = findMsg{para["findMsg"] = p}
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters:para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    
+    /*
+    车辆初检完成
+    /carSource/editCarSurveyComplete*/
+        func wanChengChuJianInfo<T>(type : ApiModel<T>.Type, para : [String:Codable] ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+            let url  =  "carSource/editCarSurveyComplete"
+    //        let para : [String: Codable] = [:]
+            return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
+        }
+    
+    
+    
+  /*车辆初检的暂存
+  请求URL：
+
+  /carSource/editCarSurvey
+  请求方式：
+
+  POST （json格式传参）*/
+    ///暂存初检信息,有值则返显
+    func zanCunChuJianInfo<T>(type : ApiModel<T>.Type, para : [String:Codable] ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "carSource/editCarSurvey"
+//        let para : [String: Codable] = [:]
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:para, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    
+    
+    
     ///初检信息,有值则返显
     func chuJianInfo<T>(type : ApiModel<T>.Type, id : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
         let url  =  "carSource/selectCarSurveyByCarInfoId"
@@ -541,11 +735,11 @@ extension DDQueryManager{
         //        let language = DDLanguageManager.countryCode
         let language = "110"
         var header = [String : String]()
-        header["APPID"] = "2"
-        header["VERSIONMINI"] = "20160501"
-        header["DID"] = UIDevice.current.identifierForVendor?.uuidString ?? ""
-        header["VERSIONID"] = "2.0"
-        header["language"] = language
+//        header["APPID"] = "2"
+//        header["VERSIONMINI"] = "20160501"
+//        header["DID"] = UIDevice.current.identifierForVendor?.uuidString ?? ""
+//        header["VERSIONID"] = "2.0"
+//        header["language"] = language
         
         if let url  = URL(string: urlFull){
             let task = DDQueryManager.share.sessionManager.request(url , method: method , parameters: para , headers:header).responseJSON(completionHandler: { (response) in

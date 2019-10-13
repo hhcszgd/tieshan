@@ -1,28 +1,31 @@
 //
-//  ChuJianStep2VC.swift
+//  DaiHuiXingCheLiangStep2VC.swift
 //  Project
 //
-//  Created by JohnConnor on 2019/10/5.
+//  Created by JohnConnor on 2019/10/13.
 //  Copyright © 2019 HHCSZGD. All rights reserved.
 //
 
 import UIKit
 
-class ChuJianStep2VC: DDNormalVC {
+class DaiHuiXingCheLiangStep2VC: DDNormalVC {
     
+    var baseInfoModel = DaiHuiXingCheLiangVC.CheYuanModel(){didSet{
+        info.arrivedTime.text = "入场时间:\(baseInfoModel.approach_time ?? "")"
+        info.number.text = "编号:\(baseInfoModel.car_no ?? "")"
+        info.carType.text = "车型:\(baseInfoModel.car_name ?? "")"
+        info.carNumber.text = "车型:\(baseInfoModel.car_code ?? "")"
+        }
+    }
     let addBtn = UIButton()
     let doneBtn = UIButton()
     let info = ChuangJianVC.ChuJianBaseInfoCell()
     let headerTitle = DDDealDetailVC.SectionHeader()
-    var carInfoId = ""
-    var carBaseInfoModel : DengDaiYuChuLiVC.CheYuanModel = DengDaiYuChuLiVC.CheYuanModel(){didSet{
-        info.arrivedTime.text = "入场时间:\(carBaseInfoModel.approach_time ?? "")"
-        info.number.text = "编号:\(carBaseInfoModel.car_no ?? "")"
-        info.carType.text = "车型:\(carBaseInfoModel.car_name ?? "")"
-        info.carNumber.text = "车型:\(carBaseInfoModel.car_code ?? "")"
-        }}
     var chaiJieFangShi: UILabel!
-    var apiModel = ApiModel<[ItemModel]>()
+    var apiModel = ApiModel<[ItemModel]>() //= {
+    //        let m = ApiModel<String>()
+    //
+    //    }()
     lazy var collection: UICollectionView = {
         let c = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.flowLayout)
         return c
@@ -45,44 +48,64 @@ class ChuJianStep2VC: DDNormalVC {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "车辆初检"
+        title = "待毁形车辆"
         request()
         // Do any additional setup after loading the view.
     }
     func request() {
-        DDQueryManager.share.getImagesOfYuChuLi(type: ApiModel<[ItemModel]>.self, carInfoId: carBaseInfoModel.car_info_id ?? "0") { (apiModel) in
+        DDQueryManager.share.getImagesOfHuiXing(type: ApiModel<[ItemModel]>.self, carInfoId: baseInfoModel.car_info_id ?? "0") { (apiModel) in
             mylog(apiModel.msg)
+            // test
+            
+            let testReShow = ItemModel()
+            testReShow.file_name = "拓号图"
+            testReShow.file_url = self.testImg
+            testReShow.first_type = "tuo_pic"
+            testReShow.two_type = "tuopic"
+            apiModel.data = [testReShow]
+            //
+            
+            let m = ItemModel()
+            m.file_name = "拍摄拓号图"
+            m.file_url = "placeholder"
             if apiModel.ret_code == "0"{
+                if (apiModel.data ?? []).isEmpty{
+                    apiModel.data = [m]
+                }else{
+                    apiModel.data?.insert(m, at: 0)
+                }
                 self.apiModel = apiModel
                 self.collection.reloadData()
             }else{
+                //                self.apiModel.data = [m]
                 GDAlertView.alert(apiModel.msg)
             }
         }
     }
+    
     func setupBottomBtn() {
         self.view.addSubview(addBtn)
-               self.view.addSubview(doneBtn)
+        self.view.addSubview(doneBtn)
         addBtn.frame = CGRect(x: 20, y: view.frame.height - 60, width: (view.bounds.width - 40 - 20)/2, height: 40)
-               addBtn.setTitleColor(mainColor, for: .normal)
-               addBtn.setTitle("暂存", for: UIControlState.normal)
-               addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
-               addBtn.layer.cornerRadius = 8
-               addBtn.layer.masksToBounds = true
-               addBtn.layer.borderColor = mainColor.cgColor
-               addBtn.layer.borderWidth = 1
-               doneBtn.frame = CGRect(x:addBtn.frame.maxX + 20, y: addBtn.frame.minY, width: addBtn.frame.width, height: 40)
-               doneBtn.backgroundColor = mainColor
-               doneBtn.setTitle("初检完成", for: UIControlState.normal)
-               doneBtn.addTarget(self , action: #selector(doneBtnClick(sender:)), for: UIControlEvents.touchUpInside)
-               doneBtn.layer.cornerRadius = 8
-               doneBtn.layer.masksToBounds = true
-
+        addBtn.setTitleColor(mainColor, for: .normal)
+        addBtn.setTitle("暂存不要了", for: UIControlState.normal)
+        addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
+        addBtn.layer.cornerRadius = 8
+        addBtn.layer.masksToBounds = true
+        addBtn.layer.borderColor = mainColor.cgColor
+        addBtn.layer.borderWidth = 1
+        doneBtn.frame = CGRect(x:addBtn.frame.maxX + 20, y: addBtn.frame.minY, width: addBtn.frame.width, height: 40)
+        doneBtn.backgroundColor = mainColor
+        doneBtn.setTitle("拓号完成", for: UIControlState.normal)
+        doneBtn.addTarget(self , action: #selector(doneBtnClick(sender:)), for: UIControlEvents.touchUpInside)
+        doneBtn.layer.cornerRadius = 8
+        doneBtn.layer.masksToBounds = true
+        
     }
     func setupCollection() {
-
+        
         let tableViewFrame = CGRect(x: 0, y: headerTitle.frame.maxY, width: self.view.bounds.width , height: self.addBtn.frame.minY - headerTitle.frame.maxY)
-                       
+        
         //               self.tableView = UITableView(frame: tableViewFrame, style: UITableViewStyle.plain)
         //               self.view.addSubview(self.tableView!)
         view.addSubview(collection)
@@ -97,34 +120,33 @@ class ChuJianStep2VC: DDNormalVC {
             self.automaticallyAdjustsScrollViewInsets = false
         }
     }
+    let testImg = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493962239167&di=c5619e5047afc37c28beaf04eb2937bd&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120423%2F107913-12042323220753.jpg"
     @objc func addBtnClick(sender: UIButton){
         mylog("addBtnClick")
-        let postModel = ZanCunBaoCunModel(carInfoId: carBaseInfoModel.car_info_id ?? "", status: "1", itemModels: apiModel.data ?? [])
-        
-        DDQueryManager.share.wanChengChuJianImage(type: ApiModel<String>.self, para: postModel) { (apiModel) in
-            if apiModel.ret_code == "0"{
-                GDAlertView.alert("暂存成功") {
-                    
-                }
-            }else{
-                GDAlertView.alert(apiModel.msg)
+        if apiModel.data?.count ?? 0 > 1 {
+            let m = apiModel.data![1]
+            
+            DDQueryManager.share.wanChengTuoHuiXingImage(type: ApiModel<String>.self, carInfoId: baseInfoModel.car_info_id ?? "", status: "1", img: m) { (apiModel) in
+                if apiModel.ret_code == "0"{
+                    GDAlertView.alert("暂存成功")
+                }else{GDAlertView.alert(apiModel.msg)}
             }
+            
         }
     }
     @objc func doneBtnClick(sender: UIButton){
-                mylog("addBtnClick")
-        let postModel = ZanCunBaoCunModel(carInfoId: carBaseInfoModel.car_info_id ?? "", status: "2", itemModels: apiModel.data ?? [])
-        
-        DDQueryManager.share.wanChengChuJianImage(type: ApiModel<String>.self, para: postModel) { (apiModel) in
-            if apiModel.ret_code == "0"{
-                GDAlertView.alert("初检完成") {
-                    
-                }
-            }else{
-                GDAlertView.alert(apiModel.msg)
+        mylog("doneBtnClick")
+        mylog("addBtnClick")
+        if apiModel.data?.count ?? 0 > 1 {
+            let m = apiModel.data![1]
+            
+            DDQueryManager.share.wanChengTuoHuiXingImage(type: ApiModel<String>.self, carInfoId: baseInfoModel.car_info_id ?? "", status: "2", img: m) { (apiModel) in
+                if apiModel.ret_code == "0"{
+                    GDAlertView.alert(apiModel.msg)
+                }else{GDAlertView.alert(apiModel.msg)}
             }
+            
         }
-        
     }
     func setLayout () {
         
@@ -153,30 +175,12 @@ class ChuJianStep2VC: DDNormalVC {
      // Pass the selected object to the new view controller.
      }
      */
-//    lazy var types: [ItemModel] = {
-//        let url = "https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1570261863&di=3933a340bbd7484226e88d074f3c5716&src=http://pic.cn2che.com/Editors/2011-10/14/U5337P33DT20111013075237.jpg"
-//        return [
-//            ItemModel( "增加照片", "placeholder"),
-//            ItemModel(  "发动机", url),
-//            ItemModel( "后桥", url),
-//            ItemModel( "左前车门", url),
-//            ItemModel( "右前车门", url),
-//            ItemModel("左后车门", url),
-//            ItemModel("右后车门", url),
-//            ItemModel("左前大灯", url),
-//            ItemModel("右前大灯", url),
-//            ItemModel("后保险杠", url),
-//            ItemModel("车顶", url),
-//            ItemModel("车前脸", url),
-//            ItemModel("车后脸", url),
-//        ]
-//    }()
+    
 }
-extension ChuJianStep2VC : UICollectionViewDelegate , UICollectionViewDataSource{
+extension DaiHuiXingCheLiangStep2VC : UICollectionViewDelegate , UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0{
             mylog("perform take photo")
-            self.navigationController?.pushViewController(TakePhotoVC(), animated: true)
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -185,23 +189,22 @@ extension ChuJianStep2VC : UICollectionViewDelegate , UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PrintTypeItem", for: indexPath)
-        if let t = cell as? InfoItem{t.model = apiModel.data?[indexPath.item]}
+        if let t = cell as? InfoItem{t.model = apiModel.data?[indexPath.item] ?? ItemModel()}
         return cell
     }
     class ItemModel : Codable{
-        /// 空为展位图,否则就是已经上传图片
+        var file_url  : String? //": "www.yyyyyyyyyyyyy",
+        var first_type  : String? //": "tuo_pic",
+        var two_type : String? //": "tuopic",
+        var file_name : String? // ": "拓号图1",
         var id : String?
-        var file_name : String?
-        var first_type : String?
-        var two_type : String?
-        var file_url : String?
         
     }
     class InfoItem: UICollectionViewCell {
-        var model: ItemModel? = ItemModel(){
+        var model: ItemModel = ItemModel(){
             didSet{
-                self.label.text = model?.file_name
-                if let i = model?.file_url , i != "placeholder"{
+                self.label.text = model.file_name
+                if let i = model.file_url , i != "placeholder"{
                     self.imageView.setImageUrl(url: i)
                 }else{
                     imageView.image = UIImage(named: "tianjiazhaopian")
@@ -218,7 +221,6 @@ extension ChuJianStep2VC : UICollectionViewDelegate , UICollectionViewDataSource
             self.contentView.addSubview(label)
             self.contentView.addSubview(imageView)
             imageView.contentMode = .scaleAspectFill
-            self.imageView.backgroundColor = UIColor.DDLightGray1
             self.imageView.clipsToBounds = true
         }
         override func layoutSubviews() {
@@ -233,41 +235,4 @@ extension ChuJianStep2VC : UICollectionViewDelegate , UICollectionViewDataSource
     }
     
 }
-extension ChuJianStep2VC{
-    ///用来传给服务器
-    class ZanCunBaoCunItemModel : Codable{
-        var filed_name : String?
-        var first_type : String?
-        var two_type : String?
-        var fileUrl : String?    }
-    class ZanCunBaoCunModel: Codable {
-        var carInfoId : String = ""
-        /// 1暂存, 2 完成
-        var status : String = "1"
-        var data:[ZanCunBaoCunItemModel] = []
-        convenience init(carInfoId: String, status: String, itemModels: [ItemModel]){
-            self.init()
-            self.carInfoId = carInfoId
-            self.status = status
-            var temp :[ZanCunBaoCunItemModel] = []
-            itemModels.forEach { (itemModel) in
-                let t = ZanCunBaoCunItemModel()
-                t.filed_name = itemModel.file_name
-                t.first_type = itemModel.first_type
-                t.two_type = itemModel.two_type
-                t.fileUrl = itemModel.file_url
-                temp.append(t)
-            }
-            self.data = temp
-        }
-        func toJson() -> String  {
-            let encoder = JSONEncoder()
-            do{
-                let data =   try encoder.encode(self)
-                let str = String(data: data, encoding: .utf8)
-                return str ?? ""
-            }
-            catch{return ""}
-        }
-    }
-}
+

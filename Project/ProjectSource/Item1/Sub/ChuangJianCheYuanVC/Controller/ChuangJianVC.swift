@@ -298,7 +298,7 @@ extension ChuangJianVC{
             didSet{
                 title.text = model.title
                 if model.value.isEmpty {
-                    textfield.text = "请输入..."
+                    textfield.text = "请输入"
                     textfield.textColor = UIColor.lightGray
                 }else{
                     textfield.text = model.value

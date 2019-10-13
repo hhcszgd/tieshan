@@ -55,15 +55,9 @@ class CunFangWeiZhiVC: DDNormalVC {
     }
     /// 1：未核档(暂存)，2：已核档，3：核档不通过
     func requestServer(type:Int)  {
-        DDQueryManager.share.heDangJiLu(type: ApiModel<CheYuanDataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
+        DDQueryManager.share.cunFangWeiZhiLiebiao(type: ApiModel<CheYuanDataModel>.self, page: "1", findMsg: nil) { (result ) in
             mylog(result.msg)
-            let test : CheYuanModel = CheYuanModel()
-            test.approachTime = "1999-09-09"
-            test.carNo = "京A 8888"
-            test.isVerify = 1
-            test.carCode = "ssssssseed"
-            test.vin = "laslsadlfserrsrr"
-            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
+
             self.apiModel = result
             self.collection.reloadData()
         }
@@ -152,7 +146,9 @@ class CunFangWeiZhiVC: DDNormalVC {
 
 extension CunFangWeiZhiVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       self.navigationController?.pushViewController(CunFangWeiZhiStep2(), animated: true)
+       let vc = CunFangWeiZhiStep2()
+        vc.baseInfoModel = self.apiModel.data?.list?[indexPath.item] ?? CunFangWeiZhiVC.CheYuanModel()
+       self.navigationController?.pushViewController(vc, animated: true)
         
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -198,15 +194,11 @@ extension CunFangWeiZhiVC{
     
     
     class CheYuanModel : Codable {
-        var carInfoId : Int? // 1176367626889334786,
         var carCode:String? // "TSXXX19092225",
         var approachTime : String?// null,
         var carNo: String? // "晋A88884",
-        var vin: String? // "33333",
-        /// 1：未核档(暂存)，2：已核档，3：核档不通过
-        var isVerify: Int = 0// 2,
-        var carProcessingId: Int = 0 // 1176367626889336667,
-        var verificationResult:String? // null
+        var id : String? // "33333",
+        var carName : String?
     }
     
     
@@ -219,7 +211,7 @@ extension CunFangWeiZhiVC{
                 number.text = "编号:\(model.carCode ?? "")"
                 arrivedTime.text = "入场时间: \(model.approachTime ?? "")"
                 carNumber.text = "车牌:\(model.carNo ?? "")"
-                carType.text = "车型:\(model.vin ?? "")"
+                carType.text = "车型:\(model.carName ?? "")"
             }
         }
         

@@ -56,15 +56,8 @@ class DengDaiYuChuLiVC: DDNormalVC {
     }
     /// 1：未核档(暂存)，2：已核档，3：核档不通过
     func requestServer(type:Int)  {
-        DDQueryManager.share.heDangJiLu(type: ApiModel<CheYuanDataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
-            mylog(result.msg)
-            let test : CheYuanModel = CheYuanModel()
-            test.approachTime = "1999-09-09"
-            test.carNo = "京A 8888"
-            test.isVerify = 1
-            test.carCode = "ssssssseed"
-            test.vin = "laslsadlfserrsrr"
-            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
+        DDQueryManager.share.dengDaiYuChuLi(type: ApiModel<CheYuanDataModel>.self, page: "1" , findMsg: nil) { (result ) in
+
             self.apiModel = result
             self.collection.reloadData()
         }
@@ -153,7 +146,10 @@ class DengDaiYuChuLiVC: DDNormalVC {
 
 extension DengDaiYuChuLiVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
- self.navigationController?.pushViewController(ChuJianStep2VC(), animated: true)
+        let vc = ChuJianStep2VC()
+        vc.carBaseInfoModel = apiModel.data?.list?[indexPath.item] ?? DengDaiYuChuLiVC.CheYuanModel()
+//        vc.carInfoId = apiModel.data?.list?[indexPath.item].car_info_id ?? "0"
+     self.navigationController?.pushViewController(vc, animated: true)
         
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -200,15 +196,12 @@ extension DengDaiYuChuLiVC{
     
     
     class CheYuanModel : Codable {
-        var carInfoId : Int? // 1176367626889334786,
-        var carCode:String? // "TSXXX19092225",
-        var approachTime : String?// null,
-        var carNo: String? // "晋A88884",
-        var vin: String? // "33333",
-        /// 1：未核档(暂存)，2：已核档，3：核档不通过
-        var isVerify: Int = 0// 2,
-        var carProcessingId: Int = 0 // 1176367626889336667,
-        var verificationResult:String? // null
+        var car_info_id : String? // 1176367626889334786,
+        var approach_time : String?// null,
+        var car_no: String? // "晋A88884",
+        var car_code: String? // "33333",
+        var car_name:String? // null
+        
     }
     
     
@@ -218,10 +211,10 @@ extension DengDaiYuChuLiVC{
                 guard let model = model  else {
                     return
                 }
-                number.text = "编号:\(model.carCode ?? "")"
-                arrivedTime.text = "入场时间: \(model.approachTime ?? "")"
-                carNumber.text = "车牌:\(model.carNo ?? "")"
-                carType.text = "车型:\(model.vin ?? "")"
+                number.text = "编号:\(model.car_code ?? "")"
+                arrivedTime.text = "入场时间: \(model.approach_time ?? "")"
+                carNumber.text = "车牌:\(model.car_no ?? "")"
+                carType.text = "车型:\(model.car_name ?? "")"
             }
         }
         
