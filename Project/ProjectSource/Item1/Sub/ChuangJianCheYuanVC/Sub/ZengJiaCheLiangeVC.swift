@@ -12,23 +12,23 @@ class ZengJiaCheLiangeVC: ChuangJianVC {
     let addBtn = UIButton()
     lazy var models  : [CheYuanOrCheLiangModel] =  [
         CheYuanOrCheLiangModel(identify:"contacts", title: "联系人姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人姓名"),
-        CheYuanOrCheLiangModel(identify:"contactsPhone", title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话"),
+        CheYuanOrCheLiangModel(identify:"contactsPhone", title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话", keyBoardType: .numberPad),
         CheYuanOrCheLiangModel(identify:"contactsAddress", title: "联系人地址:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人地址"),
         CheYuanOrCheLiangModel( isValid: false, stringOfClassName: NSStringFromClass(DDSectionSeparator.self)),
         CheYuanOrCheLiangModel(identify:"carNo", title: "车牌号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车牌号"),
         
         CheYuanOrCheLiangModel(identify:"carName", title: "车辆型号:",value: "科鲁兹滋滋滋滋", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择车辆型号"),
         CheYuanOrCheLiangModel(identify:"processingType", title: "处理方式:",value: "拖车", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择处理方式"),
-        CheYuanOrCheLiangModel(identify:"processingDate", title: "处理日期:",value: "2019-09-18 15:39:56", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择处理日期"),
+        CheYuanOrCheLiangModel(identify:"processingDate", title: "处理日期:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择处理日期"),
         CheYuanOrCheLiangModel(identify:"proceduresType", title: "手续获取:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择手续获取方式"),
         shouXuModel,
-        CheYuanOrCheLiangModel(identify:"proceduresType", title: "备注:", isValid: true, stringOfClassName: NSStringFromClass(DDTips.self)),
+        CheYuanOrCheLiangModel(identify:"remarks", title: "备注:", isValid: true, stringOfClassName: NSStringFromClass(DDTips.self)),
         
         
         
     ]
     lazy var shouXuModel : CheYuanOrCheLiangModel = {
-        let m = CheYuanOrCheLiangModel(title: "手续:", isValid: true, stringOfClassName: NSStringFromClass(DDShouxu.self))
+        let m = CheYuanOrCheLiangModel(identify:"SHOUXU",title: "手续:", isValid: true, stringOfClassName: NSStringFromClass(DDShouxu.self))
         m.shouXuTypes = [
             ShouXuTypeModel(title: "行驶本", false, 0 ,identify:"drivLicense"),
             ShouXuTypeModel(title: "登记证", false, 1, identify:"registLicense"),
@@ -62,7 +62,7 @@ extension ZengJiaCheLiangeVC{
         mylog("addBtnClick")
         var dict : [String:Codable] = [:]
         models.forEach { (model) in
-            if model.identify == "proceduresType"{
+            if model.identify == "SHOUXU"{
                 model.shouXuTypes.forEach { (shouXuModel) in
                     dict[shouXuModel.identify] = "\(shouXuModel.status)"
                 }
@@ -106,10 +106,36 @@ extension ZengJiaCheLiangeVC{
 }
 
 extension ZengJiaCheLiangeVC : UITableViewDelegate , UITableViewDataSource{
+    // 选择之后的值 赋值给参数model的value , 再刷新tableView
+    func chooseCarName(model: CheYuanOrCheLiangModel) {
+        mylog("选择车型")
+    }
+    //// 选择之后的值 赋值给参数model的value , 再刷新tableView
+    func chooseDealType(model: CheYuanOrCheLiangModel) {
+        mylog("选择处理方式")
+    }
+    // 选择之后的值 赋值给参数model的value , 再刷新tableView
+    func chooseDealDate(model: CheYuanOrCheLiangModel) {
+        mylog("选择处理日期")
+    }
+    // 选择之后的值 赋值给参数model的value , 再刷新tableView
+    func chooseShouXuType(model: CheYuanOrCheLiangModel) {
+        mylog("选择手续获取方式")
+    }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = models[indexPath.row]
+        if model.identify == "carName"{//车型
+            chooseCarName(model: model)
+        }else if model.identify == "processingType"{//处理方式
+            chooseDealType(model: model)
+        }else if model.identify == "processingDate"{//处理日期
+            chooseDealDate(model: model)
+        }else if model.identify == "proceduresType"{//手续获取方式
+            chooseShouXuType(model: model)
+        }
+        mylog(model.identify)
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

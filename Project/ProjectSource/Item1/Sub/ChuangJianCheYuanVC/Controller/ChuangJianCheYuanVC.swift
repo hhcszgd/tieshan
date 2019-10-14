@@ -25,18 +25,18 @@ class ChuangJianCheYuanVC: ChuangJianVC {
     lazy var models  : [CheYuanOrCheLiangModel] =  [
         CheYuanOrCheLiangModel( title: "基本信息:", isValid: false , stringOfClassName: NSStringFromClass(DDSectionHeaderRow.self)),
         CheYuanOrCheLiangModel(identify:"contacts",title: "联系人姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人姓名"),
-        CheYuanOrCheLiangModel(identify:"phone",title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话"),
-        CheYuanOrCheLiangModel(identify:"count",title: "车辆台次:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车辆台次"),
+        CheYuanOrCheLiangModel(identify:"phone",title: "联系人电话:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系人电话", keyBoardType: .numberPad),
+        CheYuanOrCheLiangModel(identify:"count",title: "车辆台次:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入车辆台次", keyBoardType: .numberPad),
         CheYuanOrCheLiangModel(identify:"carLocation",title: "联系地址:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入联系地址"),
         CheYuanOrCheLiangModel( isValid: false, stringOfClassName: NSStringFromClass(DDSectionSeparator.self)),
         CheYuanOrCheLiangModel(title: "银行信息:", isValid: false , stringOfClassName: NSStringFromClass(DDSectionHeaderRow.self)),
         
-        CheYuanOrCheLiangModel(identify:"bankName",title: "银行名称:",value : "中国建设银行", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择银行"),
+        CheYuanOrCheLiangModel(identify:"bankName",title: "银行名称:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleChoose.self),placeholder: "请选择银行"),
         
         
         
         CheYuanOrCheLiangModel(identify:"bankBranch",title: "支行名称:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入支行名称"),
-        CheYuanOrCheLiangModel(identify:"account",title: "银行账号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入银行账号"),
+        CheYuanOrCheLiangModel(identify:"account",title: "银行账号:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入银行账号", keyBoardType: .numberPad),
         CheYuanOrCheLiangModel(identify:"payee",title: "账户姓名:", isValid: true, stringOfClassName: NSStringFromClass(DDSingleInputRow.self),placeholder: "请输入账户姓名")
     ]
     override func viewDidLoad() {
@@ -51,6 +51,31 @@ class ChuangJianCheYuanVC: ChuangJianVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    func chooseBank() {
+        mylog("xxxxxi")
+        self.view.endEditing(true)
+        DDQueryManager.share.getBankList(type: ApiModel<[String]>.self) { (apiModel) in
+            let alertModels = apiModel.data?.map({ (m) -> ChooseModel in
+                 ChooseModel(title: m)
+             }) ?? []
+             let a = DDChooseAlert(models: alertModels )
+             a.confirmHandler = {[weak self] model in
+                self?.models.forEach { (m) in
+                    if m.identify == "bankName"{m.value = model.title ?? ""}
+                    self?.tableView?.reloadData()
+                }
+             }
+             self.view.alert(a) { (alert) in
+                 alert.subContainer.frame.origin.y = a.bounds.height + 10
+                 UIView.animate(withDuration: 0.2) {
+                     alert.subContainer.frame.origin.y = a.bounds.height * 0.7
+                 }
+             }
+        }
+        
+
     }
 }
 
@@ -102,7 +127,11 @@ extension ChuangJianCheYuanVC : UITableViewDelegate , UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let model = models[indexPath.row]
+        if model.identify == "bankName"{
+            chooseBank()
+        }
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

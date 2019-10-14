@@ -71,9 +71,11 @@ class CheYuanOrCheLiangModel {
     var isValid: Bool = true//是否有效
     var identify : String = ""
     var futureModel: Any?
-    convenience init(identify: String = "", title: String = "",value:String = "", isValid: Bool = true, stringOfClassName : String, placeholder: String = "" , futureModel:Any? = nil){
+    var keyBoardType : UIKeyboardType = .default
+    convenience init(identify: String = "", title: String = "",value:String = "", isValid: Bool = true, stringOfClassName : String, placeholder: String = "" , futureModel:Any? = nil , keyBoardType : UIKeyboardType = .default){
         self.init()
         self.title = title
+        self.keyBoardType = keyBoardType
         self.isValid = isValid
         self.stringOfClassName = stringOfClassName
         self.placeHolder = placeholder
@@ -171,6 +173,7 @@ extension ChuangJianVC{
             didSet{
                 title.text = model.title
                 textfield.placeholder = model.placeHolder
+                textfield.keyboardType = model.keyBoardType
                 if  !model.value.isEmpty{
                     if model.value == "0"{
                             textfield.text = nil

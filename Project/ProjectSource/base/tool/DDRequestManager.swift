@@ -29,6 +29,14 @@ enum DomainType : String  {
 
 extension DDQueryManager{
     // write your api here 👇
+    //请求银行列表
+    func getBankList<T>(type : ApiModel<T>.Type, failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "carSource/findBankNameList"
+     
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url , encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    
+    
     // 选择一级打印
     func huoYiJiQuDaShuju<T>(type : ApiModel<T>.Type, failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
           let url  =  "doCarsQuery/findFirstPartsName"
