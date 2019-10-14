@@ -21,9 +21,16 @@ class ChaiCheRuKuVC: DDNormalVC {
     @IBOutlet weak var printAllBtn: UIButton!
     @IBOutlet weak var printMoreBtn: UIButton!
     
-    
+    var baseInfoModel = ChaiGuoDeCheVC.ItemModel()
+    var apiModel = ApiModel<[PrintItemModel]>()
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        bianhao.text = "\(baseInfoModel.vin)"
+        chexing.text = "che xing"
+        chepai.text = "\(baseInfoModel.carCode)"
+        vin.text = "\(baseInfoModel.vin)"
+        chaiJieFangShi.text = "chai jie fang shi "
+        
         headerBG.layer.cornerRadius = 8
         headerBG.layer.masksToBounds = true
         setLayout()
@@ -31,6 +38,7 @@ class ChaiCheRuKuVC: DDNormalVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "拆车入库"
+        request()
         // Do any additional setup after loading the view.
     }
     func setLayout () {
@@ -53,8 +61,8 @@ class ChaiCheRuKuVC: DDNormalVC {
     
     @IBAction func printAllAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-            self.types.forEach { (itemModel) in
-                itemModel.isSelected = sender.isSelected ? true : false
+        self.apiModel.data?.forEach { (itemModel) in
+                itemModel.isSelected = sender.isSelected
             }
         collection.reloadData()
     }
@@ -86,54 +94,49 @@ class ChaiCheRuKuVC: DDNormalVC {
      // Pass the selected object to the new view controller.
      }
      */
-    lazy var types: [PrintItemModel] = {
-        return [
-            PrintItemModel(title: "前保险杠"),
-            PrintItemModel(title: "发动机"),
-            PrintItemModel(title: "后桥"),
-            PrintItemModel(title: "左前车门"),
-            PrintItemModel(title: "右前车门"),
-            PrintItemModel(title: "左后车门"),
-            PrintItemModel(title: "右后车门"),
-            PrintItemModel(title: "左前大灯"),
-            PrintItemModel(title: "右前大灯"),
-            PrintItemModel(title: "后保险杠"),
-            PrintItemModel(title: "车顶"),
-            PrintItemModel(title: "车前脸"),
-            PrintItemModel(title: "车后脸"),
-        ]
-    }()
+    func request()  {
+        DDQueryManager.share.getPrintItems(type: ApiModel<[PrintItemModel]>.self) { (apiModel) in
+            self.apiModel = apiModel
+            self.collection.reloadData()
+        }
+    }
 }
 extension ChaiCheRuKuVC : UICollectionViewDelegate , UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let m = types[indexPath.item]
+        let m = apiModel.data?[indexPath.item]
         guard let cell = collectionView.cellForItem(at: indexPath) as? PrintTypeItem else {return}
-        m.isSelected = !m.isSelected
+        m?.isSelected = !(m?.isSelected ?? false)
+        var temp = true
+        self.apiModel.data?.forEach { (itemModel) in
+            if !(itemModel.isSelected ?? false){temp = false}
+        }
+        printAllBtn.isSelected = temp
         cell.model = m
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return types.count
+        return apiModel.data?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PrintTypeItem", for: indexPath)
-        if let t = cell as? PrintTypeItem{t.model = types[indexPath.item]}
+        if let t = cell as? PrintTypeItem{t.model = apiModel.data?[indexPath.item]}
         return cell
     }
-    class PrintItemModel {
-        var title = ""
-        var isSelected = false
+    class PrintItemModel : Codable{
+        var partsCode : String?
+        var filed_name : String?
+        var isSelected : Bool? = false
         convenience init(title: String = "", isSelected: Bool = false){
             self.init()
-            self.title = title
+            self.filed_name = title
             self.isSelected = isSelected
         }
     }
     class PrintTypeItem: UICollectionViewCell {
-        var model: PrintItemModel = PrintItemModel(){
+        var model: PrintItemModel? = PrintItemModel(){
             didSet{
-                self.label.text = model.title
-                if model.isSelected {
+                self.label.text = model?.filed_name
+                if model?.isSelected ?? false  {
                     self.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
                     self.label.textColor = mainColor
                 }else{

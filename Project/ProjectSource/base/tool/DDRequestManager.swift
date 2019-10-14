@@ -29,6 +29,43 @@ enum DomainType : String  {
 
 extension DDQueryManager{
     // write your api here 👇
+    // 获取打印名称
+    func getPrintItems<T>(type : ApiModel<T>.Type ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "doCarsQuery/findPartsNameList"
+        return self.requestServer(type: type , method: HTTPMethod.get, url: url, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    
+    
+    //拆过的件 doCarsQuery/selectCarPartsList
+    func chaiGuoDeJian<T>(type : ApiModel<T>.Type , page : String? , pageSize : String? = "10",findMsg : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "doCarsQuery/selectCarPartsList"
+        var para : [String : String] =  [ : ]
+        if let p = page{para["page"] = p}
+        if let p = pageSize{para["pageSize"] = p}
+        if let p = findMsg{para["findMsg"] = p}
+        return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters:para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    //待拆和已拆
+    ///   1-待拆解，2-已拆解
+    func daiChaiYiChai<T>(type : ApiModel<T>.Type , page : String? , pageSize : String? = "10", isDismantle:String = "1",searchInfo : String? ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "doCarsQuery/selectIsDismantle"
+        var para : [String : String] =  ["isDismantle":isDismantle]
+        if let p = page{para["page"] = p}
+        if let p = pageSize{para["pageSize"] = p}
+        if let p = searchInfo{para["searchInfo"] = p}
+        return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters:para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    
+    
+    ///isSuperviseSale : 1-监销，2-不监销
+    func yiJianXiaoWeiJianXiao<T>(type : ApiModel<T>.Type,isSuperviseSale : String , page : String? , pageSize : String? = "10",findMsg : String?  ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "doCarsQuery/findPreBreakCars"
+         var para : [String : String] =  ["isSuperviseSale":isSuperviseSale]
+              if let p = page{para["page"] = p}
+              if let p = pageSize{para["pageSize"] = p}
+              if let p = findMsg{para["findMsg"] = p}
+        return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+    }
        ///返显已毁形图片
        ///
            func getImagesOfYiHuiXing<T>(type : ApiModel<T>.Type, carInfoId : String ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {

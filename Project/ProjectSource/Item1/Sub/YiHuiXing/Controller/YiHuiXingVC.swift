@@ -131,7 +131,7 @@ class YiHuiXingVC: DDNormalVC {
 
 
 extension YiHuiXingVC : UICollectionViewDelegate ,UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt  indexPath: IndexPath) {
         let vc = YiHuiXingStep2VC()
         vc.baseInfoModel = self.apiModel.data?.list?[indexPath.item] ?? YiHuiXingVC.CheYuanModel()
         self.navigationController?.pushViewController(vc , animated: true)

@@ -25,9 +25,6 @@ class JianXiaoCheLiangVC: DDNormalVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "监销车辆"
-        if let index = userInfo as? Int {
-            self.index = index
-        }
         layoutSearchBar()
         layoutCategoryBar()
         layoutCollectionView()
@@ -45,24 +42,17 @@ class JianXiaoCheLiangVC: DDNormalVC {
             case  0 :
                 self.requestServer(type:1)
             case 1 :
-                self.requestServer(type:3)
-            default:
                 self.requestServer(type:2)
+            default:
+                self.requestServer(type:1)
             }
             
-            self.requestServer(type:index)
         }
         /// 1：未核档(暂存)，2：已核档，3：核档不通过
         func requestServer(type:Int)  {
-            DDQueryManager.share.heDangJiLu(type: ApiModel<DataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
+            DDQueryManager.share.yiJianXiaoWeiJianXiao(type: ApiModel<DataModel>.self, isSuperviseSale: "\(type)", page: "1",   findMsg: nil) { (result ) in
                 mylog(result.msg)
-                let test : ItemModel = ItemModel()
-                test.approachTime = "1999-09-09"
-                test.carNo = "京A 8888"
-                test.isVerify = 1
-                test.carCode = "ssssssseed"
-                test.vin = "laslsadlfserrsrr"
-                if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
+               
                 self.apiModel = result
                 self.collection.reloadData()
             }
@@ -138,11 +128,11 @@ class JianXiaoCheLiangVC: DDNormalVC {
 
 extension JianXiaoCheLiangVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if index == 0 {
-            UIApplication.shared.keyWindow?.alert(Bundle.main.loadNibNamed("LookForResultAlert", owner: "LookForResultAlert" , options: nil )?.first as! LookForResultAlert)
-        }else {
-            self.navigationController?.pushViewController(DDDealDetailVC(), animated: true)
-        }
+//        if index == 0 {
+//            UIApplication.shared.keyWindow?.alert(Bundle.main.loadNibNamed("LookForResultAlert", owner: "LookForResultAlert" , options: nil )?.first as! LookForResultAlert)
+//        }else {
+//            self.navigationController?.pushViewController(DDDealDetailVC(), animated: true)
+//        }
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -188,15 +178,16 @@ extension JianXiaoCheLiangVC{
     
     
     class ItemModel : Codable {
-        var carInfoId : Int? // 1176367626889334786,
-       var carCode:String? // "TSXXX19092225",
-        var approachTime : String?// null,
-        var carNo: String? // "晋A88884",
+        /**
+         {\"car_name\":\"科鲁兹滋滋滋滋\",\"car_info_id\":\"1183047045422911488\",\"approach_time\":\"2019-10-12 23:52:13\",\"car_no\":\"苏a2396v\",\"car_code\":\"TSXXX191000061\"}
+         */
+        
+        var car_info_id : String? // 1176367626889334786,
+       var car_code:String? // "TSXXX19092225",
+        var approach_time : String?// null,
+        var car_no: String? // "晋A88884",
         var vin: String? // "33333",
-        /// 1：未核档(暂存)，2：已核档，3：核档不通过
-        var isVerify: Int = 0// 2,
-        var carProcessingId: Int = 0 // 1176367626889336667,
-        var verificationResult:String? // null
+        var car_name:String? // null
     }
     
     class JianXiaoItem : UICollectionViewCell {
@@ -205,10 +196,10 @@ extension JianXiaoCheLiangVC{
                 guard let model = model  else {
                     return
                 }
-                number.text = "编号:\(model.carCode ?? "")"
-                chaiJieTime.text = "拆解时间: \(model.approachTime ?? "")"
-                carNumber.text = "车牌:\(model.carNo ?? "")"
-                vin.text = "VIN:\(model.vin ?? "")"
+                number.text = "编号:\(model.car_code ?? "")"
+                chaiJieTime.text = "拆解时间: \(model.approach_time ?? "")"
+                carNumber.text = "车牌:\(model.car_no ?? "")"
+                vin.text = "VIN:\(model.car_code ?? "")"
                 
             }
         }

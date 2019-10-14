@@ -11,7 +11,9 @@ import UIKit
 class ChaiGuoDeCheVC: DDNormalVC {
     var collection : UICollectionView!
     let searchBar = DDSearchBar()
+    ///待拆核已拆model
     var apiModel = ApiModel<DataModel>()
+    var jianApiModel = ApiModel<JianDataModel>()
     lazy var categoryBar : CategoryBarView = {
         let bar = CategoryBarView(defaultIndex:index)
         bar.selectHandler = { [weak self] index in
@@ -46,24 +48,22 @@ class ChaiGuoDeCheVC: DDNormalVC {
         case  0 :
             self.requestServer(type:1)
         case 1 :
-            self.requestServer(type:3)
-        default:
             self.requestServer(type:2)
+        default:
+            requestChaiGuoDeJian()
         }
-        
-        self.requestServer(type:index)
     }
-    /// 1：未核档(暂存)，2：已核档，3：核档不通过
+    func requestChaiGuoDeJian() {
+        DDQueryManager.share.chaiGuoDeJian(type: ApiModel<JianDataModel>.self, page: "\(pageIndex)", findMsg: searchBar.textField.text) { (apiModel) in
+            self.jianApiModel = apiModel
+            self.layoutCollectionView(index: self.index)
+            mylog(apiModel.msg)
+        }
+    }
+
     func requestServer(type:Int)  {
-        DDQueryManager.share.heDangJiLu(type: ApiModel<DataModel>.self, page: "1",   isVerify: "\(type)", searchInfo: nil) { (result ) in
+        DDQueryManager.share.daiChaiYiChai(type: ApiModel<DataModel>.self, page: "1",   isDismantle: "\(type)", searchInfo: nil) { (result ) in
             mylog(result.msg)
-            let test : ItemModel = ItemModel()
-            test.approachTime = "1999-09-09"
-            test.carNo = "京A 8888"
-            test.isVerify = 1
-            test.carCode = "ssssssseed"
-            test.vin = "laslsadlfserrsrr"
-            if result.data?.list?.count ?? 0 == 0 {result.data?.list = [test]}
             self.apiModel = result
             self.layoutCollectionView(index: self.index)
         }
@@ -170,7 +170,9 @@ extension ChaiGuoDeCheVC : UICollectionViewDelegate ,UICollectionViewDataSource 
            var actions = [DDAlertAction]()
             let sure = DDAlertAction(title: "确定",textColor:mainColor, style: UIAlertActionStyle.default, handler: { (action ) in
                 print("拆拆拆")
-                self.navigationController?.pushViewController(ChaiCheRuKuVC(), animated: true)
+                let vc = ChaiCheRuKuVC()
+                vc.baseInfoModel = self.apiModel.data?.list?[indexPath.item] ?? ChaiGuoDeCheVC.ItemModel()
+                self.navigationController?.pushViewController(vc, animated: true)
             })
             
             let cancel = DDAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: { (action ) in
@@ -190,7 +192,14 @@ extension ChaiGuoDeCheVC : UICollectionViewDelegate ,UICollectionViewDataSource 
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return apiModel.data?.list?.count ?? 0
+        if index == 0 {
+            return apiModel.data?.list?.count ?? 0
+        }else if index == 1 {
+            return apiModel.data?.list?.count ?? 0
+        }else if index == 2  {
+            return jianApiModel.data?.list?.count ?? 0
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -198,19 +207,19 @@ extension ChaiGuoDeCheVC : UICollectionViewDelegate ,UICollectionViewDataSource 
             
             let item = collectionView.dequeueReusableCell(withReuseIdentifier: "DaiChaiItem", for: indexPath)
             if let itemUnwrap = item as? DaiChaiItem{
-                itemUnwrap.model = apiModel.data?.list?[indexPath.row]
+                itemUnwrap.model = apiModel.data?.list?[indexPath.item]
             }
             return item
         }else if index == 1{
             let item = collectionView.dequeueReusableCell(withReuseIdentifier: "ChaiGuoItem", for: indexPath)
             if let itemUnwrap = item as? ChaiGuoItem{
-                itemUnwrap.model = apiModel.data?.list?[indexPath.row]
+                itemUnwrap.model = apiModel.data?.list?[indexPath.item]
             }
             return item
         }else if index == 2{
             let item = collectionView.dequeueReusableCell(withReuseIdentifier: "RuKuItem", for: indexPath)
             if let itemUnwrap = item as? RuKuItem{
-                itemUnwrap.model = apiModel.data?.list?[indexPath.row]
+                itemUnwrap.model = jianApiModel.data?.list?[indexPath.item]
             }
             return item
         }
@@ -241,19 +250,47 @@ extension ChaiGuoDeCheVC{
         var firstPage : String?
         var lastPage : String?
     }
-    
-    
+    class JianDataModel: Codable {
+        var pageNum: String?
+        var pageSize:String?
+        var size : String?
+        var startRow : String?
+        var endRow:String?
+        var total:String?
+        var pages: String?
+        var list:[JianItemModel]?
+        var prePage:String?
+        var nextPage:String?
+        var isFirstPage:Bool?
+        var isLastPage : Bool?
+        var hasPreviousPage : Bool?
+        var hasNextPage: Bool?
+        var navigatePages: String?
+        var navigatepageNums : [String]?
+        var navigateFirstPage: String?
+        var navigateLastPage: String?
+        var firstPage : String?
+        var lastPage : String?
+    }
+    class JianItemModel: Codable {
+        var printOperator : String?
+        var carNo : String?
+        var vin : String?
+        var id : String?
+        var printTime : String?
+        var partsName : String?
+    }
     
     class ItemModel : Codable {
-        var carInfoId : Int? // 1176367626889334786,
+        /**
+         {\"carCode\":\"TSXXX191000022\",\"carNo\":\"京N00000\",\"vin\":\"22222\",\"time\":\"2019-10-13 19:51:32\",\"id\":\"1182221034242314240\"}
+         
+         */
         var carCode:String? // "TSXXX19092225",
-        var approachTime : String?// null,
-        var carNo: String? // "晋A88884",
         var vin: String? // "33333",
-        /// 1：未核档(暂存)，2：已核档，3：核档不通过
-        var isVerify: Int = 0// 2,
-        var carProcessingId: Int = 0 // 1176367626889336667,
-        var verificationResult:String? // null
+        var carNo: String? // "晋A88884",
+        var time : String?// null,
+        var id:String? // null
     }
     
     class DaiChaiItem : UICollectionViewCell {
@@ -263,7 +300,7 @@ extension ChaiGuoDeCheVC{
                     return
                 }
                 number.text = "编号:\(model.carCode ?? "")"
-                chaiJieTime.text = "拆解时间: \(model.approachTime ?? "")"
+                chaiJieTime.text = "报废时间: \(model.time ?? "")"
                 carNumber.text = "车牌:\(model.carNo ?? "")"
                 vin.text = "VIN:\(model.vin ?? "")"
                 
@@ -289,6 +326,9 @@ extension ChaiGuoDeCheVC{
             vin.textColor = UIColor.gray
             chaiBtn.backgroundColor = mainColor
             chaiBtn.setTitle("拆解车辆", for: UIControlState.normal)
+            chaiBtn.layer.cornerRadius = 4
+            chaiBtn.layer.masksToBounds = true
+            chaiBtn.isUserInteractionEnabled = false
         }
         override func layoutSubviews() {
             super.layoutSubviews()
@@ -320,7 +360,7 @@ extension ChaiGuoDeCheVC{
                     return
                 }
                 number.text = "编号:\(model.carCode ?? "")"
-                chaiJieTime.text = "拆解时间: \(model.approachTime ?? "")"
+                chaiJieTime.text = "拆解时间: \(model.time ?? "")"
                 carNumber.text = "车牌:\(model.carNo ?? "")"
                 vin.text = "VIN:\(model.vin ?? "")"
                 
@@ -365,15 +405,17 @@ extension ChaiGuoDeCheVC{
         }
     }
     class RuKuItem : UICollectionViewCell {
-        var model : ItemModel?  {
+        var model : JianItemModel?  {
             didSet{
                 guard let model = model  else {
                     return
                 }
-                number.text = "编号:\(model.carCode ?? "")"
-                chaiJieTime.text = "拆解时间: \(model.approachTime ?? "")"
+                number.text = "编号:\(model.vin ?? "")"
+                chaiJieTime.text = "入库时间: \(model.printTime ?? "")"
                 carNumber.text = "车牌:\(model.carNo ?? "")"
                 vin.text = "VIN:\(model.vin ?? "")"
+                locat.text = model.partsName
+                rukuRen.text = "入库人: \(model.printOperator ?? "")"
                 
             }
         }
