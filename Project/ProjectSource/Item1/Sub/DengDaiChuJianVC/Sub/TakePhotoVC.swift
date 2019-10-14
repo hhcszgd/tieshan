@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GPUImage
 import AVFoundation
 class TakePhotoVC: DDInternalVC {
 }

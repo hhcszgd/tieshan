@@ -1,23 +1,22 @@
 //
-//  DaiHuiXingCheLiangStep2VC.swift
+//  YiHuiXingStep2VC.swift
 //  Project
 //
-//  Created by JohnConnor on 2019/10/13.
+//  Created by JohnConnor on 2019/10/14.
 //  Copyright © 2019 HHCSZGD. All rights reserved.
 //
 
 import UIKit
 
-class DaiHuiXingCheLiangStep2VC: DDNormalVC {
-    
-    var baseInfoModel = DaiHuiXingCheLiangVC.CheYuanModel(){didSet{
+class YiHuiXingStep2VC: DDNormalVC {
+ 
+    var baseInfoModel = YiHuiXingVC.CheYuanModel(){didSet{
         info.arrivedTime.text = "入场时间:\(baseInfoModel.approach_time ?? "")"
         info.number.text = "编号:\(baseInfoModel.car_no ?? "")"
         info.carType.text = "车型:\(baseInfoModel.car_name ?? "")"
         info.carNumber.text = "车型:\(baseInfoModel.car_code ?? "")"
         }
     }
-    let doneBtn = UIButton()
     let info = ChuangJianVC.ChuJianBaseInfoCell()
     let headerTitle = DDDealDetailVC.SectionHeader()
     var chaiJieFangShi: UILabel!
@@ -41,18 +40,17 @@ class DaiHuiXingCheLiangStep2VC: DDNormalVC {
         headerTitle.frame = CGRect(x: 10, y: info.frame.maxY, width: view.bounds.width, height: 30)
         view.backgroundColor = .white
         headerTitle.backgroundColor = .white
-        setupBottomBtn()
         setupCollection()
         setLayout()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "待毁形车辆"
+        title = "车辆已毁形"
         request()
         // Do any additional setup after loading the view.
     }
     func request() {
-        DDQueryManager.share.getImagesOfHuiXing(type: ApiModel<[ItemModel]>.self, carInfoId: baseInfoModel.car_info_id ?? "0") { (apiModel) in
+        DDQueryManager.share.getImagesOfYiHuiXing(type: ApiModel<[ItemModel]>.self, carInfoId: baseInfoModel.car_info_id ?? "0") { (apiModel) in
             mylog(apiModel.msg)
             // test
             
@@ -82,25 +80,15 @@ class DaiHuiXingCheLiangStep2VC: DDNormalVC {
         }
     }
     
-    func setupBottomBtn() {
-        self.view.addSubview(doneBtn)
-        doneBtn.frame = CGRect(x: 20, y: view.frame.height - 60, width: view.bounds.width - 40, height: 40)
-        doneBtn.backgroundColor = mainColor
-        doneBtn.setTitle("拓号完成", for: UIControlState.normal)
-        doneBtn.addTarget(self , action: #selector(doneBtnClick(sender:)), for: UIControlEvents.touchUpInside)
-        doneBtn.layer.cornerRadius = 8
-        doneBtn.layer.masksToBounds = true
-        
-    }
     func setupCollection() {
         
-        let tableViewFrame = CGRect(x: 0, y: headerTitle.frame.maxY, width: self.view.bounds.width , height: self.doneBtn.frame.minY - headerTitle.frame.maxY)
+        let tableViewFrame = CGRect(x: 0, y: headerTitle.frame.maxY, width: self.view.bounds.width , height: self.view.bounds.height - headerTitle.frame.maxY)
         
         //               self.tableView = UITableView(frame: tableViewFrame, style: UITableViewStyle.plain)
         //               self.view.addSubview(self.tableView!)
         view.addSubview(collection)
         collection.frame = tableViewFrame
-        collection.contentInset = UIEdgeInsetsMake(10, 0, 0, 0)
+        collection.contentInset = UIEdgeInsetsMake(10, 0, 10, 0)
         collection.delegate = self
         collection.dataSource = self
         collection.backgroundColor = .clear
@@ -112,31 +100,11 @@ class DaiHuiXingCheLiangStep2VC: DDNormalVC {
     }
     let testImg = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493962239167&di=c5619e5047afc37c28beaf04eb2937bd&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120423%2F107913-12042323220753.jpg"
     @objc func addBtnClick(sender: UIButton){
-        mylog("addBtnClick")
-        if apiModel.data?.count ?? 0 > 1 {
-            let m = apiModel.data![1]
-            
-            DDQueryManager.share.wanChengTuoHuiXingImage(type: ApiModel<String>.self, carInfoId: baseInfoModel.car_info_id ?? "", status: "1", img: m) { (apiModel) in
-                if apiModel.ret_code == "0"{
-                    GDAlertView.alert("暂存成功")
-                }else{GDAlertView.alert(apiModel.msg)}
-            }
-            
-        }
+
     }
     @objc func doneBtnClick(sender: UIButton){
         mylog("doneBtnClick")
-        mylog("addBtnClick")
-        if apiModel.data?.count ?? 0 > 1 {
-            let m = apiModel.data![1]
-            
-            DDQueryManager.share.wanChengTuoHuiXingImage(type: ApiModel<String>.self, carInfoId: baseInfoModel.car_info_id ?? "", status: "2", img: m) { (apiModel) in
-                if apiModel.ret_code == "0"{
-                    GDAlertView.alert(apiModel.msg)
-                }else{GDAlertView.alert(apiModel.msg)}
-            }
-            
-        }
+     
     }
     func setLayout () {
         
@@ -167,7 +135,7 @@ class DaiHuiXingCheLiangStep2VC: DDNormalVC {
      */
     
 }
-extension DaiHuiXingCheLiangStep2VC : UICollectionViewDelegate , UICollectionViewDataSource{
+extension YiHuiXingStep2VC : UICollectionViewDelegate , UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item == 0{
             mylog("perform take photo")

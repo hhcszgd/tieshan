@@ -29,6 +29,28 @@ enum DomainType : String  {
 
 extension DDQueryManager{
     // write your api here 👇
+       ///返显已毁形图片
+       ///
+           func getImagesOfYiHuiXing<T>(type : ApiModel<T>.Type, carInfoId : String ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+              let url  =  "doCarsQuery/findPreBreakCarsById"
+                var para : [String : Codable] =  ["carInfoId":carInfoId]
+              return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+          }
+    ///已毁形车辆列表
+        func listOfYiHuiXing<T>(type : ApiModel<T>.Type, page : String? , pageSize : String? = "10",findMsg : String?  ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+           let url  =  "doCarsQuery/findBreakSuccessCars"
+            var para : [String : String] =  [:]
+                 if let p = page{para["page"] = p}
+                 if let p = pageSize{para["pageSize"] = p}
+                 if let p = findMsg{para["findMsg"] = p}
+           return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+       }
+    
+    
+    
+    
+    
+    
     
     //
     ///完成毁形

@@ -298,6 +298,8 @@ extension DDItem3VC{
             department.text = "   外勤部"
         case .yeWuBu:
             department.text = "   业务部"
+        case .kuGuanBu:
+        department.text = "   库管部"
         }
     }
 }

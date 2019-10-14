@@ -155,6 +155,11 @@
 		B305CF412344E7910059882A /* ChaiCheRuKuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B305CF3F2344E7910059882A /* ChaiCheRuKuVC.swift */; };
 		B305CF422344E7910059882A /* ChaiCheRuKuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B305CF402344E7910059882A /* ChaiCheRuKuVC.xib */; };
 		B30FD2732349E933004E2B53 /* TakePhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30FD2722349E933004E2B53 /* TakePhotoVC.swift */; };
+		B310C5592353F87D008338AA /* YiHuiXingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C5582353F87D008338AA /* YiHuiXingVC.swift */; };
+		B310C55B2353F891008338AA /* YiHuiXingStep2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C55A2353F891008338AA /* YiHuiXingStep2VC.swift */; };
+		B310C5622353FE4F008338AA /* RuKuGuanLiVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C5612353FE4F008338AA /* RuKuGuanLiVC.swift */; };
+		B310C5652354161E008338AA /* DDMaskBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C5642354161E008338AA /* DDMaskBaseView.swift */; };
+		B310C56723541697008338AA /* DDExceptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C56623541697008338AA /* DDExceptionView.swift */; };
 		B32200D5233F170400B1C8A0 /* ModiryProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */; };
 		B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D6233F3F1400B1C8A0 /* ModifyName.swift */; };
 		B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200DA233F514200B1C8A0 /* CategoryBarView.swift */; };
@@ -431,6 +436,11 @@
 		B305CF3F2344E7910059882A /* ChaiCheRuKuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaiCheRuKuVC.swift; sourceTree = "<group>"; };
 		B305CF402344E7910059882A /* ChaiCheRuKuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChaiCheRuKuVC.xib; sourceTree = "<group>"; };
 		B30FD2722349E933004E2B53 /* TakePhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoVC.swift; sourceTree = "<group>"; };
+		B310C5582353F87D008338AA /* YiHuiXingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YiHuiXingVC.swift; sourceTree = "<group>"; };
+		B310C55A2353F891008338AA /* YiHuiXingStep2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YiHuiXingStep2VC.swift; sourceTree = "<group>"; };
+		B310C5612353FE4F008338AA /* RuKuGuanLiVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuKuGuanLiVC.swift; sourceTree = "<group>"; };
+		B310C5642354161E008338AA /* DDMaskBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDMaskBaseView.swift; sourceTree = "<group>"; };
+		B310C56623541697008338AA /* DDExceptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDExceptionView.swift; sourceTree = "<group>"; };
 		B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModiryProfileVC.swift; sourceTree = "<group>"; };
 		B32200D6233F3F1400B1C8A0 /* ModifyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyName.swift; sourceTree = "<group>"; };
 		B32200DA233F514200B1C8A0 /* CategoryBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBarView.swift; sourceTree = "<group>"; };
@@ -1960,6 +1970,8 @@
 		15DF30071FA9AFAB00588AF1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B310C56623541697008338AA /* DDExceptionView.swift */,
+				B310C5642354161E008338AA /* DDMaskBaseView.swift */,
 				15103FA72330C570008EC0D1 /* DDNavigationItem.swift */,
 				156602D32337ABF000A77433 /* DDSearchBar.swift */,
 				15103FA62330C56F008EC0D1 /* DDNavigationItemBar.swift */,
@@ -2085,11 +2097,13 @@
 				158A1BC123362189002F7E5F /* DaiHuiXingCheLiangVC */,
 				158A1C022336218B002F7E5F /* DengDaiChuJianVC */,
 				158A1BA823362189002F7E5F /* WeiHeDang */,
+				B310C5562353F865008338AA /* YiHuiXing */,
 				158A1BE92336218A002F7E5F /* DengDaiTuoHaoVC */,
 				158A1BD02336218A002F7E5F /* DengDaiYuChuLiVC */,
 				158A1BCB2336218A002F7E5F /* HeDangTongGuoVC */,
 				158A1C072336218B002F7E5F /* HeDangWeiTongGuoVC */,
 				158A1BB723362189002F7E5F /* HeDangYiTongGuoVC */,
+				B310C55C2353FE3E008338AA /* RuKuGuanLi */,
 				158A1BF82336218B002F7E5F /* JianXiaoCheLiangVC */,
 				158A1BAD23362189002F7E5F /* SaoYiSaoVC */,
 				158A1BDF2336218A002F7E5F /* WeiChaiJieVC */,
@@ -2210,6 +2224,63 @@
 			);
 			name = Pods;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		B310C5562353F865008338AA /* YiHuiXing */ = {
+			isa = PBXGroup;
+			children = (
+				B310C5572353F865008338AA /* Controller */,
+			);
+			path = YiHuiXing;
+			sourceTree = "<group>";
+		};
+		B310C5572353F865008338AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B310C5582353F87D008338AA /* YiHuiXingVC.swift */,
+				B310C55A2353F891008338AA /* YiHuiXingStep2VC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B310C55C2353FE3E008338AA /* RuKuGuanLi */ = {
+			isa = PBXGroup;
+			children = (
+				B310C55D2353FE3E008338AA /* Controller */,
+				B310C55E2353FE3E008338AA /* Sub */,
+				B310C55F2353FE3E008338AA /* Model */,
+				B310C5602353FE3E008338AA /* View */,
+			);
+			path = RuKuGuanLi;
+			sourceTree = "<group>";
+		};
+		B310C55D2353FE3E008338AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B310C5612353FE4F008338AA /* RuKuGuanLiVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B310C55E2353FE3E008338AA /* Sub */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sub;
+			sourceTree = "<group>";
+		};
+		B310C55F2353FE3E008338AA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B310C5602353FE3E008338AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B32200D2233F16DE00B1C8A0 /* ModifyProfile */ = {
@@ -2727,9 +2798,11 @@
 				155A2FE82011998F007417AF /* DDRowView.swift in Sources */,
 				BCC31F131FC6E7500037BA74 /* DDItem3VC.swift in Sources */,
 				BCC31EB21FC6E71C0037BA74 /* GDControl.swift in Sources */,
+				B310C5592353F87D008338AA /* YiHuiXingVC.swift in Sources */,
 				BC1E098720C3F41200FCC120 /* ScrollView_extension.swift in Sources */,
 				15BA5A851FC01715004E35FD /* TestMoveItemVC.swift in Sources */,
 				15DF30571FA9AFAC00588AF1 /* DDShowProtocol.swift in Sources */,
+				B310C5622353FE4F008338AA /* RuKuGuanLiVC.swift in Sources */,
 				15DF305F1FA9AFAC00588AF1 /* PCH.swift in Sources */,
 				15DF30641FA9AFAC00588AF1 /* GDMapInView.swift in Sources */,
 				BCC31E8C1FC6B92C0037BA74 /* UILabel+extension.swift in Sources */,
@@ -2763,10 +2836,12 @@
 				158A1C3123362306002F7E5F /* ChaKanCheYuanVC.swift in Sources */,
 				15047EAC1FC2773C001DCB21 /* DDNoNavibarVC.swift in Sources */,
 				153027321FCE8A6900294170 /* HomeMessagesItem.swift in Sources */,
+				B310C55B2353F891008338AA /* YiHuiXingStep2VC.swift in Sources */,
 				158A1C2F233622F9002F7E5F /* CheLiangRuChangVC.swift in Sources */,
 				15103FD42331BB3F008EC0D1 /* CGRect-extension.swift in Sources */,
 				15DF2FC11FA9AE0400588AF1 /* Project.xcdatamodeld in Sources */,
 				15763E381FC4023700EE9AC0 /* DDSingleLayout.swift in Sources */,
+				B310C56723541697008338AA /* DDExceptionView.swift in Sources */,
 				BC7B85561FCA8F47009011A2 /* UploadPicturesTool.swift in Sources */,
 				B30FD2732349E933004E2B53 /* TakePhotoVC.swift in Sources */,
 				158C005B202BFA3B00C181B0 /* DDSpecialLabel.swift in Sources */,
@@ -2805,6 +2880,7 @@
 				158A1C3623372F43002F7E5F /* DDForgetPasswordVC.swift in Sources */,
 				1584C2581FAB29E200F09CD3 /* DDFlowLayout.swift in Sources */,
 				B35BFCDC234E44D1009F3F31 /* PlateVerticalButton.m in Sources */,
+				B310C5652354161E008338AA /* DDMaskBaseView.swift in Sources */,
 				157503041FD62D3000D051D6 /* DDHomeModel.swift in Sources */,
 				158A1C15233621F5002F7E5F /* WeiChaiJieVC.swift in Sources */,
 				15DF304E1FA9AFAC00588AF1 /* DDRootNavVC.swift in Sources */,

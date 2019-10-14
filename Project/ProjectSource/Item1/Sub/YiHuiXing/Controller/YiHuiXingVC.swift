@@ -1,95 +1,37 @@
 //
-//  ChaiJieFangShi-ShouXuBuVC.swift
+//  YiHuiXingVC.swift
 //  Project
 //
-//  Created by WY on 2019/9/21.
-//  Copyright © 2019年 HHCSZGD. All rights reserved.
+//  Created by JohnConnor on 2019/10/14.
+//  Copyright © 2019 HHCSZGD. All rights reserved.
 //
 
 import UIKit
-///拆解方式(手续部)
-class ChaiJieFangShiShouXuBuVC: DDNormalVC {
-    var collection : UICollectionView!
+
+class YiHuiXingVC: DDNormalVC {
+ var collection : UICollectionView!
     let searchBar = DDSearchBar()
+    let addBtn = UIButton()
     lazy var categoryBar : UIView = UIView()
     var index: Int = 0
     var apiModel = ApiModel<CheYuanDataModel>()
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "车辆拆解"
+        title = "车辆已毁形"
         if let index = userInfo as? Int {
             self.index = index
         }
         layoutCategoryBar()
         layoutSearchBar()
+        view.addSubview(addBtn)
+        addBtn.backgroundColor = .blue
+        addBtn.setTitle("扫描车辆二维码", for: UIControlState.normal)
+        addBtn.frame = CGRect(x: 20, y: view.bounds.height - DDSliderHeight - 20 - 40, width: view.bounds.width - 40, height: 40)
+        addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
         layoutCollectionView()
-        addRefresh(collection)
-        addLoadMore(collection)
         // Do any additional setup after loading the view.
-        refresh()
+        self.prepareRequest()
     }
-    override func refresh() {
-        pageIndex = 1
-        requestServer()
-    }
-    override func loadMore() {
-        if self.apiModel.data?.list?.count ?? 0 == 0{pageIndex = 1}else{pageIndex += 1}
-        
-        requestServer()
-    }
-        func requestServer()  {
-            collection.removeAllExceptionView(maskClass: DDExceptionView.self)
-            DDQueryManager.share.chaiJieLiebiao(type: ApiModel<CheYuanDataModel>.self, page: "\(pageIndex)", findMsg: nil) { (result ) in
-                mylog(result.msg)
-                if self.pageIndex == 1 {
-                    if let list = result.data?.list , list.count > 0{
-                        self.apiModel = result
-                    }else{
-                        GDAlertView.alert("暂无数据")
-                    }
-                    self.collection.gdRefreshControl?.endRefresh()
-                }else{
-                    if let list = result.data?.list , list.count > 0{
-                        self.apiModel.data?.list?.append(contentsOf: list)
-                        
-                    }else{
-                        self.collection.gdLoadControl?.endLoad(result: GDLoadResult.nomore)
-                    }
-                }
-                self.collection.reloadData()
-            }
-        }
-    /*
-    func requestServer()  {
-        collection.removeAllExceptionView(maskClass: DDExceptionView.self)
-        DDQueryManager.share.chaiJieLiebiao(type: ApiModel<CheYuanDataModel>.self, page: "\(pageIndex)", findMsg: nil, failure: { (error) in
-            self.collection.gdRefreshControl?.endRefresh()
-            self.collection.gdLoadControl?.endLoad()
-//            DDExceptionView.show(self.collection) { [weak self] in
-//                self?.refresh()
-//            }
-        }) { (result ) in
-            mylog(result.msg)
-            if self.pageIndex == 1 {
-                if let list = result.data?.list , list.count > 0{
-                    self.apiModel = result
-                }else{
-                    DDExceptionView.show(self.collection) { [weak self] in
-                        self?.refresh()
-                    }
-//                    DDErrorView.init(superView: collection, error: DDError.otherError("暂无数据")).handle
-                }
-                self.collection.gdRefreshControl?.endRefresh()
-            }else{
-                if let list = result.data?.list , list.count > 0{
-                    self.apiModel.data?.list?.append(contentsOf: list)
-                }else{if self.pageIndex > 1{ self.pageIndex -= 1}}
-                self.collection.gdLoadControl?.endLoad()
-            }
-            self.collection.reloadData()
-        }
-    }
-    */
     @objc func addBtnClick(sender:UIButton){
         let scanner = CarScannerVC()
         scanner.complateHandle = {[weak self] result in
@@ -97,6 +39,14 @@ class ChaiJieFangShiShouXuBuVC: DDNormalVC {
         }
         self.present(scanner, animated: true) {}
         mylog("扫描车辆二维码")
+        //        self.navigationController?.pushViewController(ZengJiaCheLiangeVC(), animated: true)
+    }
+    func prepareRequest() {
+        DDQueryManager.share.listOfYiHuiXing(type: ApiModel<CheYuanDataModel>.self, page: "1", findMsg: nil) { (result ) in
+            mylog(result.msg)
+            self.apiModel = result
+            self.collection.reloadData()
+        }
     }
     func layoutCategoryBar(){
         self.view.addSubview(categoryBar)
@@ -116,7 +66,7 @@ class ChaiJieFangShiShouXuBuVC: DDNormalVC {
         let flowLayout = UICollectionViewFlowLayout.init()
         flowLayout.minimumLineSpacing = itemMargin
         flowLayout.minimumInteritemSpacing = itemMargin
-        flowLayout.sectionInset = UIEdgeInsetsMake(10, toBorderMargin, DDSliderHeight, toBorderMargin)
+        flowLayout.sectionInset = UIEdgeInsetsMake(10, toBorderMargin, 0, toBorderMargin)
         let itemW = (self.view.bounds.width - flowLayout.sectionInset.left - flowLayout.sectionInset.right - flowLayout.minimumInteritemSpacing * CGFloat(itemCountOneRow - 1)) / CGFloat(itemCountOneRow)
         var itemH = itemW
         if itemCountOneRow == 1 {
@@ -130,7 +80,7 @@ class ChaiJieFangShiShouXuBuVC: DDNormalVC {
         //        flowLayout.minimumLineSpacing = 3
         flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
         //        flowLayout.headerReferenceSize = CGSize(width: self.view.bounds.width, height: 40)
-        self.collection = UICollectionView.init(frame: CGRect(x: 0, y:  categoryBar.frame.maxY , width: self.view.bounds.width, height: view.bounds.height  - categoryBar.frame.maxY  - 10), collectionViewLayout: flowLayout)
+        self.collection = UICollectionView.init(frame: CGRect(x: 0, y:  categoryBar.frame.maxY , width: self.view.bounds.width, height: addBtn.frame.minY  - categoryBar.frame.maxY  - 10), collectionViewLayout: flowLayout)
         self.view.addSubview(collection)
         collection.backgroundColor = UIColor.clear
         collection.register(CheYuanItem.self , forCellWithReuseIdentifier: "CheYuanItem")
@@ -180,11 +130,11 @@ class ChaiJieFangShiShouXuBuVC: DDNormalVC {
 
 
 
-extension ChaiJieFangShiShouXuBuVC : UICollectionViewDelegate ,UICollectionViewDataSource {
+extension YiHuiXingVC : UICollectionViewDelegate ,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = ChaiJieFangShiStep2()
-        vc.carInfoId = self.apiModel.data?.list?[indexPath.item].car_info_id ?? ""
-        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = YiHuiXingStep2VC()
+        vc.baseInfoModel = self.apiModel.data?.list?[indexPath.item] ?? YiHuiXingVC.CheYuanModel()
+        self.navigationController?.pushViewController(vc , animated: true)
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -203,7 +153,7 @@ extension ChaiJieFangShiShouXuBuVC : UICollectionViewDelegate ,UICollectionViewD
     }
     
 }
-extension ChaiJieFangShiShouXuBuVC{
+extension YiHuiXingVC{
     class CheYuanDataModel: Codable {
         var pageNum: String?
         var pageSize:String?
@@ -230,18 +180,14 @@ extension ChaiJieFangShiShouXuBuVC{
     
     
     class CheYuanModel : Codable {
-        /*
-         [{\"car_name\":\"科鲁兹滋滋滋滋\",\"car_info_id\":\"1183047045422911488\",\"approach_time\":\"2019-10-12 23:52:13\",\"car_no\":\"苏a2396v\",\"car_code\":\"TSXXX191000061\"},
-         
-         */
-        var car_name : String? // 1176367626889334786,
+        var car_name : String?
         var car_info_id:String? // "TSXXX19092225",
         var approach_time : String?// null,
         var car_no: String? // "晋A88884",
-        var car_code: String? // "33333",
-
+        var vin: String? // "33333",        var carProcessingId: Int = 0 // 1176367626889336667,
+        var car_code:String? // null
+        
     }
-    
     
     class CheYuanItem : UICollectionViewCell {
         var model : CheYuanModel?  {

@@ -70,7 +70,7 @@ class DDHelpDoc: DDNormalVC {
 //        tableView.gdLoadControl?.loadHeight = 40
 //       requestApi(loadType: LoadDataType.initialize)
     }
-    @objc func loadMore() {
+    @objc override func loadMore() {
         requestApi(loadType: LoadDataType.loadMore)
     }
     func testDataSource()  {

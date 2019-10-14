@@ -9,6 +9,7 @@
 import UIKit
 //import HandyJSON
 enum DepartmentType : String  {
+    case kuGuanBu = "kuGuanBu"
     case chaiJieBu = "chaiJieBu"
     case shouXuBu = "shouXuBu"
     case waiQinBu = "waiQinBu"
@@ -100,6 +101,8 @@ class DDAccount:NSObject , Codable , NSCoding{
             return DepartmentType.chaiJieBu
         case "50001":
             return DepartmentType.waiQinBu
+        case "60001":
+            return DepartmentType.kuGuanBu
         default:
             return DepartmentType.chaiJieBu
         }

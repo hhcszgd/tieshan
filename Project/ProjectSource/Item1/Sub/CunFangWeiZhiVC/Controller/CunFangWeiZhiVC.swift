@@ -11,7 +11,6 @@ import UIKit
 class CunFangWeiZhiVC: DDNormalVC {
   var collection : UICollectionView!
     let searchBar = DDSearchBar()
-    let addBtn = UIButton()
     lazy var categoryBar : UIView = UIView()
     var index: Int = 0
     var apiModel = ApiModel<CheYuanDataModel>()
@@ -23,11 +22,6 @@ class CunFangWeiZhiVC: DDNormalVC {
         }
         layoutCategoryBar()
         layoutSearchBar()
-        view.addSubview(addBtn)
-        addBtn.backgroundColor = .blue
-        addBtn.setTitle("扫描车辆二维码", for: UIControlState.normal)
-        addBtn.frame = CGRect(x: 20, y: view.bounds.height - DDSliderHeight - 20 - 40, width: view.bounds.width - 40, height: 40)
-        addBtn.addTarget(self , action: #selector(addBtnClick(sender:)), for: UIControlEvents.touchUpInside)
         layoutCollectionView()
         // Do any additional setup after loading the view.
         self.prepareRequest(index: index)
@@ -80,7 +74,7 @@ class CunFangWeiZhiVC: DDNormalVC {
         let flowLayout = UICollectionViewFlowLayout.init()
         flowLayout.minimumLineSpacing = itemMargin
         flowLayout.minimumInteritemSpacing = itemMargin
-        flowLayout.sectionInset = UIEdgeInsetsMake(10, toBorderMargin, 0, toBorderMargin)
+        flowLayout.sectionInset = UIEdgeInsetsMake(10, toBorderMargin, DDSliderHeight, toBorderMargin)
         let itemW = (self.view.bounds.width - flowLayout.sectionInset.left - flowLayout.sectionInset.right - flowLayout.minimumInteritemSpacing * CGFloat(itemCountOneRow - 1)) / CGFloat(itemCountOneRow)
         var itemH = itemW
         if itemCountOneRow == 1 {
@@ -94,7 +88,7 @@ class CunFangWeiZhiVC: DDNormalVC {
         //        flowLayout.minimumLineSpacing = 3
         flowLayout.scrollDirection = UICollectionViewScrollDirection.vertical
         //        flowLayout.headerReferenceSize = CGSize(width: self.view.bounds.width, height: 40)
-        self.collection = UICollectionView.init(frame: CGRect(x: 0, y:  categoryBar.frame.maxY , width: self.view.bounds.width, height: addBtn.frame.minY  - categoryBar.frame.maxY  - 10), collectionViewLayout: flowLayout)
+        self.collection = UICollectionView.init(frame: CGRect(x: 0, y:  categoryBar.frame.maxY , width: self.view.bounds.width, height: view.bounds.height  - categoryBar.frame.maxY  - 10), collectionViewLayout: flowLayout)
         self.view.addSubview(collection)
         collection.backgroundColor = UIColor.clear
         collection.register(CheYuanItem.self , forCellWithReuseIdentifier: "CheYuanItem")

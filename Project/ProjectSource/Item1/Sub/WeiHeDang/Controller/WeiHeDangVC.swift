@@ -209,7 +209,7 @@ extension WeiHeDangVC{
         /// 1：未核档(暂存)，2：已核档，3：核档不通过
         var isVerify: String = "0"// 2,
         var carProcessingId: String = "0" // 1176367626889336667,
-        var verificationResult:String? // null
+        var verificationResult:VerifiResult? // null
         /*
          "verificationResult": {
                      "id": 1174940417674842113,
@@ -227,7 +227,20 @@ extension WeiHeDangVC{
                  }
          */
     }
-    
+    class VerifiResult: Codable {
+        var id : String?
+        var disintegratePlantId : String?
+        var procedureLogId : String?
+        var carInfoId : String?
+        var type : String?
+        var result : String?
+        var remark : String?
+        var createTime : String?
+        var operatorId : String?
+//        var operator : String?
+        var state : String?
+        var isDelete : String?
+    }
     class HeDangItem : UICollectionViewCell {
         var model : HeDangModel?  {
             didSet{

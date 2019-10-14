@@ -66,11 +66,11 @@ class DDItem2VC: DDNormalVC , UITextFieldDelegate{
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = self.view.backgroundColor
-        tableView.gdLoadControl = GDLoadControl.init(target: self , selector: #selector(loadMore))
-        tableView.gdLoadControl?.loadHeight = 40
+//        tableView.gdLoadControl = GDLoadControl.init(target: self , selector: #selector(loadMore))
+//        tableView.gdLoadControl?.loadHeight = 40
        requestApi(loadType: LoadDataType.initialize)
     }
-    @objc func loadMore() {
+    @objc override func loadMore() {
         requestApi(loadType: LoadDataType.loadMore)
     }
     func testDataSource()  {

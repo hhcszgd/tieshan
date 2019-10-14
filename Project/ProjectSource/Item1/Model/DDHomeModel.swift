@@ -98,12 +98,6 @@ func getHomeData() -> HomeDataModel?{
                         "name" : "核档已通过",
                         "image_url"  : "home-icon-hedangyitongguo",
                         "actionType" : "HeDangTongGuo"
-                    },
-                    {
-                        "id" : "33" ,
-                        "name" : "扫一扫",
-                        "image_url"  : "home-icon-saoyisao",
-                        "actionType" : "SaoYiSao"
                     }
                 ]
                 
@@ -155,9 +149,9 @@ func getHomeData() -> HomeDataModel?{
                     },
                     {
                         "id" : "33" ,
-                        "name" : "补拍照片",
+                        "name" : "已毁形",
                         "image_url"  : "home_icon_shouxubu8",
-                        "actionType" : "BuPaiZhaoPianShouXuBu"
+                        "actionType" : "YiHuiXing"
                     }
                 ]
                 
@@ -188,12 +182,6 @@ func getHomeData() -> HomeDataModel?{
                         "name" : "拆过的车",
                         "image_url"  : "home_icon_chaijiebu4",
                         "actionType" : "ChaiGuoDeChe"
-                    },
-                    {
-                        "id" : "33" ,
-                        "name" : "补拍照片",
-                        "image_url"  : "home_icon_chaijiebu5",
-                        "actionType" : "BuPaiZhaoPianChaJieBu"
                     }
                 ]
                 
@@ -218,6 +206,18 @@ func getHomeData() -> HomeDataModel?{
                         "name" : "未核档",
                         "image_url"  : "home_icon_waiqinbu3",
                         "actionType" : "WeiHeDang"
+                    }
+                ]
+                
+            },
+            {
+                "title" : "库管部",
+                "functions" : [
+                    {
+                        "id" : "33" ,
+                        "name" : "入库管理",
+                        "image_url"  : "home_icon_waiqinbu1",
+                        "actionType" : "RuKuGuanLi"
                     }
                 ]
                 
@@ -258,15 +258,9 @@ func getHomeData() -> HomeDataModel?{
                     },
                     {
                         "id" : "33" ,
-                        "name" : "拆解方式",
+                        "name" : "拆过的车",
                         "image_url"  : "home_icon_chaijiebu4",
-                        "actionType" : "ChaiJieFangShiChaiJieBu"
-                    },
-                    {
-                        "id" : "33" ,
-                        "name" : "补拍照片",
-                        "image_url"  : "home_icon_chaijiebu5",
-                        "actionType" : "BuPaiZhaoPianChaJieBu"
+                        "actionType" : "ChaiGuoDeChe"
                     }
                 ]
                 
@@ -333,9 +327,9 @@ func getHomeData() -> HomeDataModel?{
                     },
                     {
                         "id" : "33" ,
-                        "name" : "补拍照片",
+                        "name" : "已毁形",
                         "image_url"  : "home_icon_shouxubu8",
-                        "actionType" : "BuPaiZhaoPianShouXuBu"
+                        "actionType" : "YiHuiXing"
                     }
                 ]
                 
@@ -409,12 +403,6 @@ func getHomeData() -> HomeDataModel?{
                         "name" : "核档已通过",
                         "image_url"  : "home-icon-hedangyitongguo",
                         "actionType" : "HeDangTongGuo"
-                    },
-                    {
-                        "id" : "33" ,
-                        "name" : "扫一扫",
-                        "image_url"  : "home-icon-saoyisao",
-                        "actionType" : "SaoYiSao"
                     }
                 ]
                 
@@ -424,6 +412,32 @@ func getHomeData() -> HomeDataModel?{
 
 }
 """
+let kuGuanBu =  """
+{
+ "banners" : [
+            {"image_url":"https://pics1.baidu.com/feed/2e2eb9389b504fc2792f69ed91d09e1491ef6dfd.jpeg?token=7845b4cd703aa421ee2bd02596a03b68&s=A525D4144E38148E9123E8C90300F09B" , "actionType":""}
+        ],
+        "lastestMessage":{"title":"newest message " , "id" :"2222"},
+        "functionSessions" : [
+            {
+                "title" : "库管部",
+                "functions" : [
+                    {
+                        "id" : "33" ,
+                        "name" : "入库管理",
+                        "image_url"  : "home-icon-chuangjiancheyuan",
+                        "actionType" : "RuKuGuanLi"
+                    }
+                    
+                ]
+                
+            }
+        ]
+    
+
+}
+"""
+    
     var json =  ""
     switch DDAccount.share.departmentType {
     case .admin:
@@ -436,6 +450,8 @@ func getHomeData() -> HomeDataModel?{
         json = waiQinBu
     case .yeWuBu:
         json = yeWuBu
+    case .kuGuanBu:
+    json = kuGuanBu
     }
     
     let jsonDecoder = JSONDecoder()

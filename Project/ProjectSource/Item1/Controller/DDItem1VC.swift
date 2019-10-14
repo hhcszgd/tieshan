@@ -45,7 +45,7 @@ class DDItem1VC: DDNormalVC , UITextFieldDelegate{
         
     }
     
-    @objc func refresh() {
+    @objc override func refresh() {
         self.performRequestApi()
     }
     
@@ -151,6 +151,8 @@ extension DDItem1VC : UICollectionViewDelegate ,UICollectionViewDataSource {
            userInfo = nil
         case     "DaiHuiXingCheLiang":
            userInfo = nil
+        case "YiHuiXing":
+            userInfo = nil
         case     "BuPaiZhaoPianShouXuBu":
            userInfo = nil
         case     "JianXiaoCheLiang":
@@ -174,8 +176,10 @@ extension DDItem1VC : UICollectionViewDelegate ,UICollectionViewDataSource {
             target = "WeiHeDang"
         case     "WeiHeDang":
             userInfo = 0 //
+        case "RuKuGuanLi":
+            userInfo = nil
         default:
-            return
+            userInfo = nil
         }
         self.pushVC(vcIdentifier: target + "VC", userInfo : userInfo )
     }
