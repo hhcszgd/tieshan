@@ -25,11 +25,11 @@ class ChaiCheRuKuVC: DDNormalVC {
     var apiModel = ApiModel<[PrintItemModel]>()
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        bianhao.text = "\(baseInfoModel.vin)"
-        chexing.text = "che xing"
-        chepai.text = "\(baseInfoModel.carCode)"
-        vin.text = "\(baseInfoModel.vin)"
-        chaiJieFangShi.text = "chai jie fang shi "
+        bianhao.text = "编号: \(baseInfoModel.vin ?? "")"
+        chexing.text = "车型: \(baseInfoModel.carName ?? "")"
+        chepai.text = "车牌号: \(baseInfoModel.carCode ?? "")"
+        vin.text = "VIN: \(baseInfoModel.vin ?? "")"
+        chaiJieFangShi.text = "拆解方式: \(baseInfoModel.dismantleWay ?? "")"
         
         headerBG.layer.cornerRadius = 8
         headerBG.layer.masksToBounds = true
@@ -68,11 +68,28 @@ class ChaiCheRuKuVC: DDNormalVC {
     }
     
     @IBAction func printMoreAction(_ sender: UIButton) {
+        let vc = ChaiCheRuKu2VC()
+        vc.baseInfoModel = baseInfoModel
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func postPrintInfo()  {
+        let para = self.apiModel.data?.map({ (item ) -> [String:String] in
+            ["partsName":item.filed_name ?? "","partsCode": item.partsCode ?? ""]
+        })
+        DDQueryManager.share.printAndRuKu(type: ApiModel<String>.self, carInfoId: baseInfoModel.id ?? "", carCode: baseInfoModel.carCode ?? "", printInfo: para  ?? []) { (result ) in
+            mylog(result.msg)
+            if result.ret_code == "0"{
+                GDAlertView.alert(result.msg){self.navigationController?.popViewController(animated: true)}
+            }else{
+                GDAlertView.alert(result.msg)
+            }
+        }
     }
     @IBAction func printAction(_ sender: UIButton) {
         var actions = [DDAlertAction]()
          let sure = DDAlertAction(title: "确定",textColor:mainColor, style: UIAlertActionStyle.default, handler: { (action ) in
              print("打印")
+            self.postPrintInfo()
          })
          
          let cancel = DDAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: { (action ) in
@@ -137,7 +154,7 @@ extension ChaiCheRuKuVC : UICollectionViewDelegate , UICollectionViewDataSource{
             didSet{
                 self.label.text = model?.filed_name
                 if model?.isSelected ?? false  {
-                    self.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
+                    self.backgroundColor = UIColor.colorWithHexStringSwift("b5d4ff")
                     self.label.textColor = mainColor
                 }else{
                     self.backgroundColor = UIColor.white
@@ -151,6 +168,8 @@ extension ChaiCheRuKuVC : UICollectionViewDelegate , UICollectionViewDataSource{
         override init(frame: CGRect) {
             super.init(frame:frame)
             backgroundColor = .white
+            self.layer.cornerRadius = 6
+            self.layer.masksToBounds = true
             self.addSubview(label)
         }
         override func layoutSubviews() {

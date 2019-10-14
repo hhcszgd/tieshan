@@ -160,6 +160,14 @@
 		B310C5622353FE4F008338AA /* RuKuGuanLiVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C5612353FE4F008338AA /* RuKuGuanLiVC.swift */; };
 		B310C5652354161E008338AA /* DDMaskBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C5642354161E008338AA /* DDMaskBaseView.swift */; };
 		B310C56723541697008338AA /* DDExceptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C56623541697008338AA /* DDExceptionView.swift */; };
+		B310C56923545CB7008338AA /* ChaiCheRuKu2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C56823545CB7008338AA /* ChaiCheRuKu2VC.swift */; };
+		B310C56B235461BE008338AA /* TSSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C56A235461BE008338AA /* TSSectionHeader.swift */; };
+		B310C56D235461D0008338AA /* TSSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B310C56C235461D0008338AA /* TSSectionHeader.xib */; };
+		B310C56F235464C8008338AA /* ChooseType1.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C56E235464C8008338AA /* ChooseType1.swift */; };
+		B310C571235464D7008338AA /* ChooseType2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C570235464D7008338AA /* ChooseType2.swift */; };
+		B310C573235464E9008338AA /* ChooseType1.xib in Resources */ = {isa = PBXBuildFile; fileRef = B310C572235464E9008338AA /* ChooseType1.xib */; };
+		B310C575235464F1008338AA /* ChooseType2.xib in Resources */ = {isa = PBXBuildFile; fileRef = B310C574235464F1008338AA /* ChooseType2.xib */; };
+		B310C57723547056008338AA /* DDChooseAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B310C57623547056008338AA /* DDChooseAlert.swift */; };
 		B32200D5233F170400B1C8A0 /* ModiryProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */; };
 		B32200D8233F3F1400B1C8A0 /* ModifyName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200D6233F3F1400B1C8A0 /* ModifyName.swift */; };
 		B32200DB233F514200B1C8A0 /* CategoryBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32200DA233F514200B1C8A0 /* CategoryBarView.swift */; };
@@ -441,6 +449,14 @@
 		B310C5612353FE4F008338AA /* RuKuGuanLiVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuKuGuanLiVC.swift; sourceTree = "<group>"; };
 		B310C5642354161E008338AA /* DDMaskBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDMaskBaseView.swift; sourceTree = "<group>"; };
 		B310C56623541697008338AA /* DDExceptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDExceptionView.swift; sourceTree = "<group>"; };
+		B310C56823545CB7008338AA /* ChaiCheRuKu2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaiCheRuKu2VC.swift; sourceTree = "<group>"; };
+		B310C56A235461BE008338AA /* TSSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TSSectionHeader.swift; sourceTree = "<group>"; };
+		B310C56C235461D0008338AA /* TSSectionHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TSSectionHeader.xib; sourceTree = "<group>"; };
+		B310C56E235464C8008338AA /* ChooseType1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseType1.swift; sourceTree = "<group>"; };
+		B310C570235464D7008338AA /* ChooseType2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseType2.swift; sourceTree = "<group>"; };
+		B310C572235464E9008338AA /* ChooseType1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseType1.xib; sourceTree = "<group>"; };
+		B310C574235464F1008338AA /* ChooseType2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChooseType2.xib; sourceTree = "<group>"; };
+		B310C57623547056008338AA /* DDChooseAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDChooseAlert.swift; sourceTree = "<group>"; };
 		B32200D4233F170400B1C8A0 /* ModiryProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModiryProfileVC.swift; sourceTree = "<group>"; };
 		B32200D6233F3F1400B1C8A0 /* ModifyName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyName.swift; sourceTree = "<group>"; };
 		B32200DA233F514200B1C8A0 /* CategoryBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryBarView.swift; sourceTree = "<group>"; };
@@ -1079,6 +1095,13 @@
 			children = (
 				B305CF3F2344E7910059882A /* ChaiCheRuKuVC.swift */,
 				B305CF402344E7910059882A /* ChaiCheRuKuVC.xib */,
+				B310C56823545CB7008338AA /* ChaiCheRuKu2VC.swift */,
+				B310C56E235464C8008338AA /* ChooseType1.swift */,
+				B310C572235464E9008338AA /* ChooseType1.xib */,
+				B310C570235464D7008338AA /* ChooseType2.swift */,
+				B310C574235464F1008338AA /* ChooseType2.xib */,
+				B310C56A235461BE008338AA /* TSSectionHeader.swift */,
+				B310C56C235461D0008338AA /* TSSectionHeader.xib */,
 			);
 			path = Sub;
 			sourceTree = "<group>";
@@ -1988,6 +2011,7 @@
 				15DF300D1FA9AFAB00588AF1 /* ImageBrowser */,
 				150356DD1FC424FE0020C9BC /* DDCollectionReusableView.swift */,
 				1535C3A72029C73200B826D0 /* DDPageControl.swift */,
+				B310C57623547056008338AA /* DDChooseAlert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2617,6 +2641,7 @@
 				BC9ACA9920D89E2400097FFB /* loading2.png in Resources */,
 				B35BFCDF234E44E4009F3F31 /* 9DD232F7B4C7398BA6C2.lic in Resources */,
 				BC9ACA9820D89E2400097FFB /* loading1.png in Resources */,
+				B310C56D235461D0008338AA /* TSSectionHeader.xib in Resources */,
 				158A1C3723372F43002F7E5F /* DDForgetPasswordVC.xib in Resources */,
 				B305CF422344E7910059882A /* ChaiCheRuKuVC.xib in Resources */,
 				BCF8E6711FC1323800C1DF4B /* ResourceX.bundle in Resources */,
@@ -2631,8 +2656,10 @@
 				158A1C41233754B9002F7E5F /* DDAboutUsVC.xib in Resources */,
 				15DF2FBE1FA9AE0400588AF1 /* Main.storyboard in Resources */,
 				158A1C3D23374109002F7E5F /* DDModifyPasswordVC.xib in Resources */,
+				B310C575235464F1008338AA /* ChooseType2.xib in Resources */,
 				B305CF3E234394A90059882A /* LookForResultAlert.xib in Resources */,
 				15DF306C1FA9AFAC00588AF1 /* Simplified.strings in Resources */,
+				B310C573235464E9008338AA /* ChooseType1.xib in Resources */,
 				15E79F321FE228480049F767 /* Malay.strings in Resources */,
 				15DF306A1FA9AFAC00588AF1 /* SystemLanguage.strings in Resources */,
 				15DF306D1FA9AFAC00588AF1 /* Traditional.strings in Resources */,
@@ -2756,6 +2783,7 @@
 				15DF30691FA9AFAC00588AF1 /* GDIBScrollView.swift in Sources */,
 				1529488D1FC0245300CCABB0 /* TestMoveItem2VC.swift in Sources */,
 				B35BFCD8234E44D1009F3F31 /* PlateNoDotSlider.m in Sources */,
+				B310C571235464D7008338AA /* ChooseType2.swift in Sources */,
 				1568F6A6200D91F10009BAC0 /* DDWelcomVC.swift in Sources */,
 				BCC31EB31FC6E71C0037BA74 /* GDNavigatBar.swift in Sources */,
 				150F0FA520DB96D600E7672A /* GDBaseControl+extension.swift in Sources */,
@@ -2790,6 +2818,7 @@
 				B305CF3023430A420059882A /* DDDealDetailVC.swift in Sources */,
 				15DF2FBB1FA9AE0400588AF1 /* ViewController.swift in Sources */,
 				158A1C1D23362231002F7E5F /* HeDangWeiTongGuoVC.swift in Sources */,
+				B310C56B235461BE008338AA /* TSSectionHeader.swift in Sources */,
 				158A1C40233754B9002F7E5F /* DDAboutUsVC.swift in Sources */,
 				1578E8522005B602005FDD58 /* DDHomeFuncEditVC.swift in Sources */,
 				158A1C29233622D0002F7E5F /* DaiHuiXingCheLiangVC.swift in Sources */,
@@ -2833,6 +2862,7 @@
 				158A1C3323362313002F7E5F /* ChaiJieFangShiShouXuBuVC.swift in Sources */,
 				158A1C1F23362240002F7E5F /* HeDangTongGuoVC.swift in Sources */,
 				150356E61FC4275C0020C9BC /* GDImagePickview.swift in Sources */,
+				B310C57723547056008338AA /* DDChooseAlert.swift in Sources */,
 				158A1C3123362306002F7E5F /* ChaKanCheYuanVC.swift in Sources */,
 				15047EAC1FC2773C001DCB21 /* DDNoNavibarVC.swift in Sources */,
 				153027321FCE8A6900294170 /* HomeMessagesItem.swift in Sources */,
@@ -2872,6 +2902,7 @@
 				B305CF3C234394380059882A /* LookForResultAlert.swift in Sources */,
 				158A1C2B233622DF002F7E5F /* CunFangWeiZhiVC.swift in Sources */,
 				157684581FF09D8F00DC3158 /* DDTableViewCell.swift in Sources */,
+				B310C56923545CB7008338AA /* ChaiCheRuKu2VC.swift in Sources */,
 				15DF306F1FA9AFAC00588AF1 /* DDItem1VC.swift in Sources */,
 				15779A98206C909D0076A1EF /* ApiModel.swift in Sources */,
 				B305CF3423430EC40059882A /* DealDetailHeader.swift in Sources */,
@@ -2892,6 +2923,7 @@
 				15DF30531FA9AFAC00588AF1 /* UIColor+Extension.swift in Sources */,
 				158944312112FE1D002FA917 /* DDAlertOrSheet.swift in Sources */,
 				158A1C212336224E002F7E5F /* DengDaiYuChuLiVC.swift in Sources */,
+				B310C56F235464C8008338AA /* ChooseType1.swift in Sources */,
 				15DF2FB91FA9AE0400588AF1 /* AppDelegate.swift in Sources */,
 				B35BFCE2234E45E4009F3F31 /* PlateMainController.m in Sources */,
 				158A1C1923362212002F7E5F /* JianXiaoCheLiangVC.swift in Sources */,

@@ -98,6 +98,8 @@ extension  UIView {
         
         if animate != nil {
             animate!(cover)
+            let tempColor = cover.backgroundColor ?? UIColor.black
+            cover.backgroundColor = tempColor.withAlphaComponent(cover.backgroundColorAlpha)
         }else{
 //            cover.alpha = 0
             let tempColor = cover.backgroundColor ?? UIColor.black

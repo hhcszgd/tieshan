@@ -161,6 +161,7 @@ class ChaiGuoDeCheVC: DDNormalVC {
             mylog(text )
         }
     }
+    
 }
 
 
@@ -170,13 +171,22 @@ extension ChaiGuoDeCheVC : UICollectionViewDelegate ,UICollectionViewDataSource 
            var actions = [DDAlertAction]()
             let sure = DDAlertAction(title: "确定",textColor:mainColor, style: UIAlertActionStyle.default, handler: { (action ) in
                 print("拆拆拆")
-                let vc = ChaiCheRuKuVC()
-                vc.baseInfoModel = self.apiModel.data?.list?[indexPath.item] ?? ChaiGuoDeCheVC.ItemModel()
-                self.navigationController?.pushViewController(vc, animated: true)
+                let id = self.apiModel.data?.list?[indexPath.item].id ?? "0"
+                DDQueryManager.share.queDingChaiJie(type: ApiModel<String>.self, carInfoId: id) { (result) in
+                    if result.ret_code == "0"{
+                        
+                        let vc = ChaiCheRuKuVC()
+                        vc.baseInfoModel = self.apiModel.data?.list?[indexPath.item] ?? ChaiGuoDeCheVC.ItemModel()
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }else{GDAlertView.alert(result.msg)}
+                }
+                
             })
             
             let cancel = DDAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: { (action ) in
-                print("cancel update")
+                let vc = ChaiCheRuKuVC()
+                vc.baseInfoModel = self.apiModel.data?.list?[indexPath.item] ?? ChaiGuoDeCheVC.ItemModel()
+                self.navigationController?.pushViewController(vc, animated: true)
             })
             actions.append(cancel)
             actions.append(sure)
@@ -188,6 +198,8 @@ extension ChaiGuoDeCheVC : UICollectionViewDelegate ,UICollectionViewDataSource 
             mylog("nothing to do")
         }
     }
+    
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -291,6 +303,9 @@ extension ChaiGuoDeCheVC{
         var carNo: String? // "晋A88884",
         var time : String?// null,
         var id:String? // null
+        var carName: String?
+        ///拆解方式
+        var dismantleWay : String?
     }
     
     class DaiChaiItem : UICollectionViewCell {

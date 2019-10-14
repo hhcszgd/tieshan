@@ -29,6 +29,37 @@ enum DomainType : String  {
 
 extension DDQueryManager{
     // write your api here 👇
+    // 选择一级打印
+    func huoYiJiQuDaShuju<T>(type : ApiModel<T>.Type, failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+          let url  =  "doCarsQuery/findFirstPartsName"
+    
+          return self.requestServer(type: type , method: HTTPMethod.get, url: url , encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+      }
+    func huoErJiQuDaShuju<T>(type : ApiModel<T>.Type, id : String ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+          let url  =  "doCarsQuery/findSecondPartsName"
+           let para = ["id" : id]
+    
+          return self.requestServer(type: type , method: HTTPMethod.get, url: url, parameters: para, encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+      }
+    // 打印并入库
+    func printAndRuKu<T>(type : ApiModel<T>.Type, carInfoId : String,carCode: String ,printInfo:[[String:String]] ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "doCarsQuery/addCarParts"
+        let p : [String: Codable] = [
+            "carInfoId":carInfoId,
+            "carCode": carCode ,
+            "partsStatus":"1",
+            "data": printInfo
+        ]
+        return self.requestServer(type: type , method: HTTPMethod.post, url: url,parameters:p, encoding: JSONEncoding.default , success: success, failure: failure, complate: complate)
+    }
+    
+    
+    //确定拆解
+    //
+    func queDingChaiJie<T>(type : ApiModel<T>.Type, carInfoId: String ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
+        let url  =  "doCarsQuery/updateDismantle"
+        return self.requestServer(type: type , method: HTTPMethod.get, url: url,parameters: ["carInfoId":carInfoId], encoding: URLEncoding.default , success: success, failure: failure, complate: complate)
+    }
     // 获取打印名称
     func getPrintItems<T>(type : ApiModel<T>.Type ,failure:( (_ error:DDError)->Void)? = nil  ,complate:(()-> Void)? = nil , success:@escaping (ApiModel<T>)->() ) -> DataRequest? {
         let url  =  "doCarsQuery/findPartsNameList"

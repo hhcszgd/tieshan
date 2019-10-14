@@ -9,10 +9,15 @@
 import UIKit
 
 class DealDetailHeader: UIView {
+    /// 1
     @IBOutlet weak var number: UILabel!
+    /// 2
     @IBOutlet weak var carType: UILabel!
+    /// 3
     @IBOutlet weak var carNumber: UILabel!
+    /// 4
     @IBOutlet weak var engineNumber: UILabel!
+    /// 5
     @IBOutlet weak var arrivedTime: UILabel!
     override class func awakeFromNib() {
         super.awakeFromNib()
